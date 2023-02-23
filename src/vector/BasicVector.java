@@ -175,6 +175,50 @@ public class BasicVector<T extends Number> extends Vector<T> {
         return (T[]) currentVector;
     }
 
+    public Double[] toArray() {
+        return currentVector;
+    }
+
+    public Integer[] toIntegerArray() {
+        Integer[] integerArray = new Integer[currentVector.length];
+        for (int i = 0; i < currentVector.length; i++) {
+            integerArray[i] = currentVector[i].intValue();
+        }
+        return integerArray;
+    }
+
+    public Float[] toFloatArray() {
+        Float[] floatArray = new Float[currentVector.length];
+        for (int i = 0; i < currentVector.length; i++) {
+            floatArray[i] = currentVector[i].floatValue();
+        }
+        return floatArray;
+    }
+
+    public Short[] toShortArray() {
+        Short[] shortArray = new Short[currentVector.length];
+        for (int i = 0; i < currentVector.length; i++) {
+            shortArray[i] = currentVector[i].shortValue();
+        }
+        return shortArray;
+    }
+
+    public Long[] toLongArray() {
+        Long[] longArray = new Long[currentVector.length];
+        for (int i = 0; i < currentVector.length; i++) {
+            longArray[i] = currentVector[i].longValue();
+        }
+        return longArray;
+    }
+
+    public Byte[] toByteArray() {
+        Byte[] byteArray = new Byte[currentVector.length];
+        for (int i = 0; i < currentVector.length; i++) {
+            byteArray[i] = currentVector[i].byteValue();
+        }
+        return byteArray;
+    }
+
     public int getRows() {
         return rows;
     }
