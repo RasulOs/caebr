@@ -160,7 +160,7 @@ public class BasicVector<T extends Number> extends Vector<T> {
     }
 
     @Override
-    Vector<T> dot(Vector<T> tensor) {
+    Vector<T> dot(Vector<T> vector) {
         // TODO
         return null;
     }
