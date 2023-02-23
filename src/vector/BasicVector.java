@@ -1,25 +1,26 @@
 package vector;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class BasicVector {
+public class BasicVector<T extends Number> extends Vector<T> {
 
-    private int[] currentVector;
+    private Double[] currentVector;
     private final int rows;
     private final int columns;
 
     private final boolean isVertical;
 
-    public BasicVector(int[] vector) {
-        this.currentVector = vector;
+    public BasicVector(T[] vector) {
+        currentVector = transformToDoubleVector(vector);
         rows = vector.length;
         columns = 1;
         isVertical = true;
     }
 
-    public BasicVector(int[] vector, int columns) {
-        this.currentVector = vector;
+    public BasicVector(T[] vector, int columns) {
+        currentVector = transformToDoubleVector(vector);
         this.columns = columns;
         rows = 1;
         isVertical = false;
@@ -30,31 +31,24 @@ public class BasicVector {
         }
     }
 
-    public BasicVector add(int[] b, boolean isVertical) {
-
-        int[] baseVector = currentVector;
-
-        if (this.isVertical != isVertical) {
-            throw new IllegalArgumentException(String.format("The vectors are not the same orientation. " +
-                    "First vector orientation: %s, Second vector orientation: %s", this.isVertical ? "vertical" : "horizontal",
-                    isVertical ? "vertical" : "horizontal"));
+    private Double[] transformToDoubleVector(T[] tVector) {
+        Double[] doubleVector = new Double[tVector.length];
+        for (int i = 0; i < tVector.length; i++) {
+            doubleVector[i] = tVector[i].doubleValue();
         }
+        return doubleVector;
+    }
 
-        if (baseVector.length > b.length) {
-            throw new IllegalArgumentException(String
-                    .format("The first vector is longer than the second vector. First vector length: %d, " +
-                            "Second vector length: %d", baseVector.length, b.length));
-        }
+    public Vector<T> add(T[] b, boolean isVertical) {
 
-        if (baseVector.length < b.length) {
-            throw new IllegalArgumentException(String.format("The second vector is longer than the first vector. " +
-                    "First vector length: %d, Second vector length: %d", baseVector.length, b.length));
-        }
+        Double[] baseVector = currentVector;
 
-        int[] result = new int[baseVector.length];
+        checkVector(b, isVertical);
+
+        Double[] result = new Double[baseVector.length];
 
         for (int i = 0; i < baseVector.length; i++) {
-            result[i] = baseVector[i] + b[i];
+            result[i] = baseVector[i] + b[i].doubleValue();
         }
 
         currentVector = result;
@@ -62,35 +56,45 @@ public class BasicVector {
         return this;
     }
 
-    public BasicVector add(int[] b) {
-        return add(b, true);
+    private void checkVector(T[] vector, boolean isVertical) {
+        Objects.requireNonNull(vector, "Vector cannot be null");
+        checkDimensions(vector, isVertical);
     }
 
-    public BasicVector subtract(int[] b, boolean isVertical) {
-
-        int[] baseVector = currentVector;
+    private void checkDimensions(T[] b, boolean isVertical) {
 
         if (this.isVertical != isVertical) {
             throw new IllegalArgumentException(String.format("The vectors are not the same orientation. " +
-                    "First vector orientation: %s, Second vector orientation: %s", this.isVertical ? "vertical" : "horizontal",
+                            "First vector orientation: %s, Second vector orientation: %s", this.isVertical ? "vertical" : "horizontal",
                     isVertical ? "vertical" : "horizontal"));
         }
 
-        if (baseVector.length > b.length) {
+        if (currentVector.length > b.length) {
             throw new IllegalArgumentException(String
                     .format("The first vector is longer than the second vector. First vector length: %d, " +
-                            "Second vector length: %d", baseVector.length, b.length));
+                            "Second vector length: %d", currentVector.length, b.length));
         }
 
-        if (baseVector.length < b.length) {
+        if (currentVector.length < b.length) {
             throw new IllegalArgumentException(String.format("The second vector is longer than the first vector. " +
-                    "First vector length: %d, Second vector length: %d", baseVector.length, b.length));
+                    "First vector length: %d, Second vector length: %d", currentVector.length, b.length));
         }
+    }
 
-        int[] result = new int[baseVector.length];
+    public Vector<T> add(T[] b) {
+        return add(b, true);
+    }
+
+    public Vector<T> subtract(T[] b, boolean isVertical) {
+
+        Double[] baseVector = currentVector;
+
+        checkVector(b, isVertical);
+
+        Double[] result = new Double[baseVector.length];
 
         for (int i = 0; i < baseVector.length; i++) {
-            result[i] = baseVector[i] - b[i];
+            result[i] = baseVector[i] - b[i].doubleValue();
         }
 
         currentVector = result;
@@ -128,31 +132,47 @@ public class BasicVector {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BasicVector that = (BasicVector) o;
-        return rows == that.rows && columns == that.columns && isVertical == that.isVertical && Arrays.equals(currentVector, that.currentVector);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(rows, columns, isVertical);
-        result = 31 * result + Arrays.hashCode(currentVector);
-        return result;
-    }
-
-    public BasicVector subtract(int[] b) {
+    public Vector<T> subtract(T[] b) {
         return subtract(b, true);
     }
 
-    public int[] getCurrentVector() {
-        return currentVector;
+    @Override
+    Vector<T> dot(T[] vector) {
+        // TODO
+        return null;
     }
 
-    public void setCurrentVector(int[] currentVector) {
-        this.currentVector = currentVector;
+
+    @Override
+    Vector<T> add(Vector<T> vector) {
+        return add(((BasicVector<T>)vector).getCurrentVector(), ((BasicVector<T>)vector).isVertical());
+    }
+
+    @Override
+    Vector<T> subtract(Vector<T> vector) {
+        return subtract(((BasicVector<T>)vector).getCurrentVector(), ((BasicVector<T>)vector).isVertical());
+    }
+
+    @Override
+    Vector<T> transpose() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    Vector<T> dot(Vector<T> tensor) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    Vector<T> inverse() {
+        // TODO
+        return null;
+    }
+
+    public T[] getCurrentVector() {
+        return (T[]) currentVector;
     }
 
     public int getRows() {
