@@ -311,8 +311,9 @@ public class BasicVector<T extends Number> extends IVector<T> {
 
     @Override
     public IVector<T> shuffle() {
-        // TODO
-        return null;
+        Collections.shuffle(currentVector);
+
+        return this;
     }
 
     @Override
