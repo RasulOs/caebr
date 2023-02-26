@@ -1,5 +1,4 @@
 import vector.BasicVector;
-import vector.Vector;
 
 import java.util.Arrays;
 

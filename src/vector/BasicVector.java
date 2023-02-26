@@ -1,26 +1,26 @@
 package vector;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
-public class BasicVector<T extends Number> extends Vector<T> {
+public class BasicVector<T extends Number> extends IVector<T> {
 
-    private Double[] currentVector;
+    private List<Double> currentVector = new ArrayList<>();
     private final int rows;
     private final int columns;
 
     private final boolean isVertical;
 
     public BasicVector(T[] vector) {
-        currentVector = transformToDoubleVector(vector);
+        Objects.requireNonNull(vector, "Vector cannot be null");
+        transformToDoubleVectorList(vector);
         rows = vector.length;
         columns = 1;
         isVertical = true;
     }
 
     public BasicVector(T[] vector, int columns) {
-        currentVector = transformToDoubleVector(vector);
+        Objects.requireNonNull(vector, "Vector cannot be null");
+        transformToDoubleVectorList(vector);
         this.columns = columns;
         rows = 1;
         isVertical = false;
@@ -39,16 +39,20 @@ public class BasicVector<T extends Number> extends Vector<T> {
         return doubleVector;
     }
 
-    public Vector<T> add(T[] b, boolean isVertical) {
+    private void transformToDoubleVectorList(T[] vector) {
+        for (T t: vector) {
+            currentVector.add(t.doubleValue());
+        }
+    }
 
-        Double[] baseVector = currentVector;
+    public IVector<T> add(T[] b, boolean isVertical) {
 
         checkVector(b, isVertical);
 
-        Double[] result = new Double[baseVector.length];
+        List<Double> result = new ArrayList<>(currentVector.size());
 
-        for (int i = 0; i < baseVector.length; i++) {
-            result[i] = baseVector[i] + b[i].doubleValue();
+        for (int i = 0; i < currentVector.size(); i++) {
+            result.add(currentVector.get(i) + b[i].doubleValue());
         }
 
         currentVector = result;
@@ -69,32 +73,30 @@ public class BasicVector<T extends Number> extends Vector<T> {
                     isVertical ? "vertical" : "horizontal"));
         }
 
-        if (currentVector.length > b.length) {
+        if (currentVector.size() > b.length) {
             throw new IllegalArgumentException(String
                     .format("The first vector is longer than the second vector. First vector length: %d, " +
-                            "Second vector length: %d", currentVector.length, b.length));
+                            "Second vector length: %d", currentVector.size(), b.length));
         }
 
-        if (currentVector.length < b.length) {
+        if (currentVector.size() < b.length) {
             throw new IllegalArgumentException(String.format("The second vector is longer than the first vector. " +
-                    "First vector length: %d, Second vector length: %d", currentVector.length, b.length));
+                    "First vector length: %d, Second vector length: %d", currentVector.size(), b.length));
         }
     }
 
-    public Vector<T> add(T[] b) {
+    public IVector<T> add(T[] b) {
         return add(b, true);
     }
 
-    public Vector<T> subtract(T[] b, boolean isVertical) {
-
-        Double[] baseVector = currentVector;
+    public IVector<T> subtract(T[] b, boolean isVertical) {
 
         checkVector(b, isVertical);
 
-        Double[] result = new Double[baseVector.length];
+        List<Double> result = new ArrayList<>(currentVector.size());
 
-        for (int i = 0; i < baseVector.length; i++) {
-            result[i] = baseVector[i] - b[i].doubleValue();
+        for (int i = 0; i < currentVector.size(); i++) {
+            result.add(currentVector.get(i) - b[i].doubleValue());
         }
 
         currentVector = result;
@@ -107,13 +109,13 @@ public class BasicVector<T extends Number> extends Vector<T> {
 
         sb.append(String.format("Vector has %d rows and %d columns. Vector:\n", rows, columns));
 
-        for (int i = 0; i < currentVector.length; i++) {
+        for (int i = 0; i < currentVector.size(); i++) {
             if (isVertical)
                 sb.append("\t");
 
-            sb.append(currentVector[i]);
+            sb.append(currentVector.get(i));
 
-            if (i != currentVector.length - 1) {
+            if (i != currentVector.size() - 1) {
                 sb.append(", ");
 
                 if (isVertical)
@@ -132,98 +134,275 @@ public class BasicVector<T extends Number> extends Vector<T> {
     }
 
 
-    public Vector<T> subtract(T[] b) {
+    public IVector<T> subtract(T[] b) {
         return subtract(b, true);
     }
 
     @Override
-    Vector<T> dot(T[] vector) {
+    public IVector<T> dot(T[] vector) {
         // TODO
         return null;
     }
 
 
     @Override
-    Vector<T> add(Vector<T> vector) {
-        return add(((BasicVector<T>)vector).getCurrentVector(), ((BasicVector<T>)vector).isVertical());
+    public IVector<T> add(IVector<T> iVector) {
+        return add((T[]) ((BasicVector<T>)iVector).toArray(), ((BasicVector<T>) iVector).isVertical());
     }
 
     @Override
-    Vector<T> subtract(Vector<T> vector) {
-        return subtract(((BasicVector<T>)vector).getCurrentVector(), ((BasicVector<T>)vector).isVertical());
+    public IVector<T> subtract(IVector<T> iVector) {
+        return subtract((T[]) ((BasicVector<T>)iVector).toArray(), ((BasicVector<T>) iVector).isVertical());
     }
 
     @Override
-    Vector<T> transpose() {
+    public IVector<T> transpose() {
         // TODO
         return null;
     }
 
     @Override
-    Vector<T> dot(Vector<T> vector) {
+    public IVector<T> dot(IVector<T> iVector) {
         // TODO
         return null;
     }
 
     @Override
-    Vector<T> inverse() {
+    public IVector<T> inverse() {
         // TODO
         return null;
     }
 
-    public T[] getCurrentVector() {
-        return (T[]) currentVector;
+    @Override
+    public Double sum() {
+        Double sum = 0.0;
+
+        for (Double d: currentVector) {
+            sum += d;
+        }
+        return sum;
+    }
+
+    @Override
+    public Double mean() {
+        if (currentVector.size() == 0)
+            return 0.0;
+
+        Double sum = sum();
+        return sum / currentVector.size();
+    }
+
+    @Override
+    public Double max() {
+
+        if (currentVector.size() == 0)
+            return 0.0;
+
+        Double max = Double.MIN_VALUE;
+
+        for (Double d: currentVector) {
+            if (d > max)
+                max = d;
+        }
+
+       return max;
+    }
+
+    @Override
+    public Double min() {
+
+        if (currentVector.size() == 0)
+            return 0.0;
+
+        Double min = Double.MAX_VALUE;
+
+        for (Double d: currentVector) {
+            if (d < min)
+                min = d;
+        }
+
+        return min;
+    }
+
+    @Override
+    public Double median() {
+        if (currentVector.size() == 0)
+            return 0.0;
+
+        List<Double> tempList = new ArrayList<>(currentVector);
+
+        sortTemporaryList(tempList);
+
+        if (tempList.size() % 2 == 0)
+            return (tempList.get(tempList.size() / 2) + tempList.get(tempList.size() / 2 - 1)) / 2;
+        else
+            return tempList.get(tempList.size() / 2);
+    }
+
+    @Override
+    public List<Double> mode() {
+        List<Double> listOfModes = new ArrayList<>();
+
+        HashMap<Double, Integer> map = new HashMap<>();
+
+        Integer maxCount = 0;
+
+        for (Double d: currentVector) {
+            if (map.containsKey(d)) {
+                map.put(d, map.get(d) + 1);
+                if (map.get(d) > maxCount)
+                    maxCount = map.get(d);
+            }
+            else
+                map.put(d, 1);
+        }
+
+        for (Double d: map.keySet()) {
+            if (map.get(d).equals(maxCount))
+                listOfModes.add(d);
+        }
+
+        return listOfModes;
+    }
+
+    @Override
+    public Double variance() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public Double standardDeviation() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public Double range() {
+        return max() - min();
+    }
+
+    @Override
+    public IVector<T> sort() {
+
+        Collections.sort(currentVector);
+
+        return this;
+    }
+
+    private List<Double> sortTemporaryList(List<Double> tempList) {
+        Collections.sort(tempList);
+
+        return tempList;
+    }
+
+    private void swap(int i, int j) {
+        Double temp = currentVector.get(i);
+        currentVector.set(i, currentVector.get(j));
+        currentVector.set(j, temp);
+    }
+
+    @Override
+    public IVector<T> reverse() {
+        Collections.reverse(currentVector);
+
+        return this;
+    }
+
+    @Override
+    public IVector<T> shuffle() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public IVector<T> slice(int start, int end) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public IVector<T> slice(int start) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public IVector<T> minMaxNormalization(long min, long max) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public IVector<T> minMaxNormalization() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public IVector<T> zScoreStandardization() {
+        // TODO
+        return null;
     }
 
     public Double[] toArray() {
-        return currentVector;
+        Double[] doubleArray = new Double[currentVector.size()];
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            doubleArray[i] = currentVector.get(i);
+        }
+
+        return doubleArray;
     }
 
     public Integer[] toIntegerArray() {
-        Integer[] integerArray = new Integer[currentVector.length];
-        for (int i = 0; i < currentVector.length; i++) {
-            integerArray[i] = currentVector[i].intValue();
+        Integer[] integerArray = new Integer[currentVector.size()];
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            integerArray[i] = currentVector.get(i).intValue();
         }
+
         return integerArray;
     }
 
     public Float[] toFloatArray() {
-        Float[] floatArray = new Float[currentVector.length];
-        for (int i = 0; i < currentVector.length; i++) {
-            floatArray[i] = currentVector[i].floatValue();
+        Float[] floatArray = new Float[currentVector.size()];
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            floatArray[i] = currentVector.get(i).floatValue();
         }
         return floatArray;
     }
 
     public Short[] toShortArray() {
-        Short[] shortArray = new Short[currentVector.length];
-        for (int i = 0; i < currentVector.length; i++) {
-            shortArray[i] = currentVector[i].shortValue();
+        Short[] shortArray = new Short[currentVector.size()];
+        for (int i = 0; i < currentVector.size(); i++) {
+            shortArray[i] = currentVector.get(i).shortValue();
         }
         return shortArray;
     }
 
     public Long[] toLongArray() {
-        Long[] longArray = new Long[currentVector.length];
-        for (int i = 0; i < currentVector.length; i++) {
-            longArray[i] = currentVector[i].longValue();
+        Long[] longArray = new Long[currentVector.size()];
+        for (int i = 0; i < currentVector.size(); i++) {
+            longArray[i] = currentVector.get(i).longValue();
         }
         return longArray;
     }
 
     public Byte[] toByteArray() {
-        Byte[] byteArray = new Byte[currentVector.length];
-        for (int i = 0; i < currentVector.length; i++) {
-            byteArray[i] = currentVector[i].byteValue();
+        Byte[] byteArray = new Byte[currentVector.size()];
+        for (int i = 0; i < currentVector.size(); i++) {
+            byteArray[i] = currentVector.get(i).byteValue();
         }
         return byteArray;
     }
 
-    public int getRows() {
+    public int getRowNumber() {
         return rows;
     }
 
-    public int getColumns() {
+    public int getColumnNumber() {
         return columns;
     }
 
