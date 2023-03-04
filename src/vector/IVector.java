@@ -60,4 +60,16 @@ public abstract class IVector<T extends Number> {
     abstract public int getColumnNumber();
 
     abstract public boolean isVertical();
+
+    abstract public Integer[] toIntegerArray();
+
+    abstract public Long[] toLongArray();
+
+    abstract public Short[] toShortArray();
+
+    abstract public Byte[] toByteArray();
+
+    abstract public Double[] toArray();
+
+    abstract public Float[] toFloatArray();
 }

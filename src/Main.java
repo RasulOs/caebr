@@ -22,5 +22,21 @@ public class Main {
         System.out.println(Arrays.toString(vector.toLongArray()));
         System.out.println(Arrays.toString(vector.toShortArray()));
         System.out.println(Arrays.toString(vector.toByteArray()));
+
+        System.out.println(
+                Arrays.toString(
+                        vector
+                                .slice(0, 7)
+                                .toArray()
+                )
+        );
+
+        System.out.println(
+                Arrays.toString(
+                        vector
+                                .minMaxNormalization(0, 1)
+                                .toArray()
+                )
+        );
     }
 }

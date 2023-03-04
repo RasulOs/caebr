@@ -318,26 +318,60 @@ public class BasicVector<T extends Number> extends IVector<T> {
 
     @Override
     public IVector<T> slice(int start, int end) {
-        // TODO
-        return null;
+
+        slice(start, end, currentVector.size());
+
+        return this;
     }
 
     @Override
     public IVector<T> slice(int start) {
-        // TODO
-        return null;
+        slice(start, currentVector.size(), currentVector.size());
+
+        return this;
+    }
+
+    private void slice(int start, int end, int size) {
+
+        if (start < 0 || end < 0)
+            throw new IllegalArgumentException("Start or end index cannot be negative");
+
+        if (start > end)
+            throw new IllegalArgumentException("Start index cannot be greater than end index");
+
+        if (start > size || end > size)
+            throw new IllegalArgumentException("Start or end index cannot be greater than size of vector");
+
+        currentVector = currentVector.subList(start, end);
     }
 
     @Override
     public IVector<T> minMaxNormalization(long min, long max) {
-        // TODO
-        return null;
+        currentVector = minMaxNormalization(min, max, currentVector);
+
+        return this;
     }
 
     @Override
     public IVector<T> minMaxNormalization() {
-        // TODO
-        return null;
+        currentVector = minMaxNormalization(0, 1, currentVector);
+
+        return this;
+    }
+
+    private List<Double> minMaxNormalization(double min, double max, List<Double> doubleList) {
+
+        if (doubleList.size() == 0)
+            return doubleList;
+
+        if (min > max)
+            throw new IllegalArgumentException("Min cannot be greater than max");
+
+        double minDouble = doubleList.stream().min(Double::compareTo).orElseThrow(NoSuchElementException::new);
+        double maxDouble = doubleList.stream().max(Double::compareTo).orElseThrow(NoSuchElementException::new);
+
+        return doubleList.stream().map(d -> (d - minDouble) / (maxDouble - minDouble) * (max - min) + min)
+                .toList();
     }
 
     @Override
