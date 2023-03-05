@@ -267,14 +267,26 @@ public class BasicVector<T extends Number> extends IVector<T> {
 
     @Override
     public Double variance() {
-        // TODO
-        return null;
+
+        if (currentVector.size() == 0)
+            return 0.0;
+
+        Double mean = mean();
+
+        double sumOfSquaredDifferences = 0.0;
+
+        for (Double d : currentVector) {
+            sumOfSquaredDifferences += Math.pow(d - mean, 2);
+        }
+
+        int n = currentVector.size() >= 30 ? currentVector.size() : currentVector.size() - 1;
+
+        return sumOfSquaredDifferences / n;
     }
 
     @Override
     public Double standardDeviation() {
-        // TODO
-        return null;
+        return Math.sqrt(variance());
     }
 
     @Override
@@ -367,17 +379,43 @@ public class BasicVector<T extends Number> extends IVector<T> {
         if (min > max)
             throw new IllegalArgumentException("Min cannot be greater than max");
 
-        double minDouble = doubleList.stream().min(Double::compareTo).orElseThrow(NoSuchElementException::new);
-        double maxDouble = doubleList.stream().max(Double::compareTo).orElseThrow(NoSuchElementException::new);
+        double minDouble = doubleList
+                .stream()
+                .min(Double::compareTo)
+                .orElseThrow(NoSuchElementException::new);
 
-        return doubleList.stream().map(d -> (d - minDouble) / (maxDouble - minDouble) * (max - min) + min)
+        double maxDouble = doubleList
+                .stream()
+                .max(Double::compareTo)
+                .orElseThrow(NoSuchElementException::new);
+
+        return doubleList
+                .stream()
+                .map(d -> (d - minDouble) / (maxDouble - minDouble) * (max - min) + min)
                 .toList();
     }
 
     @Override
     public IVector<T> zScoreStandardization() {
-        // TODO
-        return null;
+        currentVector = zScoreStandardizationInternal();
+
+        return this;
+    }
+
+    private List<Double> zScoreStandardizationInternal() {
+
+        if (currentVector.size() == 0)
+            return currentVector;
+
+        Double mean = mean();
+
+        Double standardDeviation = standardDeviation();
+
+        return currentVector
+                .stream()
+                .map(d -> (d - mean) / standardDeviation)
+                .toList();
+
     }
 
     public Double[] toArray() {

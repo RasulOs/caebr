@@ -38,5 +38,14 @@ public class Main {
                                 .toArray()
                 )
         );
+
+        BasicVector<Double> vector2 =
+                new BasicVector<Double>(new Double[] {1.0, 1.0, 20.0, 3.0,  4.0, 5.0, 6.0, 7.0, 8.0, 100.0, 321.00, 9.0, 10.0, 10.0, 10.0});
+
+
+        System.out.println(vector2.standardDeviation());
+        System.out.println(vector2.variance());
+        System.out.println(vector2.zScoreStandardization().toString());
+
     }
 }
