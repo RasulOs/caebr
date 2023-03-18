@@ -13,15 +13,13 @@ public interface IVector<T extends Number> {
     IMatrix<T> dot(T[] vector);
 
 
-    IVector<T> add(IVector<T> IVector);
+    IVector<T> add(IVector<T> iVector);
 
-    IVector<T> subtract(IVector<T> IVector);
+    IVector<T> subtract(IVector<T> iVector);
 
     IVector<T> transpose();
 
-    IMatrix<T> dot(IVector<T> IVector);
-
-    IVector<T> inverse();
+    IMatrix<T> dot(IVector<T> iVector);
 
     Double sum();
 

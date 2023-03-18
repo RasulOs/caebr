@@ -170,12 +170,6 @@ public class BasicVector<T extends Number> implements IVector<T> {
     }
 
     @Override
-    public IVector<T> inverse() {
-        // TODO
-        return null;
-    }
-
-    @Override
     public Double sum() {
         Double sum = 0.0;
 
