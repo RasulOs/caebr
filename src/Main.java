@@ -1,3 +1,4 @@
+import matrix.BasicMatrix;
 import vector.BasicVector;
 
 import java.util.Arrays;
@@ -46,6 +47,21 @@ public class Main {
         System.out.println(vector2.standardDeviation());
         System.out.println(vector2.variance());
         System.out.println(vector2.zScoreStandardization().toString());
+
+        System.out.println("\n");
+
+        BasicMatrix<Integer> matrix = new BasicMatrix<Integer>(new Integer[][]{
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        });
+
+        System.out.println(
+                matrix.dot(new Integer[][]{
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        }) .toString());
 
     }
 }
