@@ -109,7 +109,7 @@ public class BasicVector<T extends Number> implements IVector<T> {
     public String content() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("Vector has %d rows and %d columns. Vector:\n", rows, columns));
+        sb.append(String.format("Vector has %d rows and %d columns. Vector:\n[\n", rows, columns));
 
         for (int i = 0; i < currentVector.size(); i++) {
             if (isVertical)
@@ -125,12 +125,14 @@ public class BasicVector<T extends Number> implements IVector<T> {
             }
         };
 
+        sb.append("\n]");
+
         return sb.toString();
     }
 
     @Override
     public String toString() {
-        return "BasicVector{\n" +
+        return "BasicVector {\n" +
                 content() + "\n" +
                 '}';
     }
