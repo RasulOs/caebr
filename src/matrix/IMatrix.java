@@ -62,4 +62,15 @@ public interface IMatrix<T extends Number> {
 
     IMatrix<T> inverse();
 
+    Double[][] toMatrix();
+
+    Integer[][] toIntegerMatrix();
+
+    Float[][] toFloatMatrix();
+
+    Byte[][] toByteMatrix();
+
+    Short[][] toShortMatrix();
+
+    Long[][] toLongMatrix();
 }
