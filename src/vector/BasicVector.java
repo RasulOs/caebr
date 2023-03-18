@@ -1,5 +1,7 @@
 package vector;
 
+import matrix.IMatrix;
+
 import java.util.*;
 
 public class BasicVector<T extends Number> implements IVector<T> {

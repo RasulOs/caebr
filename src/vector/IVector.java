@@ -1,5 +1,7 @@
 package vector;
 
+import matrix.IMatrix;
+
 import java.util.List;
 
 public interface IVector<T extends Number> {
