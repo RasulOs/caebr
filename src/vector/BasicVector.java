@@ -2,7 +2,7 @@ package vector;
 
 import java.util.*;
 
-public class BasicVector<T extends Number> extends IVector<T> {
+public class BasicVector<T extends Number> implements IVector<T> {
 
     private List<Double> currentVector = new ArrayList<>();
     private final int rows;
@@ -139,7 +139,7 @@ public class BasicVector<T extends Number> extends IVector<T> {
     }
 
     @Override
-    public IVector<T> dot(T[] vector) {
+    public IMatrix<T> dot(T[] vector) {
         // TODO
         return null;
     }
@@ -162,7 +162,7 @@ public class BasicVector<T extends Number> extends IVector<T> {
     }
 
     @Override
-    public IVector<T> dot(IVector<T> iVector) {
+    public IMatrix<T> dot(IVector<T> iVector) {
         // TODO
         return null;
     }

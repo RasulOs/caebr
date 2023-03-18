@@ -2,74 +2,74 @@ package vector;
 
 import java.util.List;
 
-public abstract class IVector<T extends Number> {
+public interface IVector<T extends Number> {
 
-    abstract public IVector<T> add(T[] vector);
+    IVector<T> add(T[] vector);
 
-    abstract public IVector<T> subtract(T[] vector);
+    IVector<T> subtract(T[] vector);
 
-    abstract public IVector<T> dot(T[] vector);
+    IMatrix<T> dot(T[] vector);
 
 
-    abstract public IVector<T> add(IVector<T> IVector);
+    IVector<T> add(IVector<T> IVector);
 
-    abstract public IVector<T> subtract(IVector<T> IVector);
+    IVector<T> subtract(IVector<T> IVector);
 
-    abstract public IVector<T> transpose();
+    IVector<T> transpose();
 
-    abstract public IVector<T> dot(IVector<T> IVector);
+    IMatrix<T> dot(IVector<T> IVector);
 
-    abstract public IVector<T> inverse();
+    IVector<T> inverse();
 
-    abstract public Double sum();
+    Double sum();
 
-    abstract public Double mean();
+    Double mean();
 
-    abstract public Double max();
+    Double max();
 
-    abstract public Double min();
+    Double min();
 
-    abstract public Double median();
+    Double median();
 
-    abstract public List<Double> mode();
+    List<Double> mode();
 
-    abstract public Double variance();
+    Double variance();
 
-    abstract public Double standardDeviation();
+    Double standardDeviation();
 
-    abstract public Double range();
+    Double range();
 
-    abstract public IVector<T> sort();
+    IVector<T> sort();
 
-    abstract public IVector<T> reverse();
+    IVector<T> reverse();
 
-    abstract public IVector<T> shuffle();
+    IVector<T> shuffle();
 
-    abstract public IVector<T> slice(int start, int end);
+    IVector<T> slice(int start, int end);
 
-    abstract public IVector<T> slice(int start);
+    IVector<T> slice(int start);
 
-    abstract public IVector<T> minMaxNormalization(long min, long max);
+    IVector<T> minMaxNormalization(long min, long max);
 
-    abstract public IVector<T> minMaxNormalization();
+    IVector<T> minMaxNormalization();
 
-    abstract public IVector<T> zScoreStandardization();
+    IVector<T> zScoreStandardization();
 
-    abstract public int getRowNumber();
+    int getRowNumber();
 
-    abstract public int getColumnNumber();
+    int getColumnNumber();
 
-    abstract public boolean isVertical();
+    boolean isVertical();
 
-    abstract public Integer[] toIntegerArray();
+    Integer[] toIntegerArray();
 
-    abstract public Long[] toLongArray();
+    Long[] toLongArray();
 
-    abstract public Short[] toShortArray();
+    Short[] toShortArray();
 
-    abstract public Byte[] toByteArray();
+    Byte[] toByteArray();
 
-    abstract public Double[] toArray();
+    Double[] toArray();
 
-    abstract public Float[] toFloatArray();
+    Float[] toFloatArray();
 }
