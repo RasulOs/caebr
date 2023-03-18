@@ -148,6 +148,30 @@ public class BasicVector<T extends Number> implements IVector<T> {
         return null;
     }
 
+    public IMatrix<T> dot(T[] vector, boolean isVertical) {
+        // TODO
+        return null;
+    }
+
+    private void checkVectorForDot(T[] vector, boolean isVertical) {
+        Objects.requireNonNull(vector, "Vector cannot be null");
+
+        checkDimensionsForDot(vector, isVertical);
+    }
+
+    private void checkDimensionsForDot(T[] vector, boolean isVertical) {
+        if (this.isVertical == isVertical) {
+                    throw new IllegalArgumentException(String.format("The vectors are the same orientation. " +
+                            "First vector orientation: %s, Second vector orientation: %s", this.isVertical ? "vertical" : "horizontal",
+                            isVertical ? "vertical" : "horizontal"));
+        }
+
+        if (currentVector.size() != vector.length) {
+            throw new IllegalArgumentException(String.format("The vectors are not the same length. " +
+                    "First vector length: %d, Second vector length: %d", currentVector.size(), vector.length));
+        }
+    }
+
 
     @Override
     public IVector<T> add(IVector<T> iVector) {

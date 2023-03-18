@@ -8,10 +8,15 @@ public interface IVector<T extends Number> {
 
     IVector<T> add(T[] vector);
 
+    IVector<T> add(T[] b, boolean isVertical);
+
     IVector<T> subtract(T[] vector);
+
+    IVector<T> subtract(T[] b, boolean isVertical);
 
     IMatrix<T> dot(T[] vector);
 
+    IMatrix<T> dot(T[] vector, boolean isVertical);
 
     IVector<T> add(IVector<T> iVector);
 
