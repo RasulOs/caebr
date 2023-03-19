@@ -279,6 +279,9 @@ public class BasicVector<T extends Number> implements IVector<T> {
                 map.put(d, 1);
         }
 
+        if (maxCount == 1)
+            return listOfModes;
+
         for (Double d: map.keySet()) {
             if (map.get(d).equals(maxCount))
                 listOfModes.add(d);

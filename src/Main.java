@@ -63,5 +63,17 @@ public class Main {
                 {7, 8, 9}
         }) .toString());
 
+        System.out.println();
+
+        System.out.println(
+                "max: " + matrix.max() + "\n" +
+                "min: " + matrix.min() + "\n" +
+                "mean: " + matrix.mean() + "\n" +
+                "sum: " + matrix.sum() + "\n" +
+                "range: " + matrix.range() + "\n" +
+                "isSquare: " + matrix.isSquare() + "\n"
+        );
+
+
     }
 }
