@@ -285,8 +285,7 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double range() {
-        // TODO
-        return null;
+        return max() - min();
     }
 
     @Override
