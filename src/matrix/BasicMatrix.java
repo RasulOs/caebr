@@ -205,28 +205,57 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double sum() {
-        // TODO
-        return null;
+        Double sum = 0.0;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                sum += this.currentMatrix[i][j];
+            }
+        }
+
+        return sum;
     }
 
     @Override
     public Double mean() {
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
 
-        // TODO
-        return null;
+        return sum() / (rowNumber * columnNumber);
     }
 
     @Override
     public Double max() {
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
 
-        // TODO
-        return null;
+        Double max = Double.MIN_VALUE;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                if (this.currentMatrix[i][j] > max)
+                    max = this.currentMatrix[i][j];
+            }
+        }
+
+        return max;
     }
 
     @Override
     public Double min() {
-        // TODO
-        return null;
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
+
+        Double min = Double.MAX_VALUE;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                if (this.currentMatrix[i][j] < min)
+                    min = this.currentMatrix[i][j];
+            }
+        }
+
+        return min;
     }
 
     @Override
