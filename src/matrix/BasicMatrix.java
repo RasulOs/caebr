@@ -258,11 +258,6 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
         return min;
     }
 
-    @Override
-    public Double median() {
-        // TODO
-        return null;
-    }
 
     @Override
     public List<Double> mode() {
@@ -289,8 +284,17 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
-    public IMatrix<T> sort() {
-        // TODO
+    public Double median(int column) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> sort(int column) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> sort(int fromColumn, int toColumn) {
         return null;
     }
 

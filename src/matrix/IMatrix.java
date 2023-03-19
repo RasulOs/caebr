@@ -26,7 +26,7 @@ public interface IMatrix<T extends Number> {
 
     Double min();
 
-    Double median();
+    Double median(int column);
 
     List<Double> mode();
 
@@ -36,7 +36,9 @@ public interface IMatrix<T extends Number> {
 
     Double range();
 
-    IMatrix<T> sort();
+    IMatrix<T> sort(int column);
+
+    IMatrix<T> sort(int fromColumn, int toColumn);
 
     IMatrix<T> minMaxNormalization(long min, long max);
 
