@@ -1,16 +1,15 @@
 package matrix;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class BasicMatrix<T extends Number> implements IMatrix<T> {
+public class NMatrix<T extends Number> implements IMatrix<T> {
 
     private Double[][] currentMatrix;
 
     private int rowNumber;
     private int columnNumber;
 
-    public BasicMatrix(T[][] matrix) {
+    public NMatrix(T[][] matrix) {
 
         if (matrix == null)
             throw new IllegalArgumentException("Matrix cannot be null");
@@ -217,11 +216,31 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Double sum(int column) {
+        return null;
+    }
+
+    @Override
+    public Double sum(int fromColumn, int toColumn) {
+        return null;
+    }
+
+    @Override
     public Double mean() {
         if (rowNumber == 0 || columnNumber == 0)
             return 0.0;
 
         return sum() / (rowNumber * columnNumber);
+    }
+
+    @Override
+    public Double mean(int column) {
+        return null;
+    }
+
+    @Override
+    public Double mean(int fromColumn, int toColumn) {
+        return null;
     }
 
     @Override
@@ -242,6 +261,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Double max(int column) {
+        return null;
+    }
+
+    @Override
+    public Double max(int fromColumn, int toColumn) {
+        return null;
+    }
+
+    @Override
     public Double min() {
         if (rowNumber == 0 || columnNumber == 0)
             return 0.0;
@@ -258,6 +287,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
         return min;
     }
 
+    @Override
+    public Double min(int column) {
+        return null;
+    }
+
+    @Override
+    public Double min(int fromColumn, int toColumn) {
+        return null;
+    }
+
 
     @Override
     public List<Double> mode() {
@@ -266,8 +305,28 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public List<Double> mode(int column) {
+        return null;
+    }
+
+    @Override
+    public List<Double> mode(int fromColumn, int toColumn) {
+        return null;
+    }
+
+    @Override
     public Double variance() {
         // TODO
+        return null;
+    }
+
+    @Override
+    public Double variance(int column) {
+        return null;
+    }
+
+    @Override
+    public Double variance(int fromColumn, int toColumn) {
         return null;
     }
 
@@ -279,8 +338,28 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Double standardDeviation(int column) {
+        return null;
+    }
+
+    @Override
+    public Double standardDeviation(int fromColumn, int toColumn) {
+        return null;
+    }
+
+    @Override
     public Double range() {
         return max() - min();
+    }
+
+    @Override
+    public Double range(int column) {
+        return null;
+    }
+
+    @Override
+    public Double range(int fromColumn, int toColumn) {
+        return null;
     }
 
     @Override
@@ -305,14 +384,44 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public IMatrix<T> minMaxNormalization(long min, long max, int column) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> minMaxNormalization(long min, long max, int fromColumn, int toColumn) {
+        return null;
+    }
+
+    @Override
     public IMatrix<T> minMaxNormalization() {
         // TODO
         return null;
     }
 
     @Override
+    public IMatrix<T> minMaxNormalization(int column) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> minMaxNormalization(int fromColumn, int toColumn) {
+        return null;
+    }
+
+    @Override
     public IMatrix<T> zScoreStandardization() {
         // TODO
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> zScoreStandardization(int column) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> zScoreStandardization(int fromColumn, int toColumn) {
         return null;
     }
 
@@ -400,6 +509,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Double[] toArray(int column) {
+        return new Double[0];
+    }
+
+    @Override
+    public Double[] toArray(int fromColumn, int toColumn) {
+        return new Double[0];
+    }
+
+    @Override
     public Integer[][] toIntegerMatrix() {
 
         Integer[][] result = new Integer[this.rowNumber][this.columnNumber];
@@ -411,6 +530,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
         }
 
         return result;
+    }
+
+    @Override
+    public Integer[] toIntegerArray(int column) {
+        return new Integer[0];
+    }
+
+    @Override
+    public Integer[] toIntegerArray(int fromColumn, int toColumn) {
+        return new Integer[0];
     }
 
     @Override
@@ -428,6 +557,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Float[] toFloatArray(int column) {
+        return new Float[0];
+    }
+
+    @Override
+    public Float[] toFloatArray(int fromColumn, int toColumn) {
+        return new Float[0];
+    }
+
+    @Override
     public Byte[][] toByteMatrix() {
 
         Byte[][] result = new Byte[this.rowNumber][this.columnNumber];
@@ -439,6 +578,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
         }
 
         return result;
+    }
+
+    @Override
+    public Byte[] toByteArray(int column) {
+        return new Byte[0];
+    }
+
+    @Override
+    public Byte[] toByteArray(int fromColumn, int toColumn) {
+        return new Byte[0];
     }
 
     @Override
@@ -456,6 +605,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Short[] toShortArray(int column) {
+        return new Short[0];
+    }
+
+    @Override
+    public Short[] toShortArray(int fromColumn, int toColumn) {
+        return new Short[0];
+    }
+
+    @Override
     public Long[][] toLongMatrix() {
 
         Long[][] result = new Long[this.rowNumber][this.columnNumber];
@@ -467,6 +626,16 @@ public class BasicMatrix<T extends Number> implements IMatrix<T> {
         }
 
         return result;
+    }
+
+    @Override
+    public Long[] toLongArray(int column) {
+        return new Long[0];
+    }
+
+    @Override
+    public Long[] toLongArray(int fromColumn, int toColumn) {
+        return new Long[0];
     }
 
     @Override

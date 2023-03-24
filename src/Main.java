@@ -1,12 +1,12 @@
-import matrix.BasicMatrix;
-import vector.BasicVector;
+import matrix.NMatrix;
+import vector.NVector;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
 
-        BasicVector<Integer> vector = new BasicVector<Integer>(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        NVector<Integer> vector = new NVector<Integer>(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 
         System.out.println(vector.toString());
 
@@ -40,8 +40,8 @@ public class Main {
                 )
         );
 
-        BasicVector<Double> vector2 =
-                new BasicVector<Double>(new Double[] {1.0, 1.0, 20.0, 3.0,  4.0, 5.0, 6.0, 7.0, 8.0, 100.0, 321.00, 9.0, 10.0, 10.0, 10.0});
+        NVector<Double> vector2 =
+                new NVector<Double>(new Double[] {1.0, 1.0, 20.0, 3.0,  4.0, 5.0, 6.0, 7.0, 8.0, 100.0, 321.00, 9.0, 10.0, 10.0, 10.0});
 
 
         System.out.println(vector2.standardDeviation());
@@ -50,7 +50,7 @@ public class Main {
 
         System.out.println("\n");
 
-        BasicMatrix<Integer> matrix = new BasicMatrix<Integer>(new Integer[][]{
+        NMatrix<Integer> matrix = new NMatrix<Integer>(new Integer[][]{
                 {1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}
