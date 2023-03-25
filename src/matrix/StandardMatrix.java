@@ -1,5 +1,8 @@
 package matrix;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class StandardMatrix<T extends Number> implements IMatrix<T> {
@@ -332,57 +335,105 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public List<Double> mode() {
-        // TODO
-        return null;
+        return mode(0, this.columnNumber - 1);
     }
 
     @Override
     public List<Double> mode(int column) {
-        // TODO
-        return null;
+        return mode(column, column);
     }
 
     @Override
     public List<Double> mode(int fromColumn, int toColumn) {
-        // TODO
-        return null;
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        List<Double> listOfModes = new ArrayList<>();
+
+        HashMap<Double, Integer> map = new HashMap<>();
+
+        Integer maxCount = 0;
+
+        for (int i = fromColumn; i <= toColumn; i++) {
+            for (int j = 0; j < this.rowNumber; j++) {
+
+                Double d = this.currentMatrix[j][i];
+
+                if (map.containsKey(d)) {
+                    map.put(d, map.get(d) + 1);
+                    if (map.get(d) > maxCount)
+                        maxCount = map.get(d);
+                }
+                else
+                    map.put(d, 1);
+            }
+        }
+
+        if (maxCount == 1)
+            return listOfModes;
+
+        for (Double d: map.keySet()) {
+            if (map.get(d).equals(maxCount))
+                listOfModes.add(d);
+        }
+
+        return listOfModes;
     }
 
     @Override
     public Double variance() {
-        // TODO
-        return null;
+
+        return variance(0, this.columnNumber - 1);
     }
 
     @Override
     public Double variance(int column) {
-        // TODO
-        return null;
+
+        return variance(column, column);
     }
 
     @Override
     public Double variance(int fromColumn, int toColumn) {
-        // TODO
-        return null;
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
+
+        Double mean = mean(fromColumn, toColumn);
+
+        double sumOfSquaredDifferences = 0.0;
+
+        for (int i = fromColumn; i <= toColumn; i++) {
+            for (int j = 0; j < this.rowNumber; j++) {
+                Double d = this.currentMatrix[j][i];
+                sumOfSquaredDifferences += Math.pow(d - mean, 2);
+            }
+        }
+
+        int n = this.rowNumber * (toColumn - fromColumn + 1);
+
+        n = n >= 30 ? n : n - 1;
+
+        return sumOfSquaredDifferences / n;
     }
 
     @Override
     public Double standardDeviation() {
 
-        // TODO
-        return null;
+        return standardDeviation(0, this.columnNumber - 1);
     }
 
     @Override
     public Double standardDeviation(int column) {
-        // TODO
-        return null;
+
+        return standardDeviation(column, column);
     }
 
     @Override
     public Double standardDeviation(int fromColumn, int toColumn) {
-        // TODO
-        return null;
+
+        return Math.sqrt(variance(fromColumn, toColumn));
     }
 
     @Override
@@ -404,8 +455,33 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Double median() {
+        return median(0, this.columnNumber - 1);
+    }
+
+    @Override
     public Double median(int column) {
-        return null;
+        return median(column, column);
+    }
+
+    @Override
+    public Double median(int fromColumn, int toColumn) {
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
+
+        Double[] columnArray = toArray(fromColumn, toColumn);
+
+        Arrays.sort(columnArray);
+
+        if (columnArray.length % 2 == 0) {
+            return (columnArray[columnArray.length / 2] + columnArray[columnArray.length / 2 - 1]) / 2;
+        }
+        else {
+            return columnArray[columnArray.length / 2];
+        }
     }
 
     @Override

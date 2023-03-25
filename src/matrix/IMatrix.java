@@ -42,7 +42,11 @@ public interface IMatrix<T extends Number> {
 
     Double min(int fromColumn, int toColumn);
 
+    Double median();
+
     Double median(int column);
+
+    Double median(int fromColumn, int toColumn);
 
     List<Double> mode();
 

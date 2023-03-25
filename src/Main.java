@@ -78,6 +78,19 @@ public class Main {
 
         System.out.println(Arrays.toString(matrix.toArray(0, 2)));
 
+        StandardMatrix<Integer> matrix2 = new StandardMatrix<>(new Integer[][] {
+                {1, 2, 3},
+                {1, 5, 6},
+                {7, 8, 9}
+        });
+
+        System.out.println(matrix2.mode());
+
+        System.out.println(matrix2.variance());
+
+        System.out.println(matrix2.standardDeviation());
+
+        System.out.println(matrix2.median());
 
     }
 }
