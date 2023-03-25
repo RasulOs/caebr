@@ -2,14 +2,14 @@ package matrix;
 
 import java.util.List;
 
-public class NMatrix<T extends Number> implements IMatrix<T> {
+public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     private Double[][] currentMatrix;
 
     private int rowNumber;
     private int columnNumber;
 
-    public NMatrix(T[][] matrix) {
+    public StandardMatrix(T[][] matrix) {
 
         if (matrix == null)
             throw new IllegalArgumentException("Matrix cannot be null");
@@ -204,10 +204,24 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double sum() {
+
+        return sum(0, this.columnNumber - 1);
+    }
+
+    @Override
+    public Double sum(int column) {
+        return sum(column, column);
+    }
+
+    @Override
+    public Double sum(int fromColumn, int toColumn) {
+
+        checkColumnIndexes(fromColumn, toColumn);
+
         Double sum = 0.0;
 
         for (int i = 0; i < this.rowNumber; i++) {
-            for (int j = 0; j < this.columnNumber; j++) {
+            for (int j = fromColumn; j <= toColumn; j++) {
                 sum += this.currentMatrix[i][j];
             }
         }
@@ -215,43 +229,60 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
         return sum;
     }
 
-    @Override
-    public Double sum(int column) {
-        return null;
-    }
+    private void checkColumnIndexes(int fromColumn, int toColumn) {
+        if (fromColumn < 0 || toColumn < 0)
+            throw new IllegalArgumentException("Column indexes cannot be negative");
 
-    @Override
-    public Double sum(int fromColumn, int toColumn) {
-        return null;
+        if (fromColumn > toColumn)
+            throw new IllegalArgumentException("From column index cannot be greater than to column index");
+
+        if (fromColumn >= this.columnNumber || toColumn >= this.columnNumber)
+            throw new IllegalArgumentException("Column indexes cannot be greater than the number of columns");
     }
 
     @Override
     public Double mean() {
-        if (rowNumber == 0 || columnNumber == 0)
-            return 0.0;
-
-        return sum() / (rowNumber * columnNumber);
+        return mean(0, this.columnNumber - 1);
     }
 
     @Override
     public Double mean(int column) {
-        return null;
+        return mean(column, column);
     }
 
     @Override
     public Double mean(int fromColumn, int toColumn) {
-        return null;
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
+
+        return sum(fromColumn, toColumn) / (rowNumber * (toColumn - fromColumn + 1));
     }
 
     @Override
     public Double max() {
+        return max(0, this.columnNumber - 1);
+    }
+
+    @Override
+    public Double max(int column) {
+        return max(column, column);
+    }
+
+    @Override
+    public Double max(int fromColumn, int toColumn) {
+
+        checkColumnIndexes(fromColumn, toColumn);
+
         if (rowNumber == 0 || columnNumber == 0)
             return 0.0;
 
         Double max = Double.MIN_VALUE;
 
         for (int i = 0; i < this.rowNumber; i++) {
-            for (int j = 0; j < this.columnNumber; j++) {
+            for (int j = fromColumn; j <= toColumn; j++) {
                 if (this.currentMatrix[i][j] > max)
                     max = this.currentMatrix[i][j];
             }
@@ -261,40 +292,33 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
-    public Double max(int column) {
-        return null;
-    }
-
-    @Override
-    public Double max(int fromColumn, int toColumn) {
-        return null;
-    }
-
-    @Override
     public Double min() {
+        return min(0, this.columnNumber - 1);
+    }
+
+    @Override
+    public Double min(int column) {
+        return min(column, column);
+    }
+
+    @Override
+    public Double min(int fromColumn, int toColumn) {
+
+        checkColumnIndexes(fromColumn, toColumn);
+
         if (rowNumber == 0 || columnNumber == 0)
             return 0.0;
 
         Double min = Double.MAX_VALUE;
 
         for (int i = 0; i < this.rowNumber; i++) {
-            for (int j = 0; j < this.columnNumber; j++) {
+            for (int j = fromColumn; j <= toColumn; j++) {
                 if (this.currentMatrix[i][j] < min)
                     min = this.currentMatrix[i][j];
             }
         }
 
         return min;
-    }
-
-    @Override
-    public Double min(int column) {
-        return null;
-    }
-
-    @Override
-    public Double min(int fromColumn, int toColumn) {
-        return null;
     }
 
 
@@ -306,11 +330,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public List<Double> mode(int column) {
+        // TODO
         return null;
     }
 
     @Override
     public List<Double> mode(int fromColumn, int toColumn) {
+        // TODO
         return null;
     }
 
@@ -322,11 +348,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double variance(int column) {
+        // TODO
         return null;
     }
 
     @Override
     public Double variance(int fromColumn, int toColumn) {
+        // TODO
         return null;
     }
 
@@ -339,27 +367,32 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double standardDeviation(int column) {
+        // TODO
         return null;
     }
 
     @Override
     public Double standardDeviation(int fromColumn, int toColumn) {
+        // TODO
         return null;
     }
 
     @Override
     public Double range() {
-        return max() - min();
+        return range(0, this.columnNumber - 1);
     }
 
     @Override
     public Double range(int column) {
-        return null;
+        return range(column, column);
     }
 
     @Override
     public Double range(int fromColumn, int toColumn) {
-        return null;
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        return max(fromColumn, toColumn) - min(fromColumn, toColumn);
     }
 
     @Override
@@ -369,11 +402,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> sort(int column) {
+        // TODO
         return null;
     }
 
     @Override
     public IMatrix<T> sort(int fromColumn, int toColumn) {
+        // TODO
         return null;
     }
 
@@ -385,11 +420,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> minMaxNormalization(long min, long max, int column) {
+        // TODO
         return null;
     }
 
     @Override
     public IMatrix<T> minMaxNormalization(long min, long max, int fromColumn, int toColumn) {
+        // TODO
         return null;
     }
 
@@ -401,11 +438,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> minMaxNormalization(int column) {
+        // TODO
         return null;
     }
 
     @Override
     public IMatrix<T> minMaxNormalization(int fromColumn, int toColumn) {
+        // TODO
         return null;
     }
 
@@ -417,11 +456,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> zScoreStandardization(int column) {
+        // TODO
         return null;
     }
 
     @Override
     public IMatrix<T> zScoreStandardization(int fromColumn, int toColumn) {
+        // TODO
         return null;
     }
 
@@ -510,11 +551,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double[] toArray(int column) {
+        // TODO
         return new Double[0];
     }
 
     @Override
     public Double[] toArray(int fromColumn, int toColumn) {
+        // TODO
         return new Double[0];
     }
 
@@ -534,11 +577,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Integer[] toIntegerArray(int column) {
+        // TODO
         return new Integer[0];
     }
 
     @Override
     public Integer[] toIntegerArray(int fromColumn, int toColumn) {
+        // TODO
         return new Integer[0];
     }
 
@@ -558,11 +603,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Float[] toFloatArray(int column) {
+        // TODO
         return new Float[0];
     }
 
     @Override
     public Float[] toFloatArray(int fromColumn, int toColumn) {
+        // TODO
         return new Float[0];
     }
 
@@ -582,11 +629,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Byte[] toByteArray(int column) {
+        // TODO
         return new Byte[0];
     }
 
     @Override
     public Byte[] toByteArray(int fromColumn, int toColumn) {
+        // TODO
         return new Byte[0];
     }
 
@@ -606,11 +655,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Short[] toShortArray(int column) {
+        // TODO
         return new Short[0];
     }
 
     @Override
     public Short[] toShortArray(int fromColumn, int toColumn) {
+        // TODO
         return new Short[0];
     }
 
@@ -630,11 +681,13 @@ public class NMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Long[] toLongArray(int column) {
+        // TODO
         return new Long[0];
     }
 
     @Override
     public Long[] toLongArray(int fromColumn, int toColumn) {
+        // TODO
         return new Long[0];
     }
 

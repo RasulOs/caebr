@@ -1,12 +1,12 @@
-import matrix.NMatrix;
-import vector.NVector;
+import matrix.StandardMatrix;
+import vector.StandardVector;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
 
-        NVector<Integer> vector = new NVector<Integer>(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        StandardVector<Integer> vector = new StandardVector<Integer>(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 
         System.out.println(vector.toString());
 
@@ -40,8 +40,8 @@ public class Main {
                 )
         );
 
-        NVector<Double> vector2 =
-                new NVector<Double>(new Double[] {1.0, 1.0, 20.0, 3.0,  4.0, 5.0, 6.0, 7.0, 8.0, 100.0, 321.00, 9.0, 10.0, 10.0, 10.0});
+        StandardVector<Double> vector2 =
+                new StandardVector<Double>(new Double[] {1.0, 1.0, 20.0, 3.0,  4.0, 5.0, 6.0, 7.0, 8.0, 100.0, 321.00, 9.0, 10.0, 10.0, 10.0});
 
 
         System.out.println(vector2.standardDeviation());
@@ -50,7 +50,7 @@ public class Main {
 
         System.out.println("\n");
 
-        NMatrix<Integer> matrix = new NMatrix<Integer>(new Integer[][]{
+        StandardMatrix<Integer> matrix = new StandardMatrix<Integer>(new Integer[][]{
                 {1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}
@@ -66,11 +66,11 @@ public class Main {
         System.out.println();
 
         System.out.println(
-                "max: " + matrix.max() + "\n" +
-                "min: " + matrix.min() + "\n" +
-                "mean: " + matrix.mean() + "\n" +
-                "sum: " + matrix.sum() + "\n" +
-                "range: " + matrix.range() + "\n" +
+                "max 0, 2: " + matrix.max(0, 2) + "\n" +
+                "min 0, 1: " + matrix.min(0, 1) + "\n" +
+                "mean 0:  " + matrix.mean(0) + "\n" +
+                "sum 0, 2: " + matrix.sum(0, 2) + "\n" +
+                "range 1: " + matrix.range(1) + "\n" +
                 "isSquare: " + matrix.isSquare() + "\n"
         );
 

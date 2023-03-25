@@ -4,7 +4,7 @@ import matrix.IMatrix;
 
 import java.util.*;
 
-public class NVector<T extends Number> implements IVector<T> {
+public class StandardVector<T extends Number> implements IVector<T> {
 
     private List<Double> currentVector = new ArrayList<>();
     private final int rows;
@@ -12,7 +12,7 @@ public class NVector<T extends Number> implements IVector<T> {
 
     private final boolean isVertical;
 
-    public NVector(T[] vector) {
+    public StandardVector(T[] vector) {
         Objects.requireNonNull(vector, "Vector cannot be null");
         transformToDoubleVectorList(vector);
         rows = vector.length;
@@ -20,7 +20,7 @@ public class NVector<T extends Number> implements IVector<T> {
         isVertical = true;
     }
 
-    public NVector(T[] vector, int columns) {
+    public StandardVector(T[] vector, int columns) {
         Objects.requireNonNull(vector, "Vector cannot be null");
         transformToDoubleVectorList(vector);
         this.columns = columns;
@@ -175,12 +175,12 @@ public class NVector<T extends Number> implements IVector<T> {
 
     @Override
     public IVector<T> add(IVector<T> iVector) {
-        return add((T[]) ((NVector<T>)iVector).toArray(), ((NVector<T>) iVector).isVertical());
+        return add((T[]) ((StandardVector<T>)iVector).toArray(), ((StandardVector<T>) iVector).isVertical());
     }
 
     @Override
     public IVector<T> subtract(IVector<T> iVector) {
-        return subtract((T[]) ((NVector<T>)iVector).toArray(), ((NVector<T>) iVector).isVertical());
+        return subtract((T[]) ((StandardVector<T>)iVector).toArray(), ((StandardVector<T>) iVector).isVertical());
     }
 
     @Override
