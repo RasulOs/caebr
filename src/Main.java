@@ -74,6 +74,10 @@ public class Main {
                 "isSquare: " + matrix.isSquare() + "\n"
         );
 
+        System.out.println();
+
+        System.out.println(Arrays.toString(matrix.toArray(0, 2)));
+
 
     }
 }

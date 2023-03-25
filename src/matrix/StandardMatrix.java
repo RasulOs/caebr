@@ -234,10 +234,18 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
             throw new IllegalArgumentException("Column indexes cannot be negative");
 
         if (fromColumn > toColumn)
-            throw new IllegalArgumentException("From column index cannot be greater than to column index");
+            throw new IllegalArgumentException("fromColumn index cannot be greater than toColumn index");
 
         if (fromColumn >= this.columnNumber || toColumn >= this.columnNumber)
             throw new IllegalArgumentException("Column indexes cannot be greater than the number of columns");
+    }
+
+    private void checkColumnIndex(int column) {
+        if (column < 0)
+            throw new IllegalArgumentException("Column index cannot be negative");
+
+        if (column >= this.columnNumber)
+            throw new IllegalArgumentException("Column index cannot be greater than the number of columns");
     }
 
     @Override
@@ -551,14 +559,34 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double[] toArray(int column) {
-        // TODO
-        return new Double[0];
+
+        checkColumnIndex(column);
+
+        Double[] result = new Double[this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            result[i] = this.currentMatrix[i][column];
+        }
+
+        return result;
     }
 
     @Override
     public Double[] toArray(int fromColumn, int toColumn) {
-        // TODO
-        return new Double[0];
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Double[] result = new Double[this.rowNumber * (toColumn - fromColumn + 1)];
+
+        int index = 0;
+
+        for (int j = fromColumn; j <= toColumn; j++) {
+            for (int i = 0; i < this.rowNumber; i++) {
+                result[index++] = this.currentMatrix[i][j];
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -577,14 +605,35 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Integer[] toIntegerArray(int column) {
-        // TODO
-        return new Integer[0];
+
+        checkColumnIndex(column);
+
+        Integer[] result = new Integer[this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            result[i] = this.currentMatrix[i][column].intValue();
+        }
+
+        return result;
+
     }
 
     @Override
     public Integer[] toIntegerArray(int fromColumn, int toColumn) {
-        // TODO
-        return new Integer[0];
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Integer[] result = new Integer[this.rowNumber * (toColumn - fromColumn + 1)];
+
+        int index = 0;
+
+        for (int j = fromColumn; j <= toColumn; j++) {
+            for (int i = 0; i < this.rowNumber; i++) {
+                result[index++] = this.currentMatrix[i][j].intValue();
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -603,14 +652,34 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Float[] toFloatArray(int column) {
-        // TODO
-        return new Float[0];
+
+        checkColumnIndex(column);
+
+        Float[] result = new Float[this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            result[i] = this.currentMatrix[i][column].floatValue();
+        }
+
+        return result;
     }
 
     @Override
     public Float[] toFloatArray(int fromColumn, int toColumn) {
-        // TODO
-        return new Float[0];
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Float[] result = new Float[this.rowNumber * (toColumn - fromColumn + 1)];
+
+        int index = 0;
+
+        for (int j = fromColumn; j <= toColumn; j++) {
+            for (int i = 0; i < this.rowNumber; i++) {
+                result[index++] = this.currentMatrix[i][j].floatValue();
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -629,14 +698,34 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Byte[] toByteArray(int column) {
-        // TODO
-        return new Byte[0];
+
+        checkColumnIndex(column);
+
+        Byte[] result = new Byte[this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            result[i] = this.currentMatrix[i][column].byteValue();
+        }
+
+        return result;
     }
 
     @Override
     public Byte[] toByteArray(int fromColumn, int toColumn) {
-        // TODO
-        return new Byte[0];
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Byte[] result = new Byte[this.rowNumber * (toColumn - fromColumn + 1)];
+
+        int index = 0;
+
+        for (int j = fromColumn; j <= toColumn; j++) {
+            for (int i = 0; i < this.rowNumber; i++) {
+                result[index++] = this.currentMatrix[i][j].byteValue();
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -655,14 +744,34 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Short[] toShortArray(int column) {
-        // TODO
-        return new Short[0];
+
+        checkColumnIndex(column);
+
+        Short[] result = new Short[this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            result[i] = this.currentMatrix[i][column].shortValue();
+        }
+
+        return result;
     }
 
     @Override
     public Short[] toShortArray(int fromColumn, int toColumn) {
-        // TODO
-        return new Short[0];
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Short[] result = new Short[this.rowNumber * (toColumn - fromColumn + 1)];
+
+        int index = 0;
+
+        for (int j = fromColumn; j <= toColumn; j++) {
+            for (int i = 0; i < this.rowNumber; i++) {
+                result[index++] = this.currentMatrix[i][j].shortValue();
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -681,14 +790,34 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Long[] toLongArray(int column) {
-        // TODO
-        return new Long[0];
+
+        checkColumnIndex(column);
+
+        Long[] result = new Long[this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            result[i] = this.currentMatrix[i][column].longValue();
+        }
+
+        return result;
     }
 
     @Override
     public Long[] toLongArray(int fromColumn, int toColumn) {
-        // TODO
-        return new Long[0];
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Long[] result = new Long[this.rowNumber * (toColumn - fromColumn + 1)];
+
+        int index = 0;
+
+        for (int j = fromColumn; j <= toColumn; j++) {
+            for (int i = 0; i < this.rowNumber; i++) {
+                result[index++] = this.currentMatrix[i][j].longValue();
+            }
+        }
+
+        return result;
     }
 
     @Override
