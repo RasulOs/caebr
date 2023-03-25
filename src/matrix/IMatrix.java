@@ -8,15 +8,17 @@ public interface IMatrix<T extends Number> {
 
     IMatrix<T> subtract(T[][] matrix);
 
-    IMatrix<T> dot(T[][] matrix);
-
     IMatrix<T> add(IMatrix<T> iMatrix);
 
     IMatrix<T> subtract(IMatrix<T> iMatrix);
 
     IMatrix<T> transpose();
 
+    IMatrix<T> dot(T[][] matrix);
+
     IMatrix<T> dot(IMatrix<T> iMatrix);
+
+    IMatrix<T> dot(T number);
 
     Double sum();
 
@@ -111,6 +113,18 @@ public interface IMatrix<T extends Number> {
     Double determinant();
 
     IMatrix<T> inverse();
+
+    IMatrix<T> dropColumn(int column);
+
+    IMatrix<T> dropColumn(int fromColumn, int toColumn);
+
+    IMatrix<T> setColumn(T[] column, int index);
+
+    IMatrix<T> putColumn(T[] column);
+
+    Double[] popColumn(int index);
+
+    Double[] popColumn();
 
     Double[][] toMatrix();
 

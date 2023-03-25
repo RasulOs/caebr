@@ -3,6 +3,7 @@ package vector;
 import matrix.IMatrix;
 
 import java.util.List;
+import java.util.NavigableMap;
 
 public interface IVector<T extends Number> {
 
@@ -17,6 +18,22 @@ public interface IVector<T extends Number> {
     IMatrix<T> dot(T[] vector);
 
     IMatrix<T> dot(T[] vector, boolean isVertical);
+
+    IVector<T> dot(T number);
+
+    IVector<T> put(T number);
+
+    IVector<T> set(T number, int index);
+
+    IVector<T> drop(int index);
+
+    IVector<T> drop(int fromIndex, int toIndex);
+
+    IVector<T> drop();
+
+    Double pop(int index);
+
+    Double pop();
 
     IVector<T> add(IVector<T> iVector);
 

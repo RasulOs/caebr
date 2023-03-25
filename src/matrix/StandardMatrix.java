@@ -206,6 +206,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public IMatrix<T> dot(T number) {
+        return null;
+    }
+
+    @Override
     public Double sum() {
 
         return sum(0, this.columnNumber - 1);
@@ -602,6 +607,36 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     public IMatrix<T> inverse() {
         // TODO
         return null;
+    }
+
+    @Override
+    public IMatrix<T> dropColumn(int column) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> dropColumn(int fromColumn, int toColumn) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> setColumn(T[] column, int index) {
+        return null;
+    }
+
+    @Override
+    public IMatrix<T> putColumn(T[] column) {
+        return null;
+    }
+
+    @Override
+    public Double[] popColumn(int index) {
+        return new Double[0];
+    }
+
+    @Override
+    public Double[] popColumn() {
+        return new Double[0];
     }
 
     private String content() {

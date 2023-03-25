@@ -2,7 +2,14 @@ package vector;
 
 import matrix.IMatrix;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.Collections;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
 
 public class StandardVector<T extends Number> implements IVector<T> {
 
@@ -151,6 +158,64 @@ public class StandardVector<T extends Number> implements IVector<T> {
     public IMatrix<T> dot(T[] vector, boolean isVertical) {
         // TODO
         return null;
+    }
+
+    @Override
+    public IVector<T> dot(T number) {
+
+        currentVector.replaceAll(x -> x * number.doubleValue());
+
+        return this;
+    }
+
+    @Override
+    public IVector<T> put(T number) {
+
+        currentVector.add(number.doubleValue());
+
+        return this;
+    }
+
+    @Override
+    public IVector<T> set(T number, int index) {
+
+        currentVector.set(index, number.doubleValue());
+
+        return this;
+    }
+
+    @Override
+    public IVector<T> drop(int index) {
+
+        currentVector.remove(index);
+
+        return this;
+    }
+
+    @Override
+    public IVector<T> drop(int fromIndex, int toIndex) {
+
+        currentVector.subList(fromIndex, toIndex + 1).clear();
+
+        return this;
+    }
+
+    @Override
+    public IVector<T> drop() {
+
+        currentVector.remove(currentVector.size() - 1);
+
+        return this;
+    }
+
+    @Override
+    public Double pop(int index) {
+        return currentVector.remove(index);
+    }
+
+    @Override
+    public Double pop() {
+        return currentVector.remove(currentVector.size() - 1);
     }
 
     private void checkVectorForDot(T[] vector, boolean isVertical) {
@@ -417,7 +482,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return doubleList
                 .stream()
                 .map(d -> (d - minDouble) / (maxDouble - minDouble) * (max - min) + min)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -439,7 +504,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return currentVector
                 .stream()
                 .map(d -> (d - mean) / standardDeviation)
-                .toList();
+                .collect(Collectors.toList());
 
     }
 
