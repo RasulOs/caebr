@@ -257,7 +257,14 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> dot(T number) {
-        return null;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                this.currentMatrix[i][j] *= number.doubleValue();
+            }
+        }
+
+        return this;
     }
 
     @Override
@@ -541,14 +548,35 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> sort(int column) {
-        // TODO
-        return null;
+
+        if (column < 0 || column >= this.columnNumber)
+            throw new IllegalArgumentException("Column index is out of bounds");
+
+        Double[] columnArray = toArray(column, column + 1);
+
+        Arrays.sort(columnArray);
+
+        return setColumn(columnArray, column);
     }
 
     @Override
     public IMatrix<T> sort(int fromColumn, int toColumn) {
-        // TODO
-        return null;
+
+
+        if (fromColumn < 0 || fromColumn >= this.columnNumber)
+            throw new IllegalArgumentException("Column index is out of bounds");
+
+        if (toColumn < 0 || toColumn > this.columnNumber)
+            throw new IllegalArgumentException("Column index is out of bounds");
+
+        if (fromColumn > toColumn)
+            throw new IllegalArgumentException("From column index is greater than to column index");
+
+        for (int i = fromColumn; i < toColumn; i++) {
+            sort(i);
+        }
+
+        return this;
     }
 
     @Override
@@ -685,6 +713,16 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         return this;
     }
 
+    private IMatrix<T> setColumn(Double[] column, int index) {
+        checkColumn(column, index);
+
+        for (int i = 0; i < column.length; i++) {
+            this.currentMatrix[i][index] = column[i].doubleValue();
+        }
+
+        return this;
+    }
+
     @Override
     public IMatrix<T> putColumn(T[] column) {
         checkColumn(column, 0);
@@ -704,6 +742,9 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         if (index < 0 || index >= this.columnNumber)
             throw new IllegalArgumentException("Column index must be between 0 and " + (this.columnNumber - 1));
+    }
+
+    private void checkColumn(Double[] column, int index) {
     }
 
     @Override

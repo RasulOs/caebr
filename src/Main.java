@@ -94,8 +94,10 @@ public class Main {
 
         System.out.println(matrix2);
         System.out.println(matrix2.dropColumn());
-        System.out.println(matrix2.putColumn(new Integer[] {99, 99, 99}));
-        System.out.println(matrix2.setColumn(new Integer[] {0, 0, 0}, 0));
+        System.out.println(matrix2.putColumn(new Integer[] {99, 77, 100}));
+        System.out.println(matrix2.setColumn(new Integer[] {0, 9, 0}, 0));
+
+        System.out.println(matrix2.sort(0, matrix2.getColumnNumber()));
 
 
     }
