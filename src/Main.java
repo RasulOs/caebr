@@ -58,20 +58,20 @@ public class Main {
 
         System.out.println(
                 matrix.dot(new Integer[][]{
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
-        }) .toString());
+                        {1, 2, 3},
+                        {4, 5, 6},
+                        {7, 8, 9}
+                }) .toString());
 
         System.out.println();
 
         System.out.println(
-                "max 0, 2: " + matrix.max(0, 2) + "\n" +
-                "min 0, 1: " + matrix.min(0, 1) + "\n" +
-                "mean 0:  " + matrix.mean(0) + "\n" +
-                "sum 0, 2: " + matrix.sum(0, 2) + "\n" +
-                "range 1: " + matrix.range(1) + "\n" +
-                "isSquare: " + matrix.isSquare() + "\n"
+                "max 0, columnNumber: " + matrix.max(0, matrix.getColumnNumber()) + "\n" +
+                        "min 0, 2: " + matrix.min(0, 2) + "\n" +
+                        "mean 0:  " + matrix.mean(0) + "\n" +
+                        "sum 0, columnNumber: " + matrix.sum(0, matrix.getColumnNumber()) + "\n" +
+                        "range 0, columnNumber: " + matrix.range(0, matrix.getColumnNumber()) + "\n" +
+                        "isSquare: " + matrix.isSquare() + "\n"
         );
 
         System.out.println();

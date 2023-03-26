@@ -14,30 +14,25 @@ import java.util.stream.Collectors;
 public class StandardVector<T extends Number> implements IVector<T> {
 
     private List<Double> currentVector = new ArrayList<>();
-    private final int rows;
-    private final int columns;
 
-    private final boolean isVertical;
+    private int rows;
+
+    private int columns;
+
+    private boolean isVertical;
 
     public StandardVector(T[] vector) {
         Objects.requireNonNull(vector, "Vector cannot be null");
         transformToDoubleVectorList(vector);
-        rows = vector.length;
-        columns = 1;
-        isVertical = true;
+
+        initializeColumnsAndRows(currentVector, true);
     }
 
-    public StandardVector(T[] vector, int columns) {
+    public StandardVector(T[] vector, boolean isVertical) {
         Objects.requireNonNull(vector, "Vector cannot be null");
         transformToDoubleVectorList(vector);
-        this.columns = columns;
-        rows = 1;
-        isVertical = false;
 
-        if (vector.length != columns) {
-            throw new IllegalArgumentException(String.format("The vector length is not the same as number of columns. " +
-                    "Vector length: %d, Number of columns: %d", vector.length, columns));
-        }
+        initializeColumnsAndRows(currentVector, isVertical);
     }
 
     private Double[] transformToDoubleVector(T[] tVector) {
@@ -52,6 +47,19 @@ public class StandardVector<T extends Number> implements IVector<T> {
         for (T t: vector) {
             currentVector.add(t.doubleValue());
         }
+    }
+
+    private void initializeColumnsAndRows(List<Double> vector, boolean isVertical) {
+
+        if (isVertical) {
+            this.rows = vector.size();
+            this.columns = 1;
+        } else {
+            this.rows = 1;
+            this.columns = vector.size();
+        }
+
+        this.isVertical = isVertical;
     }
 
     public IVector<T> add(T[] b, boolean isVertical) {
@@ -250,8 +258,9 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public IVector<T> transpose() {
-        // TODO
-        return null;
+        initializeColumnsAndRows(currentVector, !isVertical);
+
+        return this;
     }
 
     @Override

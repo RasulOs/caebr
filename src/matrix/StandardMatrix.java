@@ -213,12 +213,12 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Double sum() {
 
-        return sum(0, this.columnNumber - 1);
+        return sum(0, this.columnNumber);
     }
 
     @Override
     public Double sum(int column) {
-        return sum(column, column);
+        return sum(column, column + 1);
     }
 
     @Override
@@ -229,7 +229,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         Double sum = 0.0;
 
         for (int i = 0; i < this.rowNumber; i++) {
-            for (int j = fromColumn; j <= toColumn; j++) {
+            for (int j = fromColumn; j < toColumn; j++) {
                 sum += this.currentMatrix[i][j];
             }
         }
@@ -244,7 +244,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         if (fromColumn > toColumn)
             throw new IllegalArgumentException("fromColumn index cannot be greater than toColumn index");
 
-        if (fromColumn >= this.columnNumber || toColumn >= this.columnNumber)
+        if (fromColumn > this.columnNumber || toColumn > this.columnNumber)
             throw new IllegalArgumentException("Column indexes cannot be greater than the number of columns");
     }
 
@@ -252,18 +252,18 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         if (column < 0)
             throw new IllegalArgumentException("Column index cannot be negative");
 
-        if (column >= this.columnNumber)
+        if (column > this.columnNumber)
             throw new IllegalArgumentException("Column index cannot be greater than the number of columns");
     }
 
     @Override
     public Double mean() {
-        return mean(0, this.columnNumber - 1);
+        return mean(0, this.columnNumber);
     }
 
     @Override
     public Double mean(int column) {
-        return mean(column, column);
+        return mean(column, column + 1);
     }
 
     @Override
@@ -274,17 +274,17 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         if (rowNumber == 0 || columnNumber == 0)
             return 0.0;
 
-        return sum(fromColumn, toColumn) / (rowNumber * (toColumn - fromColumn + 1));
+        return sum(fromColumn, toColumn) / (rowNumber * (toColumn - fromColumn));
     }
 
     @Override
     public Double max() {
-        return max(0, this.columnNumber - 1);
+        return max(0, this.columnNumber);
     }
 
     @Override
     public Double max(int column) {
-        return max(column, column);
+        return max(column, column + 1);
     }
 
     @Override
@@ -298,7 +298,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         Double max = Double.MIN_VALUE;
 
         for (int i = 0; i < this.rowNumber; i++) {
-            for (int j = fromColumn; j <= toColumn; j++) {
+            for (int j = fromColumn; j < toColumn; j++) {
                 if (this.currentMatrix[i][j] > max)
                     max = this.currentMatrix[i][j];
             }
@@ -309,12 +309,12 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double min() {
-        return min(0, this.columnNumber - 1);
+        return min(0, this.columnNumber);
     }
 
     @Override
     public Double min(int column) {
-        return min(column, column);
+        return min(column, column + 1);
     }
 
     @Override
@@ -328,7 +328,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         Double min = Double.MAX_VALUE;
 
         for (int i = 0; i < this.rowNumber; i++) {
-            for (int j = fromColumn; j <= toColumn; j++) {
+            for (int j = fromColumn; j < toColumn; j++) {
                 if (this.currentMatrix[i][j] < min)
                     min = this.currentMatrix[i][j];
             }
@@ -340,12 +340,12 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public List<Double> mode() {
-        return mode(0, this.columnNumber - 1);
+        return mode(0, this.columnNumber);
     }
 
     @Override
     public List<Double> mode(int column) {
-        return mode(column, column);
+        return mode(column, column + 1);
     }
 
     @Override
@@ -359,7 +359,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         Integer maxCount = 0;
 
-        for (int i = fromColumn; i <= toColumn; i++) {
+        for (int i = fromColumn; i < toColumn; i++) {
             for (int j = 0; j < this.rowNumber; j++) {
 
                 Double d = this.currentMatrix[j][i];
@@ -388,13 +388,13 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Double variance() {
 
-        return variance(0, this.columnNumber - 1);
+        return variance(0, this.columnNumber);
     }
 
     @Override
     public Double variance(int column) {
 
-        return variance(column, column);
+        return variance(column, column + 1);
     }
 
     @Override
@@ -409,14 +409,14 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         double sumOfSquaredDifferences = 0.0;
 
-        for (int i = fromColumn; i <= toColumn; i++) {
+        for (int i = fromColumn; i < toColumn; i++) {
             for (int j = 0; j < this.rowNumber; j++) {
                 Double d = this.currentMatrix[j][i];
                 sumOfSquaredDifferences += Math.pow(d - mean, 2);
             }
         }
 
-        int n = this.rowNumber * (toColumn - fromColumn + 1);
+        int n = this.rowNumber * (toColumn - fromColumn);
 
         n = n >= 30 ? n : n - 1;
 
@@ -426,13 +426,13 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Double standardDeviation() {
 
-        return standardDeviation(0, this.columnNumber - 1);
+        return standardDeviation(0, this.columnNumber);
     }
 
     @Override
     public Double standardDeviation(int column) {
 
-        return standardDeviation(column, column);
+        return standardDeviation(column, column + 1);
     }
 
     @Override
@@ -443,12 +443,12 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double range() {
-        return range(0, this.columnNumber - 1);
+        return range(0, this.columnNumber);
     }
 
     @Override
     public Double range(int column) {
-        return range(column, column);
+        return range(column, column + 1);
     }
 
     @Override
@@ -461,12 +461,12 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Double median() {
-        return median(0, this.columnNumber - 1);
+        return median(0, this.columnNumber);
     }
 
     @Override
     public Double median(int column) {
-        return median(column, column);
+        return median(column, column + 1);
     }
 
     @Override
@@ -671,15 +671,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Double[] toArray(int column) {
 
-        checkColumnIndex(column);
-
-        Double[] result = new Double[this.rowNumber];
-
-        for (int i = 0; i < this.rowNumber; i++) {
-            result[i] = this.currentMatrix[i][column];
-        }
-
-        return result;
+        return toArray(column, column + 1);
     }
 
     @Override
@@ -687,11 +679,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         checkColumnIndexes(fromColumn, toColumn);
 
-        Double[] result = new Double[this.rowNumber * (toColumn - fromColumn + 1)];
+        Double[] result = new Double[this.rowNumber * (toColumn - fromColumn)];
 
         int index = 0;
 
-        for (int j = fromColumn; j <= toColumn; j++) {
+        for (int j = fromColumn; j < toColumn; j++) {
             for (int i = 0; i < this.rowNumber; i++) {
                 result[index++] = this.currentMatrix[i][j];
             }
@@ -717,16 +709,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Integer[] toIntegerArray(int column) {
 
-        checkColumnIndex(column);
-
-        Integer[] result = new Integer[this.rowNumber];
-
-        for (int i = 0; i < this.rowNumber; i++) {
-            result[i] = this.currentMatrix[i][column].intValue();
-        }
-
-        return result;
-
+        return toIntegerArray(column, column + 1);
     }
 
     @Override
@@ -734,11 +717,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         checkColumnIndexes(fromColumn, toColumn);
 
-        Integer[] result = new Integer[this.rowNumber * (toColumn - fromColumn + 1)];
+        Integer[] result = new Integer[this.rowNumber * (toColumn - fromColumn)];
 
         int index = 0;
 
-        for (int j = fromColumn; j <= toColumn; j++) {
+        for (int j = fromColumn; j < toColumn; j++) {
             for (int i = 0; i < this.rowNumber; i++) {
                 result[index++] = this.currentMatrix[i][j].intValue();
             }
@@ -764,15 +747,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Float[] toFloatArray(int column) {
 
-        checkColumnIndex(column);
-
-        Float[] result = new Float[this.rowNumber];
-
-        for (int i = 0; i < this.rowNumber; i++) {
-            result[i] = this.currentMatrix[i][column].floatValue();
-        }
-
-        return result;
+        return toFloatArray(column, column + 1);
     }
 
     @Override
@@ -780,11 +755,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         checkColumnIndexes(fromColumn, toColumn);
 
-        Float[] result = new Float[this.rowNumber * (toColumn - fromColumn + 1)];
+        Float[] result = new Float[this.rowNumber * (toColumn - fromColumn)];
 
         int index = 0;
 
-        for (int j = fromColumn; j <= toColumn; j++) {
+        for (int j = fromColumn; j < toColumn; j++) {
             for (int i = 0; i < this.rowNumber; i++) {
                 result[index++] = this.currentMatrix[i][j].floatValue();
             }
@@ -809,16 +784,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public Byte[] toByteArray(int column) {
-
-        checkColumnIndex(column);
-
-        Byte[] result = new Byte[this.rowNumber];
-
-        for (int i = 0; i < this.rowNumber; i++) {
-            result[i] = this.currentMatrix[i][column].byteValue();
-        }
-
-        return result;
+        return toByteArray(column, column + 1);
     }
 
     @Override
@@ -826,11 +792,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         checkColumnIndexes(fromColumn, toColumn);
 
-        Byte[] result = new Byte[this.rowNumber * (toColumn - fromColumn + 1)];
+        Byte[] result = new Byte[this.rowNumber * (toColumn - fromColumn)];
 
         int index = 0;
 
-        for (int j = fromColumn; j <= toColumn; j++) {
+        for (int j = fromColumn; j < toColumn; j++) {
             for (int i = 0; i < this.rowNumber; i++) {
                 result[index++] = this.currentMatrix[i][j].byteValue();
             }
@@ -856,15 +822,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Short[] toShortArray(int column) {
 
-        checkColumnIndex(column);
-
-        Short[] result = new Short[this.rowNumber];
-
-        for (int i = 0; i < this.rowNumber; i++) {
-            result[i] = this.currentMatrix[i][column].shortValue();
-        }
-
-        return result;
+        return toShortArray(column, column + 1);
     }
 
     @Override
@@ -872,11 +830,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         checkColumnIndexes(fromColumn, toColumn);
 
-        Short[] result = new Short[this.rowNumber * (toColumn - fromColumn + 1)];
+        Short[] result = new Short[this.rowNumber * (toColumn - fromColumn)];
 
         int index = 0;
 
-        for (int j = fromColumn; j <= toColumn; j++) {
+        for (int j = fromColumn; j < toColumn; j++) {
             for (int i = 0; i < this.rowNumber; i++) {
                 result[index++] = this.currentMatrix[i][j].shortValue();
             }
@@ -902,15 +860,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public Long[] toLongArray(int column) {
 
-        checkColumnIndex(column);
-
-        Long[] result = new Long[this.rowNumber];
-
-        for (int i = 0; i < this.rowNumber; i++) {
-            result[i] = this.currentMatrix[i][column].longValue();
-        }
-
-        return result;
+        return toLongArray(column, column + 1);
     }
 
     @Override
@@ -918,11 +868,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         checkColumnIndexes(fromColumn, toColumn);
 
-        Long[] result = new Long[this.rowNumber * (toColumn - fromColumn + 1)];
+        Long[] result = new Long[this.rowNumber * (toColumn - fromColumn)];
 
         int index = 0;
 
-        for (int j = fromColumn; j <= toColumn; j++) {
+        for (int j = fromColumn; j < toColumn; j++) {
             for (int i = 0; i < this.rowNumber; i++) {
                 result[index++] = this.currentMatrix[i][j].longValue();
             }
