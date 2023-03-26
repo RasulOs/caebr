@@ -92,5 +92,11 @@ public class Main {
 
         System.out.println(matrix2.median());
 
+        System.out.println(matrix2);
+        System.out.println(matrix2.dropColumn());
+        System.out.println(matrix2.putColumn(new Integer[] {99, 99, 99}));
+        System.out.println(matrix2.setColumn(new Integer[] {0, 0, 0}, 0));
+
+
     }
 }

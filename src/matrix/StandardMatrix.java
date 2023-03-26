@@ -40,6 +40,56 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         return doubleMatrix;
     }
 
+    private Double[][] transformToDoubleMatrixWithNColumnPadding(Double[][] matrix, int n) {
+        Double[][] doubleMatrix = new Double[matrix.length][matrix[0].length + n];
+
+        for (int i = 0; i < matrix.length; i++) {
+            System.arraycopy(matrix[i], 0, doubleMatrix[i], 0, matrix[0].length);
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = matrix[0].length; j < matrix[0].length + n; j++) {
+                doubleMatrix[i][j] = 0.0;
+            }
+        }
+
+        return doubleMatrix;
+    }
+
+    private Double[][] transformToDoubleMatrixWithSpecialColumnPadding(Double[][] matrix, T[] column) {
+
+        if (matrix.length != column.length)
+            throw new IllegalArgumentException("Matrix and column dimensions must be equal");
+
+        Double[][] doubleMatrix = new Double[matrix.length][matrix[0].length + 1];
+
+        for (int i = 0; i < matrix.length; i++) {
+            System.arraycopy(matrix[i], 0, doubleMatrix[i], 0, matrix[0].length);
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            doubleMatrix[i][matrix[0].length] = column[i].doubleValue();
+        }
+
+        return doubleMatrix;
+
+    }
+
+    private Double[][] transformToDoubleMatrixDropExactColumn(Double[][] matrix, int index) {
+
+        if (index < 0 || index >= matrix[0].length)
+            throw new IllegalArgumentException("Index out of bounds");
+
+        Double[][] doubleMatrix = new Double[matrix.length][matrix[0].length - 1];
+
+        for (int i = 0; i < matrix.length; i++) {
+            System.arraycopy(matrix[i], 0, doubleMatrix[i], 0, index);
+            System.arraycopy(matrix[i], index + 1, doubleMatrix[i], index, matrix[0].length - index - 1);
+        }
+
+        return doubleMatrix;
+    }
+
     private boolean isMatrixEmpty(T[][] matrix) {
         return matrix.length == 0 || matrix[0].length == 0;
     }
@@ -611,32 +661,75 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> dropColumn(int column) {
-        return null;
+
+        popColumn(column);
+
+        return this;
     }
 
     @Override
-    public IMatrix<T> dropColumn(int fromColumn, int toColumn) {
-        return null;
+    public IMatrix<T> dropColumn() {
+        popColumn(this.columnNumber - 1);
+
+        return this;
     }
 
     @Override
     public IMatrix<T> setColumn(T[] column, int index) {
-        return null;
+        checkColumn(column, index);
+
+        for (int i = 0; i < column.length; i++) {
+            this.currentMatrix[i][index] = column[i].doubleValue();
+        }
+
+        return this;
     }
 
     @Override
     public IMatrix<T> putColumn(T[] column) {
-        return null;
+        checkColumn(column, 0);
+
+        currentMatrix = transformToDoubleMatrixWithSpecialColumnPadding(currentMatrix, column);
+
+        return this;
     }
 
-    @Override
-    public Double[] popColumn(int index) {
-        return new Double[0];
+    private void checkColumn(T[] column) {
+        checkColumn(column, 0);
+    }
+
+    private void checkColumn(T[] column, int index) {
+        if (column.length != this.columnNumber)
+            throw new IllegalArgumentException("Column length must be equal to matrix column number.");
+
+        if (index < 0 || index >= this.columnNumber)
+            throw new IllegalArgumentException("Column index must be between 0 and " + (this.columnNumber - 1));
     }
 
     @Override
     public Double[] popColumn() {
-        return new Double[0];
+        return popColumn(this.columnNumber - 1);
+    }
+
+    @Override
+    public Double[] popColumn(int index) {
+
+        if (index < 0 || index >= this.columnNumber)
+            throw new IllegalArgumentException("Column index must be between 0 and " + (this.columnNumber - 1));
+
+        if (this.columnNumber <= 2)
+            throw new IllegalArgumentException("Matrix must have at least two columns.");
+
+        Double[] column = new Double[this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            column[i] = this.currentMatrix[i][index];
+        }
+
+        currentMatrix = transformToDoubleMatrixDropExactColumn(currentMatrix, index);
+
+        return column;
+
     }
 
     private String content() {

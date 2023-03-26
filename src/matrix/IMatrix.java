@@ -116,7 +116,7 @@ public interface IMatrix<T extends Number> {
 
     IMatrix<T> dropColumn(int column);
 
-    IMatrix<T> dropColumn(int fromColumn, int toColumn);
+    IMatrix<T> dropColumn();
 
     IMatrix<T> setColumn(T[] column, int index);
 
