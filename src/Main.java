@@ -99,6 +99,9 @@ public class Main {
 
         System.out.println(matrix2.sort(0, matrix2.getColumnNumber()));
 
+        System.out.println();
+
+        System.out.println(matrix2.minMaxNormalization(2));
 
     }
 }

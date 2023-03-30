@@ -580,39 +580,49 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
-    public IMatrix<T> minMaxNormalization(long min, long max) {
-        // TODO
-        return null;
-    }
-
-    @Override
     public IMatrix<T> minMaxNormalization(long min, long max, int column) {
-        // TODO
-        return null;
+        return minMaxNormalization(min, max, column, column + 1);
     }
 
     @Override
     public IMatrix<T> minMaxNormalization(long min, long max, int fromColumn, int toColumn) {
-        // TODO
-        return null;
+
+        if (min > max)
+            throw new IllegalArgumentException("Min value is greater than max value");
+
+        if (min == max)
+            throw new IllegalArgumentException("Min value is equal to max value");
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+
+        for (int i = fromColumn; i < toColumn; i++) {
+
+            Double minDouble = min(i);
+            Double maxDouble = max(i);
+
+            for (int j = 0; j < this.rowNumber; j++) {
+                Double d = this.currentMatrix[j][i];
+                this.currentMatrix[j][i] = (d - minDouble) / (maxDouble - minDouble) * (max - min) + min;
+            }
+        }
+
+        return this;
     }
 
     @Override
     public IMatrix<T> minMaxNormalization() {
-        // TODO
-        return null;
+        return minMaxNormalization(0, 1, 0, this.columnNumber);
     }
 
     @Override
     public IMatrix<T> minMaxNormalization(int column) {
-        // TODO
-        return null;
+        return minMaxNormalization(0, 1, column, column + 1);
     }
 
     @Override
     public IMatrix<T> minMaxNormalization(int fromColumn, int toColumn) {
-        // TODO
-        return null;
+        return minMaxNormalization(0, 1, fromColumn, toColumn);
     }
 
     @Override

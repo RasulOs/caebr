@@ -78,8 +78,6 @@ public interface IMatrix<T extends Number> {
 
     IMatrix<T> sort(int fromColumn, int toColumn);
 
-    IMatrix<T> minMaxNormalization(long min, long max);
-
     IMatrix<T> minMaxNormalization(long min, long max, int column);
 
     IMatrix<T> minMaxNormalization(long min, long max, int fromColumn, int toColumn);
