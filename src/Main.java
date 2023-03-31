@@ -8,6 +8,11 @@ public class Main {
 
         StandardVector<Integer> vector = new StandardVector<Integer>(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 
+        System.out.println(vector.l1Norm());
+        System.out.println(vector.sum());
+        System.out.println(vector.l2Norm());
+        System.out.println(vector.lInfinityNorm());
+
         System.out.println(vector.toString());
 
         vector.add(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
@@ -47,6 +52,7 @@ public class Main {
         System.out.println(vector2.standardDeviation());
         System.out.println(vector2.variance());
         System.out.println(vector2.zScoreStandardization().toString());
+
 
         System.out.println("\n");
 

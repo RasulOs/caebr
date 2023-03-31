@@ -77,6 +77,16 @@ public interface IVector<T extends Number> {
 
     IVector<T> zScoreStandardization();
 
+
+    /* Manhattan Distance */
+    Double l1Norm();
+
+   /* Euclidean Distance */
+    Double l2Norm();
+
+    /* Max absolute value of the vector */
+    Double lInfinityNorm();
+
     int getRowNumber();
 
     int getColumnNumber();

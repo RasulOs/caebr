@@ -501,6 +501,48 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    @Override
+    public Double l1Norm() {
+
+        if (currentVector.size() == 0)
+            return 0d;
+
+        double absSum = 0d;
+
+        for (Double d: currentVector)
+            absSum += Math.abs(d);
+
+
+        return absSum;
+    }
+
+    @Override
+    public Double l2Norm() {
+
+        if (currentVector.size() == 0)
+            return 0d;
+
+        double sumOfSquares = 0d;
+
+        for (Double d: currentVector)
+            sumOfSquares += Math.pow(d, 2);
+
+        return Math.sqrt(sumOfSquares);
+    }
+
+    @Override
+    public Double lInfinityNorm() {
+        if (currentVector.size() == 0)
+            return 0d;
+
+        double absMax = Double.MIN_VALUE;
+
+        for (Double d: currentVector)
+            if (Math.abs(d) > absMax) absMax = Math.abs(d);
+
+        return absMax;
+    }
+
     private List<Double> zScoreStandardizationInternal() {
 
         if (currentVector.size() == 0)
