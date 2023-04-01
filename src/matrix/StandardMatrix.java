@@ -627,20 +627,34 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> zScoreStandardization() {
-        // TODO
-        return null;
+        return zScoreStandardization(0, this.columnNumber);
     }
 
     @Override
     public IMatrix<T> zScoreStandardization(int column) {
-        // TODO
-        return null;
+        return zScoreStandardization(column, column + 1);
     }
 
     @Override
     public IMatrix<T> zScoreStandardization(int fromColumn, int toColumn) {
-        // TODO
-        return null;
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return this;
+
+        for (int i = fromColumn; i < toColumn; i++) {
+
+            double meanOfColumn = mean(i);
+            double sd = standardDeviation(i);
+
+            for (int j = 0; j < this.rowNumber; j++) {
+                double d = this.currentMatrix[j][i];
+                this.currentMatrix[j][i] = (d - meanOfColumn) / sd;
+            }
+        }
+
+        return this;
     }
 
     @Override

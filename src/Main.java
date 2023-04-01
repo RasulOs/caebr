@@ -107,6 +107,9 @@ public class Main {
 
         System.out.println();
 
+        System.out.println(matrix2);
+        System.out.println(matrix2.standardDeviation(1));
+//        System.out.println(matrix2.zScoreStandardization());
         System.out.println(matrix2.minMaxNormalization(2));
 
     }
