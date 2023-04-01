@@ -244,8 +244,21 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> transpose() {
-        // TODO
-        return null;
+
+        if (this.rowNumber == 1 && this.columnNumber == 1)
+            return this;
+
+        Double[][] resultMatrix = new Double[this.columnNumber][this.rowNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                resultMatrix[j][i] = this.currentMatrix[i][j];
+            }
+        }
+
+        currentMatrix = resultMatrix;
+
+        return this;
     }
 
     @Override
