@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.List;
+import java.util.function.Function;
 
 public interface IMatrix<T extends Number> {
 
@@ -123,6 +124,12 @@ public interface IMatrix<T extends Number> {
     Double[] popColumn(int index);
 
     Double[] popColumn();
+
+    IMatrix<T> map(Function<Double, Double> function);
+
+    IMatrix<T> map(int column, Function<Double, Double> function);
+
+    IMatrix<T> map(int fromColumn, int toColumn, Function<Double, Double> function);
 
     Double[][] toMatrix();
 

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Collections;
 import java.util.NoSuchElementException;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -124,7 +126,11 @@ public class StandardVector<T extends Number> implements IVector<T> {
     public String content() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("Vector has %d rows and %d columns. Vector:\n[\n", rows, columns));
+        sb.append("Vector has ")
+                .append(rows == 1 ? "1 row" : rows + " rows")
+                .append(" and ")
+                .append(columns == 1 ? "1 column" : columns + " columns")
+                .append(". Vector:\n[\n");
 
         for (int i = 0; i < currentVector.size(); i++) {
             if (isVertical)
@@ -556,7 +562,34 @@ public class StandardVector<T extends Number> implements IVector<T> {
                 .stream()
                 .map(d -> (d - mean) / standardDeviation)
                 .collect(Collectors.toList());
+    }
 
+    @Override
+    public IVector<T> map(Function<Double, Double> function) {
+        Objects.requireNonNull(function);
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            currentVector.set(i, function.apply(currentVector.get(i)));
+        }
+
+        return this;
+    }
+
+    @Override
+    public IVector<T> filter(Predicate<Double> predicate) {
+        Objects.requireNonNull(predicate);
+
+        currentVector = currentVector
+                .stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
+
+        if (currentVector.size() == 0)
+            throw new IllegalArgumentException("Vector cannot be empty after filtering");
+
+        initializeColumnsAndRows(currentVector, isVertical());
+
+        return this;
     }
 
     public Double[] toArray() {

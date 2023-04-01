@@ -4,6 +4,8 @@ import matrix.IMatrix;
 
 import java.util.List;
 import java.util.NavigableMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public interface IVector<T extends Number> {
 
@@ -86,6 +88,10 @@ public interface IVector<T extends Number> {
 
     /* Max absolute value of the vector */
     Double lInfinityNorm();
+
+    IVector<T> map(Function<Double, Double> function);
+
+    IVector<T> filter(Predicate<Double> predicate);
 
     int getRowNumber();
 

@@ -1,9 +1,7 @@
 package matrix;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 
 public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
@@ -790,6 +788,32 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public IMatrix<T> map(Function<Double, Double> function) {
+        return map(0, this.columnNumber, function);
+    }
+
+    @Override
+    public IMatrix<T> map(int column, Function<Double, Double> function) {
+        return map(column, column + 1, function);
+    }
+
+    @Override
+    public IMatrix<T> map(int fromColumn, int toColumn, Function<Double, Double> function) {
+
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Objects.requireNonNull(function);
+
+        for (int i = fromColumn; i < toColumn; i++) {
+            for (int j = 0; j < this.rowNumber; j++) {
+                this.currentMatrix[j][i] = function.apply(this.currentMatrix[j][i]);
+            }
+        }
+
+        return this;
+    }
+
+    @Override
     public Double[] popColumn(int index) {
 
         if (index < 0 || index >= this.columnNumber)
@@ -813,8 +837,11 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     private String content() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("Matrix has %d rows and %d columns. Matrix:\n[\n",
-                this.rowNumber, this.columnNumber));
+        sb.append("Matrix has ")
+                .append(this.rowNumber == 1 ? "1 row" : this.rowNumber + " rows")
+                .append(" and ")
+                .append(this.columnNumber == 1 ? "1 column" : this.columnNumber + " columns")
+                .append(". Matrix:\n[\n");
 
         for (int i = 0; i < currentMatrix.length; i++) {
             sb.append("[");
