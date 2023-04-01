@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Collections;
 import java.util.NoSuchElementException;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -607,6 +608,24 @@ public class StandardVector<T extends Number> implements IVector<T> {
         initializeColumnsAndRows(currentVector, isVertical());
 
         return this;
+    }
+
+    @Override
+    public Double reduce(BinaryOperator<Double> accumulator) {
+        return reduce(0d, accumulator);
+    }
+
+    @Override
+    public Double reduce(Double identity, BinaryOperator<Double> accumulator) {
+
+        Objects.requireNonNull(accumulator);
+
+        double result = identity;
+
+        for (Double d: currentVector)
+            result = accumulator.apply(result, d);
+
+        return result;
     }
 
     @Override

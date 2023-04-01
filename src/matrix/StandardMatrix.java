@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -826,6 +827,38 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         }
 
         return this;
+    }
+
+    @Override
+    public Double reduce(int column, BinaryOperator<Double> accumulator) {
+        return reduce(column, column + 1, 0d, accumulator);
+    }
+
+    @Override
+    public Double reduce(int fromColumn, int toColumn, BinaryOperator<Double> accumulator) {
+        return reduce(fromColumn, toColumn, 0d, accumulator);
+    }
+
+    @Override
+    public Double reduce(int fromColumn, int toColumn, Double identity, BinaryOperator<Double> accumulator) {
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Objects.requireNonNull(accumulator);
+
+        double result = identity;
+
+        for (int i = fromColumn; i < toColumn; i++) {
+            for (int j = 0; j < this.rowNumber; j++) {
+                result = accumulator.apply(result, this.currentMatrix[j][i]);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public Double reduce(int column, Double identity, BinaryOperator<Double> accumulator) {
+        return reduce(column, column + 1, identity, accumulator);
     }
 
     @Override

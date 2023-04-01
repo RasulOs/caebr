@@ -14,6 +14,13 @@ public class Main {
         System.out.println(vector.lInfinityNorm());
 
         System.out.println(vector.toString());
+
+        System.out.println(vector.reduce(10d, (a, b) -> {
+            if (b % 2 == 0)
+                a += b;
+            return a;
+        }));
+
         System.out.println(
                 vector
                 .map(d -> d * 2)
@@ -126,6 +133,8 @@ public class Main {
         );
 
         matrix2.forEach(0, System.out::println);
+
+        System.out.println(matrix2.reduce(0, matrix2.getColumnNumber(), 10d, Double::sum));
 
     }
 }
