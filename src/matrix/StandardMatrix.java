@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class StandardMatrix<T extends Number> implements IMatrix<T> {
@@ -23,8 +24,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         if (isMatrixJagged(this.currentMatrix))
             throw new IllegalArgumentException("Matrix cannot be jagged");
 
-        this.rowNumber = matrix.length;
-        this.columnNumber = matrix[0].length;
+        initializeColumnsAndRows();
     }
 
     private Double[][] transformToDoubleMatrix(T[][] matrix) {
@@ -35,6 +35,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
                 doubleMatrix[i][j] = matrix[i][j].doubleValue();
             }
         }
+
         return doubleMatrix;
     }
 
@@ -159,6 +160,16 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
                             this.columnNumber, matrix.length));
     }
 
+    private void initializeColumnsAndRows() {
+
+        this.rowNumber = this.currentMatrix.length;
+        this.columnNumber = this.currentMatrix[0].length;
+
+        if (this.rowNumber == 0 || this.columnNumber == 0)
+            throw new IllegalArgumentException("Matrix cannot be empty");
+
+    }
+
     @Override
     public IMatrix<T> add(T[][] matrix) {
 
@@ -255,6 +266,8 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         }
 
         currentMatrix = resultMatrix;
+
+        initializeColumnsAndRows();
 
         return this;
     }
@@ -764,6 +777,8 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         currentMatrix = transformToDoubleMatrixWithSpecialColumnPadding(currentMatrix, column);
 
+        initializeColumnsAndRows();
+
         return this;
     }
 
@@ -772,7 +787,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     private void checkColumn(T[] column, int index) {
-        if (column.length != this.columnNumber)
+        if (column.length != this.rowNumber)
             throw new IllegalArgumentException("Column length must be equal to matrix column number.");
 
         if (index < 0 || index >= this.columnNumber)
@@ -814,6 +829,17 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public void forEach(int column, Consumer<Double> consumer) {
+        checkColumnIndex(column);
+
+        Objects.requireNonNull(consumer);
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            consumer.accept(this.currentMatrix[i][column]);
+        }
+    }
+
+    @Override
     public Double[] popColumn(int index) {
 
         if (index < 0 || index >= this.columnNumber)
@@ -829,6 +855,8 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         }
 
         currentMatrix = transformToDoubleMatrixDropExactColumn(currentMatrix, index);
+
+        initializeColumnsAndRows();
 
         return column;
 

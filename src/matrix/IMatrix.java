@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface IMatrix<T extends Number> {
@@ -130,6 +131,8 @@ public interface IMatrix<T extends Number> {
     IMatrix<T> map(int column, Function<Double, Double> function);
 
     IMatrix<T> map(int fromColumn, int toColumn, Function<Double, Double> function);
+
+    void forEach(int column, Consumer<Double> consumer);
 
     Double[][] toMatrix();
 

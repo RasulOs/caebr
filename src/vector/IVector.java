@@ -4,6 +4,7 @@ import matrix.IMatrix;
 
 import java.util.List;
 import java.util.NavigableMap;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -92,6 +93,8 @@ public interface IVector<T extends Number> {
     IVector<T> map(Function<Double, Double> function);
 
     IVector<T> filter(Predicate<Double> predicate);
+
+    void forEach(Consumer<Double> consumer);
 
     int getRowNumber();
 

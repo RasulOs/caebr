@@ -19,6 +19,8 @@ public class Main {
                 .map(d -> d * 2)
                 .toString());
 
+        vector.forEach(System.out::println);
+        System.out.println();
 
         vector.add(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 
@@ -122,6 +124,8 @@ public class Main {
                 matrix2
                         .map(1, matrix2.getColumnNumber(), d -> d * 2)
         );
+
+        matrix2.forEach(0, System.out::println);
 
     }
 }

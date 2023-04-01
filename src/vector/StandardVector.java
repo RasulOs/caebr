@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Collections;
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -52,6 +53,9 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     private void initializeColumnsAndRows(List<Double> vector, boolean isVertical) {
+
+        if (vector.isEmpty())
+            throw new IllegalArgumentException("Vector cannot be empty");
 
         if (isVertical) {
             this.rows = vector.size();
@@ -203,13 +207,18 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         currentVector.remove(index);
 
+        initializeColumnsAndRows(currentVector, isVertical);
+
         return this;
     }
 
     @Override
     public IVector<T> drop(int fromIndex, int toIndex) {
 
-        currentVector.subList(fromIndex, toIndex + 1).clear();
+        currentVector.subList(fromIndex, toIndex + 1)
+                .clear();
+
+        initializeColumnsAndRows(currentVector, isVertical);
 
         return this;
     }
@@ -219,17 +228,23 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         currentVector.remove(currentVector.size() - 1);
 
+        initializeColumnsAndRows(currentVector, isVertical);
+
         return this;
     }
 
     @Override
     public Double pop(int index) {
-        return currentVector.remove(index);
+        double d = currentVector.remove(index);
+        initializeColumnsAndRows(currentVector, isVertical);
+        return d;
     }
 
     @Override
     public Double pop() {
-        return currentVector.remove(currentVector.size() - 1);
+        double d = currentVector.remove(currentVector.size() - 1);
+        initializeColumnsAndRows(currentVector, isVertical);
+        return d;
     }
 
     private void checkVectorForDot(T[] vector, boolean isVertical) {
@@ -460,6 +475,8 @@ public class StandardVector<T extends Number> implements IVector<T> {
             throw new IllegalArgumentException("Start or end index cannot be greater than size of vector");
 
         currentVector = currentVector.subList(start, end);
+
+        initializeColumnsAndRows(currentVector, isVertical);
     }
 
     @Override
@@ -590,6 +607,14 @@ public class StandardVector<T extends Number> implements IVector<T> {
         initializeColumnsAndRows(currentVector, isVertical());
 
         return this;
+    }
+
+    @Override
+    public void forEach(Consumer<Double> consumer) {
+        Objects.requireNonNull(consumer);
+
+        for (Double d: currentVector)
+            consumer.accept(d);
     }
 
     public Double[] toArray() {
