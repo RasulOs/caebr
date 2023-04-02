@@ -212,7 +212,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
-    public IMatrix<T> dot(T[][] matrix) {
+    public IMatrix<T> multiply(T[][] matrix) {
 
         checkMatrix(matrix);
 
@@ -274,14 +274,14 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
-    public IMatrix<T> dot(IMatrix<T> iMatrix) {
-        dot((T[][]) iMatrix.toMatrix());
+    public IMatrix<T> multiply(IMatrix<T> iMatrix) {
+        multiply((T[][]) iMatrix.toMatrix());
 
         return this;
     }
 
     @Override
-    public IMatrix<T> dot(T number) {
+    public IMatrix<T> multiply(T number) {
 
         for (int i = 0; i < this.rowNumber; i++) {
             for (int j = 0; j < this.columnNumber; j++) {

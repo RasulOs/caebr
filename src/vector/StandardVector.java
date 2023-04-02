@@ -1,6 +1,7 @@
 package vector;
 
 import matrix.IMatrix;
+import matrix.StandardMatrix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,7 +72,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     public IVector<T> add(T[] b, boolean isVertical) {
 
-        checkVector(b, isVertical);
+        checkVectorForAdditionOrSubtraction(b, isVertical);
 
         List<Double> result = new ArrayList<>(currentVector.size());
 
@@ -84,7 +85,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
-    private void checkVector(T[] vector, boolean isVertical) {
+    private void checkVectorForAdditionOrSubtraction(T[] vector, boolean isVertical) {
         Objects.requireNonNull(vector, "Vector cannot be null");
         checkDimensions(vector, isVertical);
     }
@@ -115,7 +116,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     public IVector<T> subtract(T[] b, boolean isVertical) {
 
-        checkVector(b, isVertical);
+        checkVectorForAdditionOrSubtraction(b, isVertical);
 
         List<Double> result = new ArrayList<>(currentVector.size());
 
@@ -169,23 +170,60 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     @Override
-    public IMatrix<T> dot(T[] vector) {
-        // TODO
-        return null;
+    public IMatrix<Double> multiply(T[] vector) {
+        return multiply(vector, true);
     }
 
-    public IMatrix<T> dot(T[] vector, boolean isVertical) {
-        // TODO
-        return null;
+    public IMatrix<Double> multiply(T[] vector, boolean isVertical) {
+        checkVectorForMultiplication(vector, isVertical);
+
+        double result = 0d;
+        StandardMatrix<Double> matrix = null;
+
+        if (isResultOfMultiplicationVector(vector, isVertical)) {
+            for (int i = 0; i < currentVector.size(); i++) {
+                result += currentVector.get(i) * vector[i].doubleValue();
+            }
+
+            currentVector.clear();
+            currentVector.add(result);
+            initializeColumnsAndRows(currentVector, this.isVertical);
+
+            matrix = new StandardMatrix<>(new Double[][]{{result}});
+
+        } else {
+            Double[][] matrixResult = new Double[currentVector.size()][vector.length];
+
+
+            for (int i = 0; i < currentVector.size(); i++) {
+                for (int j = 0; j < vector.length; j++) {
+                    matrixResult[i][j] = currentVector.get(i) * vector[j].doubleValue();
+                }
+            }
+
+            matrix = new StandardMatrix<>(matrixResult);
+        }
+
+        return matrix;
     }
 
     @Override
-    public IVector<T> dot(T number) {
+    public IMatrix<Double> multiply(IVector<T> iVector) {
+        return multiply((T[]) iVector.toArray(), iVector.isVertical());
+    }
+
+    @Override
+    public IVector<T> multiply(T number) {
 
         currentVector.replaceAll(x -> x * number.doubleValue());
 
         return this;
     }
+
+    private boolean isResultOfMultiplicationVector(T[] vector, boolean isVertical) {
+        return !this.isVertical && isVertical;
+    }
+
 
     @Override
     public IVector<T> put(T number) {
@@ -248,13 +286,13 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return d;
     }
 
-    private void checkVectorForDot(T[] vector, boolean isVertical) {
+    private void checkVectorForMultiplication(T[] vector, boolean isVertical) {
         Objects.requireNonNull(vector, "Vector cannot be null");
 
-        checkDimensionsForDot(vector, isVertical);
+        checkDimensionsForMultiplication(vector, isVertical);
     }
 
-    private void checkDimensionsForDot(T[] vector, boolean isVertical) {
+    private void checkDimensionsForMultiplication(T[] vector, boolean isVertical) {
         if (this.isVertical == isVertical) {
                     throw new IllegalArgumentException(String.format("The vectors are the same orientation. " +
                             "First vector orientation: %s, Second vector orientation: %s", this.isVertical ? "vertical" : "horizontal",

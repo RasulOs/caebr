@@ -19,11 +19,13 @@ public interface IVector<T extends Number> {
 
     IVector<T> subtract(T[] b, boolean isVertical);
 
-    IMatrix<T> dot(T[] vector);
+    IMatrix<Double> multiply(T[] vector);
 
-    IMatrix<T> dot(T[] vector, boolean isVertical);
+    IMatrix<Double> multiply(T[] vector, boolean isVertical);
 
-    IVector<T> dot(T number);
+    IMatrix<Double> multiply(IVector<T> iVector);
+
+    IVector<T> multiply(T number);
 
     IVector<T> put(T number);
 

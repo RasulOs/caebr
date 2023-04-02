@@ -17,11 +17,11 @@ public interface IMatrix<T extends Number> {
 
     IMatrix<T> transpose();
 
-    IMatrix<T> dot(T[][] matrix);
+    IMatrix<T> multiply(T[][] matrix);
 
-    IMatrix<T> dot(IMatrix<T> iMatrix);
+    IMatrix<T> multiply(IMatrix<T> iMatrix);
 
-    IMatrix<T> dot(T number);
+    IMatrix<T> multiply(T number);
 
     Double sum();
 
