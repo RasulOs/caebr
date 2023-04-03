@@ -47,8 +47,6 @@ public interface IVector<T extends Number> {
 
     IVector<T> transpose();
 
-    IMatrix<T> dot(IVector<T> iVector);
-
     Double sum();
 
     Double mean();

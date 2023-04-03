@@ -324,12 +324,6 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     @Override
-    public IMatrix<T> dot(IVector<T> iVector) {
-        // TODO
-        return null;
-    }
-
-    @Override
     public Double sum() {
         Double sum = 0.0;
 
