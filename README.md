@@ -6,10 +6,10 @@ The library is useful for everyone who wants to see how some Linear Algebra func
 
 The library supports a variety of functions to be performed on Vectors and Matrices.
 
-* Addition, subtraction, multiplication
+* Addition, subtraction, multiplication, transpose
 * Standardization, normalization (Min-Max normalization, Z-Score standardization)
 * Min, max, mean, sum, mode, median, range
-* l1, l2, l-Infinity norms.
+* l1, l2, l-Infinity norms
 * map, reduce, filter, slice, forEach, sort, reverse, shuffle
 
 And etc.
