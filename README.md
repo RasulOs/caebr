@@ -19,5 +19,5 @@ And etc.
 ```
 LinAlg is licenced under the LGPLv2.1 licence. 
 
-See the [LICENCE](https://github.com/RasulOs/LinAlg/blob/main/LICENSE) for the details.
+See the [LICENCE](https://raw.githubusercontent.com/RasulOs/LinAlg/main/LICENSE) for the details.
 ```
