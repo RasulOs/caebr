@@ -97,6 +97,18 @@ public interface IMatrix<T extends Number> {
 
     IMatrix<T> zScoreStandardization(int fromColumn, int toColumn);
 
+    /* A total number of non-zero elements in a vector */
+    Integer l0Norm(int column);
+
+    /* Manhattan Distance */
+    Double l1Norm(int column);
+
+    /* Euclidean Distance */
+    Double l2Norm(int column);
+
+    /* Max absolute value of the vector */
+    Double lInfinityNorm(int column);
+
     int getRowNumber();
 
     int getColumnNumber();

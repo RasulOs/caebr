@@ -558,6 +558,19 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     @Override
+    public Integer l0Norm() {
+        if (currentVector.size() == 0)
+            return 0;
+
+        int count = 0;
+
+        for (Double d: currentVector)
+            if (d != 0) count++;
+
+        return count;
+    }
+
+    @Override
     public Double l1Norm() {
 
         if (currentVector.size() == 0)
@@ -567,7 +580,6 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         for (Double d: currentVector)
             absSum += Math.abs(d);
-
 
         return absSum;
     }

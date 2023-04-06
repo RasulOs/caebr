@@ -81,6 +81,8 @@ public interface IVector<T extends Number> {
 
     IVector<T> zScoreStandardization();
 
+    /* A total number of non-zero elements in a vector */
+    Integer l0Norm();
 
     /* Manhattan Distance */
     Double l1Norm();

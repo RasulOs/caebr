@@ -683,6 +683,68 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public Integer l0Norm(int column) {
+        checkColumnIndex(column);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0;
+
+        int count = 0;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            if (currentMatrix[i][column] != 0) count++;
+        }
+
+        return count;
+    }
+
+    @Override
+    public Double l1Norm(int column) {
+        checkColumnIndex(column);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
+
+        double absSum = 0d;
+
+        for (int i = 0; i < this.rowNumber; i++)
+            absSum += Math.abs(currentMatrix[i][column]);
+
+        return absSum;
+    }
+
+    @Override
+    public Double l2Norm(int column) {
+        checkColumnIndex(column);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
+
+        double sumOfSquares = 0d;
+
+        for (int i = 0; i < this.rowNumber; i++)
+            sumOfSquares += Math.pow(currentMatrix[i][column], 2);
+
+        return Math.sqrt(sumOfSquares);
+    }
+
+    @Override
+    public Double lInfinityNorm(int column) {
+        checkColumnIndex(column);
+
+        if (rowNumber == 0 || columnNumber == 0)
+            return 0.0;
+
+        double absMax = Double.MIN_VALUE;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            if (Math.abs(currentMatrix[i][column]) > absMax) absMax = Math.abs(currentMatrix[i][column]);
+        }
+
+        return absMax;
+    }
+
+    @Override
     public int getRowNumber() {
         return this.rowNumber;
     }
