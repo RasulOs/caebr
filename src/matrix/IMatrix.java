@@ -155,6 +155,18 @@ public interface IMatrix<T extends Number> {
 
     void forEach(int column, Consumer<Double> consumer);
 
+    List<Double> toList();
+
+    List<Double> toList(int column);
+
+    List<Double> toList(int fromColumn, int toColumn);
+
+    List<Double> distinct();
+
+    List<Double> distinct(int column);
+
+    List<Double> distinct(int fromColumn, int toColumn);
+
     Double[][] toMatrix();
 
     Double[] toArray(int column);

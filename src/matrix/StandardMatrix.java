@@ -935,6 +935,56 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     @Override
+    public List<Double> toList() {
+        return toList(0, this.columnNumber);
+    }
+
+    @Override
+    public List<Double> toList(int column) {
+        return toList(column, column + 1);
+    }
+
+    @Override
+    public List<Double> toList(int fromColumn, int toColumn) {
+        checkColumnIndexes(fromColumn, toColumn);
+
+        List<Double> list = new ArrayList<>();
+
+        for (int i = fromColumn; i < toColumn; i++) {
+            for (int j = 0; j < this.rowNumber; j++) {
+                list.add(this.currentMatrix[j][i]);
+            }
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Double> distinct() {
+        return distinct(0, this.columnNumber);
+    }
+
+    @Override
+    public List<Double> distinct(int column) {
+        return distinct(column, column + 1);
+    }
+
+    @Override
+    public List<Double> distinct(int fromColumn, int toColumn) {
+        checkColumnIndexes(fromColumn, toColumn);
+
+        Set<Double> set = new LinkedHashSet<>();
+
+        for (int i = fromColumn; i < toColumn; i++) {
+            for (int j = 0; j < this.rowNumber; j++) {
+                set.add(this.currentMatrix[j][i]);
+            }
+        }
+
+        return new ArrayList<>(set);
+    }
+
+    @Override
     public Double[] popColumn(int index) {
 
         if (index < 0 || index >= this.columnNumber)
