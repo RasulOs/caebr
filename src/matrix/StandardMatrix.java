@@ -12,18 +12,25 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     private int rowNumber;
     private int columnNumber;
 
+    private static final String MATRIX_CANNOT_BE_NULL = "Matrix cannot be null";
+    private static final String MATRIX_CANNOT_BE_EMPTY = "Matrix cannot be empty";
+    private static final String MATRIX_CANNOT_BE_JAGGED = "Matrix cannot be jagged";
+    private static final String COLUMN_INDEX_IS_OUT_OF_BOUNDS = "Column index is out of bounds";
+
+
+
     public StandardMatrix(T[][] matrix) {
 
         if (matrix == null)
-            throw new IllegalArgumentException("Matrix cannot be null");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_NULL);
 
         if (isMatrixEmpty(matrix))
-            throw new IllegalArgumentException("Matrix cannot be empty");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_EMPTY);
 
         this.currentMatrix = transformToDoubleMatrix(matrix);
 
         if (isMatrixJagged(this.currentMatrix))
-            throw new IllegalArgumentException("Matrix cannot be jagged");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_JAGGED);
 
         initializeColumnsAndRows();
     }
@@ -115,24 +122,24 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     private void checkMatrix(IMatrix<T> iMatrix) {
         if (iMatrix == null)
-            throw new IllegalArgumentException("Matrix cannot be null");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_NULL);
 
         if (isMatrixEmpty(iMatrix))
-            throw new IllegalArgumentException("Matrix cannot be empty");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_EMPTY);
 
         if (isMatrixJagged(iMatrix))
-            throw new IllegalArgumentException("Matrix cannot be jagged");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_JAGGED);
     }
 
     private void checkMatrix(T[][] matrix) {
         if (matrix == null)
-            throw new IllegalArgumentException("Matrix cannot be null");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_NULL);
 
         if (isMatrixEmpty(matrix))
-            throw new IllegalArgumentException("Matrix cannot be empty");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_EMPTY);
 
         if (isMatrixJagged(transformToDoubleMatrix(matrix)))
-            throw new IllegalArgumentException("Matrix cannot be jagged");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_JAGGED);
     }
 
     private void checkMatrixDimensionsForSymmetricity(IMatrix<T> iMatrix) {
@@ -167,7 +174,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         this.columnNumber = this.currentMatrix[0].length;
 
         if (this.rowNumber == 0 || this.columnNumber == 0)
-            throw new IllegalArgumentException("Matrix cannot be empty");
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_EMPTY);
 
     }
 
@@ -575,7 +582,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     public IMatrix<T> sort(int column) {
 
         if (column < 0 || column >= this.columnNumber)
-            throw new IllegalArgumentException("Column index is out of bounds");
+            throw new IllegalArgumentException(COLUMN_INDEX_IS_OUT_OF_BOUNDS);
 
         Double[] columnArray = toArray(column, column + 1);
 
@@ -589,10 +596,10 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
 
         if (fromColumn < 0 || fromColumn >= this.columnNumber)
-            throw new IllegalArgumentException("Column index is out of bounds");
+            throw new IllegalArgumentException(COLUMN_INDEX_IS_OUT_OF_BOUNDS);
 
         if (toColumn < 0 || toColumn > this.columnNumber)
-            throw new IllegalArgumentException("Column index is out of bounds");
+            throw new IllegalArgumentException(COLUMN_INDEX_IS_OUT_OF_BOUNDS);
 
         if (fromColumn > toColumn)
             throw new IllegalArgumentException("From column index is greater than to column index");
@@ -858,6 +865,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     private void checkColumn(Double[] column, int index) {
+        checkColumn((T[]) column, index);
     }
 
     @Override

@@ -26,15 +26,17 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     private boolean isVertical;
 
+    private static final String VECTOR_CANNOT_BE_NULL = "Vector cannot be null";
+
     public StandardVector(T[] vector) {
-        Objects.requireNonNull(vector, "Vector cannot be null");
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
         transformToDoubleVectorList(vector);
 
         initializeColumnsAndRows(currentVector, true);
     }
 
     public StandardVector(T[] vector, boolean isVertical) {
-        Objects.requireNonNull(vector, "Vector cannot be null");
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
         transformToDoubleVectorList(vector);
 
         initializeColumnsAndRows(currentVector, isVertical);
@@ -86,7 +88,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     private void checkVectorForAdditionOrSubtraction(T[] vector, boolean isVertical) {
-        Objects.requireNonNull(vector, "Vector cannot be null");
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
         checkDimensions(vector, isVertical);
     }
 
@@ -287,7 +289,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     private void checkVectorForMultiplication(T[] vector, boolean isVertical) {
-        Objects.requireNonNull(vector, "Vector cannot be null");
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
 
         checkDimensionsForMultiplication(vector, isVertical);
     }

@@ -6,15 +6,20 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        StandardMatrix<Integer> matrix1 = new StandardMatrix<>(new Integer[][]{
-                {-10, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
+        StandardMatrix<Double> matrix1 = new StandardMatrix<>(new Double[][]{
+                {-10d, 2d, 3d},
+                {4d, 5d, 6d},
+                {7d, 8d, 9d}
         });
 
         System.out.println(matrix1.l0Norm(0));
         System.out.println(matrix1.l1Norm(0));
         System.out.println(matrix1.l2Norm(0));
         System.out.println(matrix1.lInfinityNorm(0));
+
+        System.out.println(matrix1);
+        System.out.println(
+                matrix1.setColumn(new Double[] {1.0, 2.0, 3.0}, 2)
+        );
     }
 }
