@@ -21,5 +21,9 @@ public class Main {
         System.out.println(
                 matrix1.setColumn(new Double[] {1.0, 2.0, 3.0}, 2)
         );
+
+        StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 3, 1, 0});
+
+        System.out.println(vector1.distinct());
     }
 }

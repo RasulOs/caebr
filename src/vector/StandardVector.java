@@ -3,12 +3,7 @@ package vector;
 import matrix.IMatrix;
 import matrix.StandardMatrix;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Collections;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -152,7 +147,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
                 if (isVertical)
                     sb.append("\n");
             }
-        };
+        }
 
         sb.append("\n]");
 
@@ -337,7 +332,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public Double mean() {
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0.0;
 
         Double sum = sum();
@@ -347,7 +342,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public Double max() {
 
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0.0;
 
         Double max = Double.MIN_VALUE;
@@ -363,7 +358,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public Double min() {
 
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0.0;
 
         Double min = Double.MAX_VALUE;
@@ -423,7 +418,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public Double variance() {
 
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0.0;
 
         Double mean = mean();
@@ -442,6 +437,19 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public Double standardDeviation() {
         return Math.sqrt(variance());
+    }
+
+    @Override
+    public List<Double> distinct() {
+        if (currentVector.isEmpty())
+            return new ArrayList<>();
+
+        Set<Double> set = new LinkedHashSet<>();
+
+        for (int i = 0; i < currentVector.size(); i++)
+            set.add(this.currentVector.get(i));
+
+        return new ArrayList<>(set);
     }
 
     @Override
@@ -530,7 +538,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     private List<Double> minMaxNormalization(double min, double max, List<Double> doubleList) {
 
-        if (doubleList.size() == 0)
+        if (doubleList.isEmpty())
             return doubleList;
 
         if (min > max)
@@ -561,7 +569,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public Integer l0Norm() {
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0;
 
         int count = 0;
@@ -575,7 +583,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public Double l1Norm() {
 
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0d;
 
         double absSum = 0d;
@@ -589,7 +597,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public Double l2Norm() {
 
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0d;
 
         double sumOfSquares = 0d;
@@ -602,7 +610,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public Double lInfinityNorm() {
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0d;
 
         double absMax = Double.MIN_VALUE;
@@ -615,7 +623,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     private List<Double> zScoreStandardizationInternal() {
 
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return currentVector;
 
         Double mean = mean();
@@ -648,7 +656,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
                 .filter(predicate)
                 .collect(Collectors.toList());
 
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             throw new IllegalArgumentException("Vector cannot be empty after filtering");
 
         initializeColumnsAndRows(currentVector, isVertical());

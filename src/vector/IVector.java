@@ -63,6 +63,8 @@ public interface IVector<T extends Number> {
 
     Double standardDeviation();
 
+    List<Double> distinct();
+
     Double range();
 
     IVector<T> sort();
