@@ -20,7 +20,7 @@ And etc.
 ## Licence
 
 ```
-LinAlg is licenced under the LGPLv2.1 licence. 
+caebr is licenced under the LGPLv2.1 licence. 
 
 See the LICENCE for the details.
 ```
