@@ -25,5 +25,15 @@ public class Main {
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 3, 1, 0});
 
         System.out.println(vector1.distinct());
+
+        System.out.println(matrix1.isIdentity());
+
+        StandardMatrix<Integer> matrix2 = new StandardMatrix<>(new Integer[][]
+                        {{1, 0, 0},
+                        {0, 1, 0},
+                        {0, 0, 1}});
+
+        System.out.println(matrix2.isIdentity());
+
     }
 }

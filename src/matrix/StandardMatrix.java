@@ -777,8 +777,17 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     @Override
     public boolean isIdentity() {
 
-        // TODO
-        return false;
+        if (!isSquare())
+            return false;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                if (i == j && this.currentMatrix[i][j] != 1) return false;
+                if (i != j && this.currentMatrix[i][j] != 0) return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -1025,7 +1034,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
                 .append(". Matrix:\n[\n");
 
         for (int i = 0; i < currentMatrix.length; i++) {
-            sb.append("[");
+            sb.append("\t[");
             for (int j = 0; j < currentMatrix[0].length; j++) {
                 sb.append(currentMatrix[i][j]);
 
