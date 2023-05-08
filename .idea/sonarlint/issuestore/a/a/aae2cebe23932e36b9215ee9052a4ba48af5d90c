@@ -1,0 +1,21 @@
+
+k
+java:S1192^"IDefine a constant instead of duplicating this literal "vertical" 4 times.(Ϊ£δώÿÿÿÿ8ζη¦εύ0
+m
+java:S1192^"KDefine a constant instead of duplicating this literal "horizontal" 4 times.(Ϊ£δώÿÿÿÿ8ζη¦εύ0
+K
+java:S1172ά"-Remove this unused method parameter "vector".(ίΰώτ8¶ι¦εύ0
+a
+java:S1155ψ">Use isEmpty() to check whether the collection is empty or not.(ρΠό‚ϊÿÿÿÿ8Γι¦εύ0
+R
+java:S2864"4Iterate over the "entrySet" instead of the "keySet".(ϊµυτ8Βι¦εύ0
+p
+java:S6204°"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨Ή8Κι¦εύ0
+p
+java:S6204ό"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨Ή8Σι¦εύ0
+~
+java:S4276€"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ϊ²βϋÿÿÿÿ8Τι¦εύ0
+Y
+java:S1144("<Remove this unused private "transformToDoubleVector" method.(Ζ¦βΔ8ίι¦εύ0
+G
+java:S1144Ϊ")Remove this unused private "swap" method.(ίξΥƒ8ίι¦εύ0
