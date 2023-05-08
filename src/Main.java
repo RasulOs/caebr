@@ -26,7 +26,7 @@ public class Main {
 
         System.out.println(vector1.distinct());
 
-        System.out.println(matrix1.isIdentity());
+        System.out.println(matrix1.isIdentity() + "\n");
 
         StandardMatrix<Integer> matrix2 = new StandardMatrix<>(new Integer[][]
                         {{1, 0, 0},
@@ -34,6 +34,28 @@ public class Main {
                         {0, 0, 1}});
 
         System.out.println(matrix2.isIdentity());
+        System.out.println(matrix2.isDiagonal());
+        System.out.println(matrix2.isAntiDiagonal());
+        System.out.println("isSymmetric: " + matrix2.isSymmetric() + "\n");
+
+        StandardMatrix<Integer> matrix3 = new StandardMatrix<>(new Integer[][]
+                        {{0, 0, 1},
+                        {0, 1, 0},
+                        {1, 0, 0}});
+
+        System.out.println(matrix3.isIdentity());
+        System.out.println(matrix3.isDiagonal());
+        System.out.println(matrix3.isAntiDiagonal());
+        System.out.println("isSymmetric: " + matrix3.isSymmetric() + "\n");
+
+
+        StandardMatrix<Integer> matrix4 = new StandardMatrix<>(new Integer[][]
+                        {{1, 3, 6},
+                        {3, 4, 5},
+                        {6, 5, 9}});
+
+        System.out.println(matrix4.isSymmetric());
+
 
     }
 }

@@ -769,9 +769,16 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public boolean isSymmetric() {
+        if (!isSquare())
+            return false;
 
-        // TODO
-        return false;
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                if (!Objects.equals(this.currentMatrix[i][j], this.currentMatrix[j][i])) return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -792,14 +799,30 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public boolean isDiagonal() {
-        // TODO
-        return false;
+        if (!isSquare())
+            return false;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                if (i != j && this.currentMatrix[i][j] != 0) return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
     public boolean isAntiDiagonal() {
-        // TODO
-        return false;
+        if (!isSquare())
+            return false;
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for(int j = this.columnNumber - 1; j >= 0; j--) {
+                if (i + j != this.columnNumber - 1 && this.currentMatrix[i][j] != 0) return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -844,7 +867,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         checkColumn(column, index);
 
         for (int i = 0; i < column.length; i++) {
-            this.currentMatrix[i][index] = column[i].doubleValue();
+            this.currentMatrix[i][index] = column[i];
         }
 
         return this;

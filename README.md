@@ -13,6 +13,7 @@ The library supports a variety of functions to be performed on Vectors and Matri
 * map, reduce, filter, slice, forEach, sort, reverse, shuffle, distinct, toList, toArray
 * Matrix structure manipulation (dropColumn, setColumn, putColumn, popColumn)
 * Vector structure manipulation (drop, set, put, pop)
+* Check if matrix is: symmetric, diagonal, antiDiagonal, square, identity
 
 And etc.
 

@@ -175,7 +175,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         checkVectorForMultiplication(vector, isVertical);
 
         double result = 0d;
-        StandardMatrix<Double> matrix = null;
+        StandardMatrix<Double> matrix;
 
         if (isResultOfMultiplicationVector(vector, isVertical)) {
             for (int i = 0; i < currentVector.size(); i++) {
@@ -373,7 +373,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public Double median() {
-        if (currentVector.size() == 0)
+        if (currentVector.isEmpty())
             return 0.0;
 
         List<Double> tempList = new ArrayList<>(currentVector);
