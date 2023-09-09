@@ -636,7 +636,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         int count = 0;
 
         for (Double d: currentVector)
-            if (!approximateToZero(d)) count++;
+            if (!approximatelyZero(d)) count++;
 
         return count;
     }
@@ -816,8 +816,12 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return isVertical;
     }
 
-    private boolean approximateToZero(Double d) {
-        return Math.abs(d) < epsilon;
+    private boolean approximatelyZero(Double d) {
+        return d < epsilon && d > -epsilon;
+    }
+
+    private boolean approximatelyEqual(Double d1, Double d2) {
+        return Math.abs(d1 - d2) < epsilon;
     }
 
     @Override

@@ -17,7 +17,8 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     private static final String MATRIX_CANNOT_BE_JAGGED = "Matrix cannot be jagged";
     private static final String COLUMN_INDEX_IS_OUT_OF_BOUNDS = "Column index is out of bounds";
 
-
+    // Default epsilon value. Used for comparing doubles.
+    private double epsilon = 0.000001;
 
     public StandardMatrix(T[][] matrix) {
 
@@ -699,7 +700,8 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         int count = 0;
 
         for (int i = 0; i < this.rowNumber; i++) {
-            if (currentMatrix[i][column] != 0) count++;
+            if (!approximatelyZero(this.currentMatrix[i][column]))
+                count++;
         }
 
         return count;
@@ -790,7 +792,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         for (int i = 0; i < this.rowNumber; i++) {
             for (int j = 0; j < this.columnNumber; j++) {
                 if (i == j && this.currentMatrix[i][j] != 1) return false;
-                if (i != j && this.currentMatrix[i][j] != 0) return false;
+                if (i != j && !approximatelyZero(this.currentMatrix[i][j])) return false;
             }
         }
 
@@ -804,7 +806,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         for (int i = 0; i < this.rowNumber; i++) {
             for (int j = 0; j < this.columnNumber; j++) {
-                if (i != j && this.currentMatrix[i][j] != 0) return false;
+                if (i != j && !approximatelyZero(this.currentMatrix[i][j])) return false;
             }
         }
 
@@ -818,7 +820,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
         for (int i = 0; i < this.rowNumber; i++) {
             for(int j = this.columnNumber - 1; j >= 0; j--) {
-                if (i + j != this.columnNumber - 1 && this.currentMatrix[i][j] != 0) return false;
+                if (i + j != this.columnNumber - 1 && !approximatelyZero(this.currentMatrix[i][j])) return false;
             }
         }
 
@@ -1030,7 +1032,8 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         if (index < 0 || index >= this.columnNumber)
             throw new IllegalArgumentException("Column index must be between 0 and " + (this.columnNumber - 1));
 
-        if (this.columnNumber <= 2)
+        // TODO check if this is correct
+        if (this.columnNumber < 2)
             throw new IllegalArgumentException("Matrix must have at least two columns.");
 
         Double[] column = new Double[this.rowNumber];
@@ -1297,5 +1300,23 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         return "StandardMatrix {\n" +
                 content() + "\n" +
                 '}';
+    }
+
+    private boolean approximatelyZero(Double d) {
+        return d < epsilon && d > -epsilon;
+    }
+
+    private boolean approximatelyEqual(Double d1, Double d2) {
+        return Math.abs(d1 - d2) < epsilon;
+    }
+
+    @Override
+    public void setEpsilon(double epsilon) {
+        this.epsilon = epsilon;
+    }
+
+    @Override
+    public double getEpsilon() {
+        return epsilon;
     }
 }

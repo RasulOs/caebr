@@ -202,4 +202,8 @@ public interface IMatrix<T extends Number> {
     Long[] toLongArray(int column);
 
     Long[] toLongArray(int fromColumn, int toColumn);
+
+    void setEpsilon(double epsilon);
+
+    double getEpsilon();
 }
