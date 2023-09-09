@@ -3,7 +3,6 @@ package vector;
 import matrix.IMatrix;
 
 import java.util.List;
-import java.util.NavigableMap;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -15,9 +14,17 @@ public interface IVector<T extends Number> {
 
     IVector<T> add(T[] b, boolean isVertical);
 
+    IVector<T> add(IVector<T> iVector);
+
+    IVector<T> add(T number);
+
     IVector<T> subtract(T[] vector);
 
     IVector<T> subtract(T[] b, boolean isVertical);
+
+    IVector<T> subtract(IVector<T> iVector);
+
+    IVector<T> subtract(T number);
 
     IMatrix<Double> multiply(T[] vector);
 
@@ -28,6 +35,8 @@ public interface IVector<T extends Number> {
     IVector<T> multiply(T number);
 
     IVector<T> put(T number);
+
+    IVector<T> put(T[] numbers);
 
     IVector<T> set(T number, int index);
 
@@ -40,10 +49,6 @@ public interface IVector<T extends Number> {
     Double pop(int index);
 
     Double pop();
-
-    IVector<T> add(IVector<T> iVector);
-
-    IVector<T> subtract(IVector<T> iVector);
 
     IVector<T> transpose();
 
@@ -122,4 +127,8 @@ public interface IVector<T extends Number> {
     Double[] toArray();
 
     Float[] toFloatArray();
+
+    void setEpsilon(double epsilon);
+
+    double getEpsilon();
 }

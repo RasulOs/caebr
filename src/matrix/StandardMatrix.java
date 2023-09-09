@@ -1294,7 +1294,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public String toString() {
-        return "BasicMatrix {\n" +
+        return "StandardMatrix {\n" +
                 content() + "\n" +
                 '}';
     }

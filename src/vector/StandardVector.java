@@ -19,9 +19,13 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     private int columns;
 
+    // Default orientation is vertical
     private boolean isVertical;
 
     private static final String VECTOR_CANNOT_BE_NULL = "Vector cannot be null";
+
+    // Default epsilon value. Used for comparing doubles.
+    private double epsilon = 0.000001;
 
     public StandardVector(T[] vector) {
         Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
@@ -156,7 +160,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public String toString() {
-        return "BasicVector {\n" +
+        return "StandardVector {\n" +
                 content() + "\n" +
                 '}';
     }
@@ -227,19 +231,50 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         currentVector.add(number.doubleValue());
 
+        initializeColumnsAndRows(currentVector, isVertical);
+
         return this;
     }
 
     @Override
+    public IVector<T> put(T[] numbers) {
+
+        for (T number : numbers)
+            currentVector.add(number.doubleValue());
+
+        initializeColumnsAndRows(currentVector, isVertical);
+
+        return this;
+    }
+
+
+    @Override
     public IVector<T> set(T number, int index) {
+
+        checkIndexes(index, index);
 
         currentVector.set(index, number.doubleValue());
 
         return this;
     }
 
+    private void checkIndexes(int fromIndex, int toIndex) {
+
+        if (fromIndex < 0 || toIndex < 0)
+            throw new IllegalArgumentException("Indexes cannot be negative");
+
+        if (fromIndex > toIndex)
+            throw new IllegalArgumentException("From index cannot be greater than to index");
+
+        if (fromIndex > currentVector.size() - 1 || toIndex > currentVector.size() - 1)
+            throw new IllegalArgumentException("Indexes cannot be greater or equal to a vector size");
+    }
+
+
     @Override
     public IVector<T> drop(int index) {
+
+        checkIndexes(index, index);
 
         currentVector.remove(index);
 
@@ -251,7 +286,9 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public IVector<T> drop(int fromIndex, int toIndex) {
 
-        currentVector.subList(fromIndex, toIndex + 1)
+        checkIndexes(fromIndex, toIndex);
+
+        currentVector.subList(fromIndex, toIndex)
                 .clear();
 
         initializeColumnsAndRows(currentVector, isVertical);
@@ -262,6 +299,9 @@ public class StandardVector<T extends Number> implements IVector<T> {
     @Override
     public IVector<T> drop() {
 
+        if (currentVector.isEmpty())
+            throw new IllegalArgumentException("Vector is empty");
+
         currentVector.remove(currentVector.size() - 1);
 
         initializeColumnsAndRows(currentVector, isVertical);
@@ -271,6 +311,9 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public Double pop(int index) {
+
+        checkIndexes(index, index);
+
         double d = currentVector.remove(index);
         initializeColumnsAndRows(currentVector, isVertical);
         return d;
@@ -278,6 +321,10 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public Double pop() {
+
+        if (currentVector.isEmpty())
+            throw new IllegalArgumentException("Vector is empty");
+
         double d = currentVector.remove(currentVector.size() - 1);
         initializeColumnsAndRows(currentVector, isVertical);
         return d;
@@ -309,8 +356,22 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     @Override
+    public IVector<T> add(T number) {
+        currentVector.replaceAll(x -> x + number.doubleValue());
+
+        return this;
+    }
+
+    @Override
     public IVector<T> subtract(IVector<T> iVector) {
         return subtract((T[]) ((StandardVector<T>)iVector).toArray(), ((StandardVector<T>) iVector).isVertical());
+    }
+
+    @Override
+    public IVector<T> subtract(T number) {
+        currentVector.replaceAll(x -> x - number.doubleValue());
+
+        return this;
     }
 
     @Override
@@ -575,7 +636,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         int count = 0;
 
         for (Double d: currentVector)
-            if (d != 0) count++;
+            if (!approximateToZero(d)) count++;
 
         return count;
     }
@@ -753,5 +814,19 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     public boolean isVertical() {
         return isVertical;
+    }
+
+    private boolean approximateToZero(Double d) {
+        return Math.abs(d) < epsilon;
+    }
+
+    @Override
+    public void setEpsilon(double epsilon) {
+        this.epsilon = epsilon;
+    }
+
+    @Override
+    public double getEpsilon() {
+        return epsilon;
     }
 }
