@@ -1,11 +1,11 @@
 
-o
-java:S4276g"YRefactor this code to use the more specialised Functional Interface 'DoubleUnaryOperator'(áê»Û
-p
-java:S4276i"URefactor this code to use the more specialised Functional Interface 'DoublePredicate'(éÀÂˆÿÿÿÿÿ
-p
-java:S4276k"ZRefactor this code to use the more specialised Functional Interface 'DoubleBinaryOperator'(öûöŸ
-p
-java:S4276m"ZRefactor this code to use the more specialised Functional Interface 'DoubleBinaryOperator'(ù–Ú
-j
-java:S4276o"TRefactor this code to use the more specialised Functional Interface 'DoubleConsumer'(®ÛäŒ
+v
+java:S4276m"YRefactor this code to use the more specialised Functional Interface 'DoubleUnaryOperator'(áê»Û8´¦Áô§1
+w
+java:S4276o"URefactor this code to use the more specialised Functional Interface 'DoublePredicate'(éÀÂˆÿÿÿÿÿ8µ¦Áô§1
+w
+java:S4276q"ZRefactor this code to use the more specialised Functional Interface 'DoubleBinaryOperator'(öûöŸ8µ¦Áô§1
+w
+java:S4276s"ZRefactor this code to use the more specialised Functional Interface 'DoubleBinaryOperator'(ù–Ú8µ¦Áô§1
+q
+java:S4276u"TRefactor this code to use the more specialised Functional Interface 'DoubleConsumer'(®ÛäŒ8¶¦Áô§1

@@ -7,6 +7,9 @@ import java.util.function.Function;
 
 public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
+    public static final String MATRIX_DIMENSIONS_MUST_BE_EQUAL = "Matrix dimensions must be equal";
+    public static final String CURRENT_MATRIX_COLUMN_NUMBER_FORMAT = "Current matrix column number must be equal to the given matrix row number. " +
+            "Current matrix column number: %d, given matrix row number: %d";
     private Double[][] currentMatrix;
 
     private int rowNumber;
@@ -106,6 +109,10 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         return iMatrix.getRowNumber() == 0 || iMatrix.getColumnNumber() == 0;
     }
 
+    private boolean isMatrixEmptyInternal(Double[][] matrix) {
+        return matrix.length == 0 || matrix[0].length == 0;
+    }
+
     private boolean isMatrixJagged(Double[][] matrix) {
         int columns = matrix[0].length;
 
@@ -143,29 +150,51 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
             throw new IllegalArgumentException(MATRIX_CANNOT_BE_JAGGED);
     }
 
+    private void checkMatrixInternal(Double[][] matrix) {
+
+        if (matrix == null)
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_NULL);
+
+        if (isMatrixEmptyInternal(matrix))
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_EMPTY);
+
+        if (isMatrixJagged(matrix))
+            throw new IllegalArgumentException(MATRIX_CANNOT_BE_JAGGED);
+    }
+
     private void checkMatrixDimensionsForSymmetricity(IMatrix<T> iMatrix) {
         if (this.rowNumber != iMatrix.getRowNumber() || this.columnNumber != iMatrix.getColumnNumber())
-            throw new IllegalArgumentException("Matrix dimensions must be equal");
+            throw new IllegalArgumentException(MATRIX_DIMENSIONS_MUST_BE_EQUAL);
     }
 
     private void checkMatrixDimensionsForSymmetricity(T[][] matrix) {
         if (this.rowNumber != matrix.length || this.columnNumber != matrix[0].length)
-            throw new IllegalArgumentException("Matrix dimensions must be equal");
+            throw new IllegalArgumentException(MATRIX_DIMENSIONS_MUST_BE_EQUAL);
+    }
+
+    private void checkMatrixDimensionsForSymmetricityInternal(Double[][] matrix) {
+        if (this.rowNumber != matrix.length || this.columnNumber != matrix[0].length)
+            throw new IllegalArgumentException(MATRIX_DIMENSIONS_MUST_BE_EQUAL);
     }
 
     private void checkMatrixDimensionsForMultiplication(IMatrix<T> iMatrix) {
         if (this.columnNumber != iMatrix.getRowNumber())
             throw new IllegalArgumentException(String
-                    .format("Current matrix column number must be equal to the given matrix row number. " +
-                            "Current matrix column number: %d, given matrix row number: %d",
+                    .format(CURRENT_MATRIX_COLUMN_NUMBER_FORMAT,
                             this.columnNumber, iMatrix.getRowNumber()));
     }
 
     private void checkMatrixDimensionsForMultiplication(T[][] matrix) {
         if (this.columnNumber != matrix.length)
             throw new IllegalArgumentException(String
-                    .format("Current matrix column number must be equal to the given matrix row number. " +
-                            "Current matrix column number: %d, given matrix row number: %d",
+                    .format(CURRENT_MATRIX_COLUMN_NUMBER_FORMAT,
+                            this.columnNumber, matrix.length));
+    }
+
+    private void checkMatrixDimensionsForMultiplicationInternal(Double[][] matrix) {
+        if (this.columnNumber != matrix.length)
+            throw new IllegalArgumentException(String
+                    .format(CURRENT_MATRIX_COLUMN_NUMBER_FORMAT,
                             this.columnNumber, matrix.length));
     }
 
@@ -199,6 +228,27 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         return this;
     }
 
+    private IMatrix<T> addInternal(Double[][] matrix, boolean checkMatrix) {
+
+        if (checkMatrix) {
+            checkMatrixInternal(matrix);
+
+            checkMatrixDimensionsForSymmetricityInternal(matrix);
+        }
+
+        Double[][] result = new Double[this.rowNumber][this.columnNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                result[i][j] = this.currentMatrix[i][j] + matrix[i][j];
+            }
+        }
+
+        currentMatrix = result;
+
+        return this;
+    }
+
     @Override
     public IMatrix<T> subtract(T[][] matrix) {
 
@@ -211,6 +261,27 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         for (int i = 0; i < this.rowNumber; i++) {
             for (int j = 0; j < this.columnNumber; j++) {
                 result[i][j] = this.currentMatrix[i][j] - matrix[i][j].doubleValue();
+            }
+        }
+
+        currentMatrix = result;
+
+        return this;
+    }
+
+    private IMatrix<T> subtractInternal(Double[][] matrix, boolean checkMatrix) {
+
+        if (checkMatrix) {
+            checkMatrixInternal(matrix);
+
+            checkMatrixDimensionsForSymmetricityInternal(matrix);
+        }
+
+        Double[][] result = new Double[this.rowNumber][this.columnNumber];
+
+        for (int i = 0; i < this.rowNumber; i++) {
+            for (int j = 0; j < this.columnNumber; j++) {
+                result[i][j] = this.currentMatrix[i][j] - matrix[i][j];
             }
         }
 
@@ -246,16 +317,42 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         return this;
     }
 
+    private IMatrix<T> multiplyInternal(Double[][] matrix, boolean checkMatrix) {
+        if (checkMatrix) {
+            checkMatrixInternal(matrix);
+            checkMatrixDimensionsForMultiplicationInternal(matrix);
+        }
+
+        Double[][] resultMatrix = new Double[this.rowNumber][matrix[0].length];
+
+        double sum = 0.0;
+
+        for (int i = 0; i < currentMatrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                for (int k = 0; k < currentMatrix[0].length; k++) {
+                    sum += currentMatrix[i][k] * matrix[k][j];
+                }
+
+                resultMatrix[i][j] = sum;
+                sum = 0.0;
+            }
+        }
+
+        currentMatrix = resultMatrix;
+
+        return this;
+    }
+
     @Override
     public IMatrix<T> add(IMatrix<T> iMatrix) {
-        add((T[][]) iMatrix.toMatrix());
+        addInternal(iMatrix.toMatrix(), true);
 
         return this;
     }
 
     @Override
     public IMatrix<T> subtract(IMatrix<T> iMatrix) {
-        subtract((T[][]) iMatrix.toMatrix());
+        subtractInternal(iMatrix.toMatrix(), true);
 
         return this;
     }
@@ -283,7 +380,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     @Override
     public IMatrix<T> multiply(IMatrix<T> iMatrix) {
-        multiply((T[][]) iMatrix.toMatrix());
+        multiplyInternal(iMatrix.toMatrix(), true);
 
         return this;
     }

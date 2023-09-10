@@ -7,10 +7,10 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StandardVectorTest {
+class StandardVectorTest {
 
     @Test
-    public void testMultiplication1() {
+    void testMultiplication1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, false);
 
@@ -21,7 +21,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMultiplication2() {
+    void testMultiplication2() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -39,7 +39,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testAddition1() {
+    void testAddition1() {
 
             StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -49,7 +49,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testAddition2() {
+    void testAddition2() {
 
             StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -59,7 +59,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testAddition3() {
+    void testAddition3() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -67,7 +67,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testSubtraction1() {
+    void testSubtraction1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {10, 20, 30, 40, 50, 60}, true);
 
@@ -77,7 +77,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testSubtraction2() {
+    void testSubtraction2() {
 
             StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {10, 20, 30, 40, 50, 60}, true);
 
@@ -87,7 +87,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testSubtraction3() {
+    void testSubtraction3() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -95,7 +95,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testSum() {
+    void testSum() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -103,7 +103,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMean() {
+    void testMean() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -111,7 +111,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMax() {
+    void testMax() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -119,7 +119,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMin() {
+    void testMin() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -127,7 +127,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMedian() {
+    void testMedian() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -135,7 +135,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testDrop1() {
+    void testDrop1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -143,7 +143,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testDrop2() {
+    void testDrop2() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -151,7 +151,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testDrop3() {
+    void testDrop3() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -159,7 +159,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testDrop4() {
+    void testDrop4() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -167,7 +167,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testDrop5() {
+    void testDrop5() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -175,7 +175,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testSet1() {
+    void testSet1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -183,7 +183,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testPut1() {
+    void testPut1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -191,7 +191,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testPut2() {
+    void testPut2() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -199,7 +199,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testSlice1() {
+    void testSlice1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -207,7 +207,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testl0Norm() {
+    void testl0Norm() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -215,7 +215,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testl1Norm() {
+    void testl1Norm() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0, -10}, true);
 
@@ -223,15 +223,15 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testl2Norm() {
+    void testl2Norm() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0, -10}, true);
 
-        approximatelyEquals(Math.sqrt(191), vector1.l2Norm());
+        TestUtils.approximatelyEquals(Math.sqrt(191), vector1.l2Norm());
     }
 
     @Test
-    public void testlInfinityNorm() {
+    void testlInfinityNorm() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {9, 1, 2, 3, 4, 5, 6, 0, -10}, true);
 
@@ -239,25 +239,15 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testVariance() {
+    void testVariance() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
-        approximatelyEquals(2.5, vector1.variance());
-    }
-
-    private void approximatelyEquals(Double expected, Double actual) {
-        assertEquals(expected, actual, 0.001d);
-    }
-
-    private void approximatelyEquals(Double[] expected, Double[] actual) {
-        for (int i = 0; i < expected.length; i++) {
-            assertEquals(expected[i], actual[i], 0.001d);
-        }
+        TestUtils.approximatelyEquals(2.5, vector1.variance());
     }
 
     @Test
-    public void testMinMaxNormalization1() {
+    void testMinMaxNormalization1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
@@ -265,7 +255,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMinMaxNormalization2() {
+    void testMinMaxNormalization2() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
@@ -273,23 +263,23 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testStandardDeviation() {
+    void testStandardDeviation() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
-        approximatelyEquals(Math.sqrt(2.5), vector1.standardDeviation());
+        TestUtils.approximatelyEquals(Math.sqrt(2.5), vector1.standardDeviation());
     }
 
     @Test
-    public void testZScoreStandardization() {
+    void testZScoreStandardization() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
-        approximatelyEquals(new Double[] {-1.264d, -0.63247d, 0d, 0.6324d, 1.26494d}, vector1.zScoreStandardization().toArray());
+        TestUtils.approximatelyEquals(new Double[] {-1.264d, -0.63247d, 0d, 0.6324d, 1.26494d}, vector1.zScoreStandardization().toArray());
     }
 
     @Test
-    public void testDistinct() {
+    void testDistinct() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 5, 5, 5, 1}, true);
 
@@ -297,7 +287,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testRange() {
+    void testRange() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 5, 5, 5, 1}, true);
 
@@ -305,7 +295,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testSort() {
+    void testSort() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -313,7 +303,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testReverse() {
+    void testReverse() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -321,7 +311,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMap() {
+    void testMap() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -329,7 +319,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testFilter() {
+    void testFilter() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -337,7 +327,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testReduce() {
+    void testReduce() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -345,7 +335,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testMode() {
+    void testMode() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1, 5, 5, 5, 5, 1}, true);
 
@@ -353,7 +343,7 @@ public class StandardVectorTest {
     }
 
     @Test
-    public void testTranspose() {
+    void testTranspose() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1, 5, 5, 5, 5, 1}, true);
 

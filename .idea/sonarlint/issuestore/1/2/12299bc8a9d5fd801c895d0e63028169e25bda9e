@@ -1,21 +1,13 @@
 
-k
-java:S1192b"IDefine a constant instead of duplicating this literal "vertical" 4 times.(Ú£ä˜şÿÿÿÿ8¹Å´İ§1
-m
-java:S1192b"KDefine a constant instead of duplicating this literal "horizontal" 4 times.(Ú£ä˜şÿÿÿÿ8ºÅ´İ§1
+g
+java:S1192w"JDefine a constant instead of duplicating this literal "vertical" 12 times.(ı»üÿ8‘Ô¼û§1
+i
+java:S1192w"LDefine a constant instead of duplicating this literal "horizontal" 12 times.(ı»üÿ8ûİ½û§1
 K
-java:S1172à"-Remove this unused method parameter "vector".(ßàşô8éÇ´İ§1
+java:S1172Â"-Remove this unused method parameter "vector".(ßàşô8¬Õ¼û§1
+P
+java:S1172Æ"-Remove this unused method parameter "vector".(µïœĞüÿÿÿÿ8­Õ¼û§1
 R
-java:S2864×"4Iterate over the "entrySet" instead of the "keySet".(úµõô8…È´İ§1
-p
-java:S6204í"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8•È´İ§1
-p
-java:S6204¹"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8›È´İ§1
+java:S2864ë"4Iterate over the "entrySet" instead of the "keySet".(úµõô8¹Õ¼û§1
 ~
-java:S4276½"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ú²âûÿÿÿÿ8È´İ§1
-Y
-java:S1144,"<Remove this unused private "transformToDoubleVector" method.(Æ¦âÄ8¬È´İ§1
-G
-java:S1144—")Remove this unused private "swap" method.(ßîÕƒ8­È´İ§1
-Z
-java:S1144·"7Remove this unused private "approximatelyEqual" method.(”­™Áûÿÿÿÿ8­È´İ§1
+java:S4276Ñ"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ú²âûÿÿÿÿ8ÂÕ¼û§1
