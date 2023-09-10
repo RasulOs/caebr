@@ -1,7 +1,7 @@
-package vector;
+package caebr.vector;
 
-import matrix.IMatrix;
-import matrix.StandardMatrix;
+import caebr.matrix.IMatrix;
+import caebr.matrix.StandardMatrix;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -12,6 +12,11 @@ import java.util.stream.Collectors;
 
 
 public class StandardVector<T extends Number> implements IVector<T> {
+
+    public static final String THE_VECTORS_ARE_NOT_THE_SAME_ORIENTATION = "The vectors are not the same orientation. ";
+    public static final String FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S = "First vector orientation: %s, Second vector orientation: %s";
+    public static final String FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D = "First vector length: %d, Second vector length: %d";
+    public static final String THE_VECTORS_ARE_NOT_THE_SAME_LENGTH = "The vectors are not the same length. ";
 
     private List<Double> currentVector = new ArrayList<>();
 
@@ -86,6 +91,22 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    private IVector<T> addInternal(Double[] b, boolean isVertical, boolean checkDimensions) {
+
+        if (checkDimensions)
+            checkVectorForAdditionOrSubtractionInternal(b, isVertical);
+
+        List<Double> result = new ArrayList<>(currentVector.size());
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            result.add(currentVector.get(i) + b[i]);
+        }
+
+        currentVector = result;
+
+        return this;
+    }
+
     private void checkVectorForAdditionOrSubtraction(T[] vector, boolean isVertical) {
         Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
         checkDimensions(vector, isVertical);
@@ -94,8 +115,8 @@ public class StandardVector<T extends Number> implements IVector<T> {
     private void checkDimensions(T[] b, boolean isVertical) {
 
         if (this.isVertical != isVertical) {
-            throw new IllegalArgumentException(String.format("The vectors are not the same orientation. " +
-                            "First vector orientation: %s, Second vector orientation: %s", this.isVertical ? "vertical" : "horizontal",
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_ORIENTATION +
+                            FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S, this.isVertical ? "vertical" : "horizontal",
                     isVertical ? "vertical" : "horizontal"));
         }
 
@@ -107,7 +128,28 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         if (currentVector.size() < b.length) {
             throw new IllegalArgumentException(String.format("The second vector is longer than the first vector. " +
-                    "First vector length: %d, Second vector length: %d", currentVector.size(), b.length));
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), b.length));
+        }
+    }
+    private void checkVectorForAdditionOrSubtractionInternal(Double[] vector, boolean isVertical) {
+
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
+
+        if (this.isVertical != isVertical) {
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_ORIENTATION +
+                            FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S, this.isVertical ? "vertical" : "horizontal",
+                    isVertical ? "vertical" : "horizontal"));
+        }
+
+        if (currentVector.size() > vector.length) {
+            throw new IllegalArgumentException(String
+                    .format("The first vector is longer than the second vector. First vector length: %d, " +
+                            "Second vector length: %d", currentVector.size(), vector.length));
+        }
+
+        if (currentVector.size() < vector.length) {
+            throw new IllegalArgumentException(String.format("The second vector is longer than the first vector. " +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), vector.length));
         }
     }
 
@@ -123,6 +165,22 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         for (int i = 0; i < currentVector.size(); i++) {
             result.add(currentVector.get(i) - b[i].doubleValue());
+        }
+
+        currentVector = result;
+
+        return this;
+    }
+
+    private IVector<T> subtractInternal(Double[] b, boolean isVertical, boolean checkDimensions) {
+
+        if (checkDimensions)
+            checkVectorForAdditionOrSubtractionInternal(b, isVertical);
+
+        List<Double> result = new ArrayList<>(currentVector.size());
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            result.add(currentVector.get(i) - b[i]);
         }
 
         currentVector = result;
@@ -178,12 +236,20 @@ public class StandardVector<T extends Number> implements IVector<T> {
     public IMatrix<Double> multiply(T[] vector, boolean isVertical) {
         checkVectorForMultiplication(vector, isVertical);
 
+        return multiplyInternal(transformToDoubleVector(vector), isVertical, false);
+    }
+
+    private IMatrix<Double> multiplyInternal(Double[] vector, boolean isVertical, boolean checkDimensions) {
+
+        if (checkDimensions)
+            checkDimensionsForMultiplicationInternal(vector, isVertical);
+
         double result = 0d;
         StandardMatrix<Double> matrix;
 
-        if (isResultOfMultiplicationVector(vector, isVertical)) {
+        if (isResultOfMultiplicationVectorInternal(vector, isVertical)) {
             for (int i = 0; i < currentVector.size(); i++) {
-                result += currentVector.get(i) * vector[i].doubleValue();
+                result += currentVector.get(i) * vector[i];
             }
 
             currentVector.clear();
@@ -210,7 +276,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public IMatrix<Double> multiply(IVector<T> iVector) {
-        return multiply((T[]) iVector.toArray(), iVector.isVertical());
+        return multiplyInternal(iVector.toArray(), iVector.isVertical(), true);
     }
 
     @Override
@@ -221,10 +287,45 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    @Override
+    public Double dotProduct(T[] vector) {
+        return dotProduct(vector, true);
+    }
+
+    @Override
+    public Double dotProduct(T[] vector, boolean isVertical) {
+
+        checkDimensionsForDotProduct(vector, isVertical);
+
+        return dotProductInternal(transformToDoubleVector(vector), isVertical, false);
+    }
+
+    @Override
+    public Double dotProduct(IVector<T> iVector) {
+        return dotProductInternal(iVector.toArray(), iVector.isVertical(), true);
+    }
+
+    private Double dotProductInternal(Double[] vector, boolean isVertical, boolean checkDimensions) {
+
+        if (checkDimensions)
+            checkDimensionsForDotProductInternal(vector, isVertical);
+
+        double result = 0d;
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            result += currentVector.get(i) * vector[i];
+        }
+
+        return result;
+    }
+
     private boolean isResultOfMultiplicationVector(T[] vector, boolean isVertical) {
         return !this.isVertical && isVertical;
     }
 
+    private boolean isResultOfMultiplicationVectorInternal(Double[] vector, boolean isVertical) {
+        return !this.isVertical && isVertical;
+    }
 
     @Override
     public IVector<T> put(T number) {
@@ -339,20 +440,67 @@ public class StandardVector<T extends Number> implements IVector<T> {
     private void checkDimensionsForMultiplication(T[] vector, boolean isVertical) {
         if (this.isVertical == isVertical) {
                     throw new IllegalArgumentException(String.format("The vectors are the same orientation. " +
-                            "First vector orientation: %s, Second vector orientation: %s", this.isVertical ? "vertical" : "horizontal",
+                                    FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S, this.isVertical ? "vertical" : "horizontal",
                             isVertical ? "vertical" : "horizontal"));
         }
 
         if (currentVector.size() != vector.length) {
-            throw new IllegalArgumentException(String.format("The vectors are not the same length. " +
-                    "First vector length: %d, Second vector length: %d", currentVector.size(), vector.length));
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_LENGTH +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), vector.length));
         }
     }
 
+    private void checkDimensionsForMultiplicationInternal(Double[] vector, boolean isVertical) {
+
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
+
+        if (this.isVertical == isVertical) {
+            throw new IllegalArgumentException(String.format("The vectors are the same orientation. " +
+                            FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S, this.isVertical ? "vertical" : "horizontal",
+                    isVertical ? "vertical" : "horizontal"));
+        }
+
+        if (currentVector.size() != vector.length) {
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_LENGTH +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), vector.length));
+        }
+    }
+
+    private void checkDimensionsForDotProduct(T[] vector, boolean isVertical) {
+
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
+
+        if (this.isVertical != isVertical) {
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_ORIENTATION +
+                            FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S, this.isVertical ? "vertical" : "horizontal",
+                    isVertical ? "vertical" : "horizontal"));
+        }
+
+        if (currentVector.size() != vector.length) {
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_LENGTH +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), vector.length));
+        }
+    }
+
+    private void checkDimensionsForDotProductInternal(Double[] vector, boolean isVertical) {
+
+        Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
+
+        if (this.isVertical != isVertical) {
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_ORIENTATION +
+                            FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S, this.isVertical ? "vertical" : "horizontal",
+                    isVertical ? "vertical" : "horizontal"));
+        }
+
+        if (currentVector.size() != vector.length) {
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_LENGTH +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), vector.length));
+        }
+    }
 
     @Override
     public IVector<T> add(IVector<T> iVector) {
-        return add((T[]) ((StandardVector<T>)iVector).toArray(), ((StandardVector<T>) iVector).isVertical());
+        return addInternal(iVector.toArray(), iVector.isVertical(), true);
     }
 
     @Override
@@ -364,7 +512,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public IVector<T> subtract(IVector<T> iVector) {
-        return subtract((T[]) ((StandardVector<T>)iVector).toArray(), ((StandardVector<T>) iVector).isVertical());
+        return subtractInternal(iVector.toArray(), iVector.isVertical(), true);
     }
 
     @Override
@@ -817,7 +965,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     private boolean approximatelyZero(Double d) {
-        return d < epsilon && d > -epsilon;
+        return Math.abs(d) < epsilon;
     }
 
     private boolean approximatelyEqual(Double d1, Double d2) {

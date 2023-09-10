@@ -1,4 +1,4 @@
-package matrix;
+package caebr.matrix;
 
 import java.util.List;
 import java.util.function.BinaryOperator;

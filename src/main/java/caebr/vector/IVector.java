@@ -1,6 +1,6 @@
-package vector;
+package caebr.vector;
 
-import matrix.IMatrix;
+import caebr.matrix.IMatrix;
 
 import java.util.List;
 import java.util.function.BinaryOperator;
@@ -33,6 +33,12 @@ public interface IVector<T extends Number> {
     IMatrix<Double> multiply(IVector<T> iVector);
 
     IVector<T> multiply(T number);
+
+    Double dotProduct(T[] vector);
+
+    Double dotProduct(T[] vector, boolean isVertical);
+
+    Double dotProduct(IVector<T> iVector);
 
     IVector<T> put(T number);
 

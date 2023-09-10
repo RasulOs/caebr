@@ -1,4 +1,4 @@
-package matrix;
+package caebr.matrix;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -1303,7 +1303,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     private boolean approximatelyZero(Double d) {
-        return d < epsilon && d > -epsilon;
+        return Math.abs(d) < epsilon;
     }
 
     private boolean approximatelyEqual(Double d1, Double d2) {

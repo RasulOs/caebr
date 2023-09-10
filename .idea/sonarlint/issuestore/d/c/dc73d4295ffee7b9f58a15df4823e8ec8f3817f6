@@ -1,0 +1,28 @@
+
+R
+java:S2864Ö"4Iterate over the "entrySet" instead of the "keySet".(úµõô8€Åß§1
+P
+java:S1135À"2Complete the task associated to this TODO comment.(…ïœ†8Åß§1
+P
+java:S1135Æ"2Complete the task associated to this TODO comment.(…ïœ†8‘Åß§1
+~
+java:S4276"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(„—“Óÿÿÿÿÿ8•Åß§1
+~
+java:S4276”"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(üáàåûÿÿÿÿ8•Åß§1
+y
+java:S4276™"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÿÚÛ8–Åß§1
+U
+java:S1135‹"2Complete the task associated to this TODO comment.(Ÿø’øÿÿÿÿ8«€¨ß§1
+k
+java:S11443"NRemove this unused private "transformToDoubleMatrixWithNColumnPadding" method.(í¨²Ğ8©Åß§1
+L
+java:S1144|"0Remove this unused private "checkMatrix" method.(˜ÀÆ78©Åß§1
+l
+java:S1144’"IRemove this unused private "checkMatrixDimensionsForSymmetricity" method.(ßÑÛÀùÿÿÿÿ8©Åß§1
+n
+java:S1144œ"KRemove this unused private "checkMatrixDimensionsForMultiplication" method.(È®Ëâüÿÿÿÿ8©Åß§1
+N
+java:S1144ù"0Remove this unused private "checkColumn" method.(Ã’çû8©Åß§1
+Z
+java:S1144
+"7Remove this unused private "approximatelyEqual" method.(”­™Áûÿÿÿÿ8©Åß§1
