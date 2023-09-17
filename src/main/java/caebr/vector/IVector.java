@@ -80,6 +80,8 @@ public interface IVector<T extends Number> {
 
     IVector<T> sort();
 
+    IVector<T> sort(boolean ascending);
+
     IVector<T> reverse();
 
     IVector<T> shuffle();

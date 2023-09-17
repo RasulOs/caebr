@@ -18,6 +18,9 @@ public class StandardVector<T extends Number> implements IVector<T> {
     public static final String FIRST_VECTOR_ORIENTATION_S_SECOND_VECTOR_ORIENTATION_S = "First vector orientation: %s, Second vector orientation: %s";
     public static final String FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D = "First vector length: %d, Second vector length: %d";
     public static final String THE_VECTORS_ARE_NOT_THE_SAME_LENGTH = "The vectors are not the same length. ";
+    public static final String VECTOR_IS_EMPTY = "Vector is empty";
+    public static final String INDEXES_CANNOT_BE_NEGATIVE = "Indexes cannot be negative";
+    public static final String THE_SECOND_VECTOR_IS_LONGER_THAN_THE_FIRST_VECTOR = "The second vector is longer than the first vector. ";
 
     private List<Double> currentVector = new ArrayList<>();
 
@@ -92,6 +95,18 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] add(Double[] a, Double[] b) {
+        checkVectorForAdditionSubtractionMultiplication(a, b);
+
+        Double[] result = new Double[a.length];
+
+        for (int i = 0; i < a.length; i++) {
+            result[i] = a[i] + b[i];
+        }
+
+        return result;
+    }
+
     private IVector<T> addInternal(Double[] b, boolean isVertical, boolean checkDimensions) {
 
         if (checkDimensions)
@@ -113,6 +128,23 @@ public class StandardVector<T extends Number> implements IVector<T> {
         checkDimensions(vector, isVertical);
     }
 
+    private static void checkVectorForAdditionSubtractionMultiplication(Double[] a, Double[] b) {
+        Objects.requireNonNull(a, VECTOR_CANNOT_BE_NULL);
+        Objects.requireNonNull(b, VECTOR_CANNOT_BE_NULL);
+
+        if (a.length > b.length)
+            throw new IllegalArgumentException(String.format("The first vector is longer than the second vector. " +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, a.length, b.length));
+
+        if (a.length < b.length)
+            throw new IllegalArgumentException(String.format(THE_SECOND_VECTOR_IS_LONGER_THAN_THE_FIRST_VECTOR +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, a.length, b.length));
+
+        if (a.length == 0)
+            throw new IllegalArgumentException("The vectors cannot be empty");
+
+    }
+
     private void checkDimensions(T[] b, boolean isVertical) {
 
         if (this.isVertical != isVertical) {
@@ -128,10 +160,11 @@ public class StandardVector<T extends Number> implements IVector<T> {
         }
 
         if (currentVector.size() < b.length) {
-            throw new IllegalArgumentException(String.format("The second vector is longer than the first vector. " +
+            throw new IllegalArgumentException(String.format(THE_SECOND_VECTOR_IS_LONGER_THAN_THE_FIRST_VECTOR +
                     FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), b.length));
         }
     }
+
     private void checkVectorForAdditionOrSubtractionInternal(Double[] vector, boolean isVertical) {
 
         Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
@@ -149,13 +182,23 @@ public class StandardVector<T extends Number> implements IVector<T> {
         }
 
         if (currentVector.size() < vector.length) {
-            throw new IllegalArgumentException(String.format("The second vector is longer than the first vector. " +
+            throw new IllegalArgumentException(String.format(THE_SECOND_VECTOR_IS_LONGER_THAN_THE_FIRST_VECTOR +
                     FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), vector.length));
         }
     }
 
     public IVector<T> add(T[] b) {
         return add(b, true);
+    }
+
+    public static Double[] add(Double[] a, double b) {
+        Double[] result = new Double[a.length];
+
+        for (int i = 0; i < a.length; i++) {
+            result[i] = a[i] + b;
+        }
+
+        return result;
     }
 
     public IVector<T> subtract(T[] b, boolean isVertical) {
@@ -171,6 +214,18 @@ public class StandardVector<T extends Number> implements IVector<T> {
         currentVector = result;
 
         return this;
+    }
+
+    public static Double[] subtract(Double[] a, Double[] b) {
+        checkVectorForAdditionSubtractionMultiplication(a, b);
+
+        Double[] result = new Double[a.length];
+
+        for (int i = 0; i < a.length; i++) {
+            result[i] = a[i] - b[i];
+        }
+
+        return result;
     }
 
     private IVector<T> subtractInternal(Double[] b, boolean isVertical, boolean checkDimensions) {
@@ -189,44 +244,19 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
-    public String content() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Vector has ")
-                .append(rows == 1 ? "1 row" : rows + " rows")
-                .append(" and ")
-                .append(columns == 1 ? "1 column" : columns + " columns")
-                .append(". Vector:\n[\n");
-
-        for (int i = 0; i < currentVector.size(); i++) {
-            if (isVertical)
-                sb.append("\t");
-
-            sb.append(currentVector.get(i));
-
-            if (i != currentVector.size() - 1) {
-                sb.append(", ");
-
-                if (isVertical)
-                    sb.append("\n");
-            }
-        }
-
-        sb.append("\n]");
-
-        return sb.toString();
-    }
-
-    @Override
-    public String toString() {
-        return "StandardVector {\n" +
-                content() + "\n" +
-                '}';
-    }
-
 
     public IVector<T> subtract(T[] b) {
         return subtract(b, true);
+    }
+
+    public static Double[] subtract(Double[] a, Double b) {
+        Double[] result = new Double[a.length];
+
+        for (int i = 0; i < a.length; i++) {
+            result[i] = a[i] - b;
+        }
+
+        return result;
     }
 
     @Override
@@ -275,6 +305,26 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return matrix;
     }
 
+    // The function assumes that first vector is vertical and second vector is horizontal
+    // If you want to multiply horizontal vector by vertical vector, use the dotProduct function
+    public static IMatrix<Double> multiply(Double[] a, Double[] b) {
+        checkVectorForAdditionSubtractionMultiplication(a, b);
+
+        StandardMatrix<Double> matrix;
+
+        Double[][] matrixResult = new Double[a.length][b.length];
+
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                matrixResult[i][j] = a[i] * b[j];
+            }
+        }
+
+        matrix = new StandardMatrix<>(matrixResult);
+
+        return matrix;
+    }
+
     @Override
     public IMatrix<Double> multiply(IVector<T> iVector) {
         return multiplyInternal(iVector.toArray(), iVector.isVertical(), true);
@@ -286,6 +336,16 @@ public class StandardVector<T extends Number> implements IVector<T> {
         currentVector.replaceAll(x -> x * number.doubleValue());
 
         return this;
+    }
+
+    public static Double[] multiply(Double[] a, double b) {
+        Double[] result = new Double[a.length];
+
+        for (int i = 0; i < a.length; i++) {
+            result[i] = a[i] * b;
+        }
+
+        return result;
     }
 
     @Override
@@ -320,6 +380,18 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return result;
     }
 
+    public static Double dotProduct(Double[] a, Double[] b) {
+        checkVectorForAdditionSubtractionMultiplication(a, b);
+
+        double result = 0d;
+
+        for (int i = 0; i < a.length; i++) {
+            result += a[i] * b[i];
+        }
+
+        return result;
+    }
+
     private boolean isResultOfMultiplicationVector(T[] vector, boolean isVertical) {
         return !this.isVertical && isVertical;
     }
@@ -349,6 +421,15 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] put(Double[] toVector, Double[] fromVector) {
+
+        List<Double> result = new ArrayList<>(Arrays.asList(toVector));
+
+        result.addAll(Arrays.asList(fromVector));
+
+        return result.toArray(new Double[0]);
+    }
+
 
     @Override
     public IVector<T> set(T number, int index) {
@@ -360,16 +441,53 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
-    private void checkIndexes(int fromIndex, int toIndex) {
+    private void checkIndexes(int firstIndex, int secondIndex) {
+
+        if (firstIndex < 0 || secondIndex < 0)
+            throw new IllegalArgumentException(INDEXES_CANNOT_BE_NEGATIVE);
+
+        if (firstIndex > secondIndex)
+            throw new IllegalArgumentException("First index cannot be greater than second index");
+
+        if (firstIndex > currentVector.size() - 1 || secondIndex > currentVector.size() - 1)
+            throw new IllegalArgumentException("Indexes cannot be greater or equal to a vector size");
+    }
+
+
+    private void checkIndexesFromTo(int fromIndex, int toIndex) {
 
         if (fromIndex < 0 || toIndex < 0)
-            throw new IllegalArgumentException("Indexes cannot be negative");
+            throw new IllegalArgumentException(INDEXES_CANNOT_BE_NEGATIVE);
 
         if (fromIndex > toIndex)
             throw new IllegalArgumentException("From index cannot be greater than to index");
 
-        if (fromIndex > currentVector.size() - 1 || toIndex > currentVector.size() - 1)
-            throw new IllegalArgumentException("Indexes cannot be greater or equal to a vector size");
+        if (fromIndex > currentVector.size() - 1)
+            throw new IllegalArgumentException("From index cannot be greater or equal to a vector size");
+    }
+
+    private static void checkIndexes(Double[] vector, int firstIndex, int secondIndex) {
+
+            if (firstIndex < 0 || secondIndex < 0)
+                throw new IllegalArgumentException(INDEXES_CANNOT_BE_NEGATIVE);
+
+            if (firstIndex > secondIndex)
+                throw new IllegalArgumentException("First index cannot be greater than second index");
+
+            if (firstIndex > vector.length - 1 || secondIndex > vector.length - 1)
+                throw new IllegalArgumentException("Indexes cannot be greater or equal to a vector size");
+    }
+
+    private static void checkIndexesFromTo(Double[] vector, int fromIndex, int toIndex) {
+
+        if (fromIndex < 0 || toIndex < 0)
+            throw new IllegalArgumentException(INDEXES_CANNOT_BE_NEGATIVE);
+
+        if (fromIndex > toIndex)
+            throw new IllegalArgumentException("From index cannot be greater than to index");
+
+        if (fromIndex > vector.length - 1)
+            throw new IllegalArgumentException("From index cannot be greater or equal to a vector size");
     }
 
 
@@ -385,10 +503,15 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] drop(Double[] vector, int index) {
+
+        return drop(vector, index, index + 1);
+    }
+
     @Override
     public IVector<T> drop(int fromIndex, int toIndex) {
 
-        checkIndexes(fromIndex, toIndex);
+        checkIndexesFromTo(fromIndex, toIndex);
 
         currentVector.subList(fromIndex, toIndex)
                 .clear();
@@ -398,17 +521,41 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] drop(Double[] vector, int fromIndex, int toIndex) {
+
+        checkIndexesFromTo(vector, fromIndex, toIndex);
+
+        List<Double> result = new ArrayList<>(Arrays.asList(vector));
+
+        result.subList(fromIndex, toIndex)
+                .clear();
+
+        return result.toArray(new Double[0]);
+    }
+
     @Override
     public IVector<T> drop() {
 
         if (currentVector.isEmpty())
-            throw new IllegalArgumentException("Vector is empty");
+            throw new IllegalArgumentException(VECTOR_IS_EMPTY);
 
         currentVector.remove(currentVector.size() - 1);
 
         initializeColumnsAndRows(currentVector, isVertical);
 
         return this;
+    }
+
+    public static Double[] drop(Double[] vector) {
+
+        if (vector.length == 0)
+            throw new IllegalArgumentException(VECTOR_IS_EMPTY);
+
+        List<Double> result = new ArrayList<>(Arrays.asList(vector));
+
+        result.remove(result.size() - 1);
+
+        return result.toArray(new Double[0]);
     }
 
     @Override
@@ -425,7 +572,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     public Double pop() {
 
         if (currentVector.isEmpty())
-            throw new IllegalArgumentException("Vector is empty");
+            throw new IllegalArgumentException(VECTOR_IS_EMPTY);
 
         double d = currentVector.remove(currentVector.size() - 1);
         initializeColumnsAndRows(currentVector, isVertical);
@@ -464,6 +611,16 @@ public class StandardVector<T extends Number> implements IVector<T> {
         if (currentVector.size() != vector.length) {
             throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_LENGTH +
                     FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, currentVector.size(), vector.length));
+        }
+    }
+
+    private static void checkDimensionsForMultiplicationInternal(Double[] a, Double[] b) {
+        Objects.requireNonNull(a, VECTOR_CANNOT_BE_NULL);
+        Objects.requireNonNull(b, VECTOR_CANNOT_BE_NULL);
+
+        if (a.length != b.length) {
+            throw new IllegalArgumentException(String.format(THE_VECTORS_ARE_NOT_THE_SAME_LENGTH +
+                    FIRST_VECTOR_LENGTH_D_SECOND_VECTOR_LENGTH_D, a.length, b.length));
         }
     }
 
@@ -540,6 +697,15 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return sum;
     }
 
+    public static Double sum(Double[] vector) {
+        Double sum = 0.0;
+
+        for (Double d: vector) {
+            sum += d;
+        }
+        return sum;
+    }
+
     @Override
     public Double mean() {
         if (currentVector.isEmpty())
@@ -547,6 +713,14 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         Double sum = sum();
         return sum / currentVector.size();
+    }
+
+    public static Double mean(Double[] vector) {
+        if (vector.length == 0)
+            return 0.0;
+
+        Double sum = sum(vector);
+        return sum / vector.length;
     }
 
     @Override
@@ -565,6 +739,21 @@ public class StandardVector<T extends Number> implements IVector<T> {
        return max;
     }
 
+    public static Double max(Double[] vector) {
+
+        if (vector.length == 0)
+            return 0.0;
+
+        Double max = Double.MIN_VALUE;
+
+        for (Double d: vector) {
+            if (d > max)
+                max = d;
+        }
+
+        return max;
+    }
+
     @Override
     public Double min() {
 
@@ -574,6 +763,21 @@ public class StandardVector<T extends Number> implements IVector<T> {
         Double min = Double.MAX_VALUE;
 
         for (Double d: currentVector) {
+            if (d < min)
+                min = d;
+        }
+
+        return min;
+    }
+
+    public static Double min(Double[] vector) {
+
+        if (vector.length == 0)
+            return 0.0;
+
+        Double min = Double.MAX_VALUE;
+
+        for (Double d: vector) {
             if (d < min)
                 min = d;
         }
@@ -596,6 +800,20 @@ public class StandardVector<T extends Number> implements IVector<T> {
             return tempList.get(tempList.size() / 2);
     }
 
+    public static Double median(Double[] vector) {
+        if (vector.length == 0)
+            return 0.0;
+
+        List<Double> tempList = new ArrayList<>(Arrays.asList(vector));
+
+        Collections.sort(tempList);
+
+        if (tempList.size() % 2 == 0)
+            return (tempList.get(tempList.size() / 2) + tempList.get(tempList.size() / 2 - 1)) / 2;
+        else
+            return tempList.get(tempList.size() / 2);
+    }
+
     @Override
     public List<Double> mode() {
         List<Double> listOfModes = new ArrayList<>();
@@ -605,6 +823,34 @@ public class StandardVector<T extends Number> implements IVector<T> {
         Integer maxCount = 0;
 
         for (Double d: currentVector) {
+            if (map.containsKey(d)) {
+                map.put(d, map.get(d) + 1);
+                if (map.get(d) > maxCount)
+                    maxCount = map.get(d);
+            }
+            else
+                map.put(d, 1);
+        }
+
+        if (maxCount == 1)
+            return listOfModes;
+
+        for (Double d: map.keySet()) {
+            if (map.get(d).equals(maxCount))
+                listOfModes.add(d);
+        }
+
+        return listOfModes;
+    }
+
+    public static List<Double> mode(Double[] vector) {
+        List<Double> listOfModes = new ArrayList<>();
+
+        HashMap<Double, Integer> map = new HashMap<>();
+
+        Integer maxCount = 0;
+
+        for (Double d: vector) {
             if (map.containsKey(d)) {
                 map.put(d, map.get(d) + 1);
                 if (map.get(d) > maxCount)
@@ -644,9 +890,31 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return sumOfSquaredDifferences / n;
     }
 
+    public static Double variance(Double[] vector) {
+
+        if (vector.length == 0)
+            return 0.0;
+
+        Double mean = mean(vector);
+
+        double sumOfSquaredDifferences = 0.0;
+
+        for (Double d : vector) {
+            sumOfSquaredDifferences += Math.pow(d - mean, 2);
+        }
+
+        int n = vector.length >= 30 ? vector.length : vector.length - 1;
+
+        return sumOfSquaredDifferences / n;
+    }
+
     @Override
     public Double standardDeviation() {
         return Math.sqrt(variance());
+    }
+
+    public static Double standardDeviation(Double[] vector) {
+        return Math.sqrt(variance(vector));
     }
 
     @Override
@@ -662,17 +930,52 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return new ArrayList<>(set);
     }
 
+    public static List<Double> distinct(Double[] vector) {
+        if (vector.length == 0)
+            return new ArrayList<>();
+
+        Set<Double> set = new LinkedHashSet<>(Arrays.asList(vector));
+
+        return new ArrayList<>(set);
+    }
+
     @Override
     public Double range() {
         return max() - min();
     }
 
+    public static Double range(Double[] vector) {
+        return max(vector) - min(vector);
+    }
+
     @Override
     public IVector<T> sort() {
+        return sort(true);
+    }
 
-        Collections.sort(currentVector);
+    public static Double[] sort(Double[] vector) {
+        return sort(vector, true);
+    }
+
+    @Override
+    public IVector<T> sort(boolean ascending) {
+
+        if (ascending)
+            Collections.sort(currentVector);
+        else
+            Collections.sort(currentVector, Collections.reverseOrder());
 
         return this;
+    }
+
+    public static Double[] sort(Double[] vector, boolean ascending) {
+
+        if (ascending)
+            Arrays.sort(vector);
+        else
+            Arrays.sort(vector, Collections.reverseOrder());
+
+        return vector;
     }
 
     private List<Double> sortTemporaryList(List<Double> tempList) {
@@ -694,11 +997,23 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] reverse(Double[] vector) {
+        Collections.reverse(Arrays.asList(vector));
+
+        return vector;
+    }
+
     @Override
     public IVector<T> shuffle() {
         Collections.shuffle(currentVector);
 
         return this;
+    }
+
+    public static Double[] shuffle(Double[] vector) {
+        Collections.shuffle(Arrays.asList(vector));
+
+        return vector;
     }
 
     @Override
@@ -709,12 +1024,29 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] slice(Double[] vector, int start, int end) {
+
+        checkIndexesFromTo(vector, start, end);
+
+        List<Double> result = new ArrayList<>(Arrays.asList(vector));
+
+        result = result.subList(start, end);
+
+        return result.toArray(new Double[0]);
+    }
+
     @Override
     public IVector<T> slice(int start) {
         slice(start, currentVector.size(), currentVector.size());
 
         return this;
     }
+
+    public static Double[] slice(Double[] vector, int start) {
+        return slice(vector, start, vector.length);
+    }
+
+
 
     private void slice(int start, int end, int size) {
 
@@ -739,6 +1071,12 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] minMaxNormalization(Double[] vector, double min, double max) {
+
+        return minMaxNormalization(min, max, Arrays.asList(vector))
+                .toArray(new Double[0]);
+    }
+
     @Override
     public IVector<T> minMaxNormalization() {
         currentVector = minMaxNormalization(0, 1, currentVector);
@@ -746,7 +1084,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
-    private List<Double> minMaxNormalization(double min, double max, List<Double> doubleList) {
+    private static List<Double> minMaxNormalization(double min, double max, List<Double> doubleList) {
 
         if (doubleList.isEmpty())
             return doubleList;
@@ -777,6 +1115,11 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] zScoreStandardization(Double[] vector) {
+        return zScoreStandardizationInternal(Arrays.asList(vector))
+                .toArray(new Double[0]);
+    }
+
     @Override
     public Integer l0Norm() {
         if (currentVector.isEmpty())
@@ -785,6 +1128,18 @@ public class StandardVector<T extends Number> implements IVector<T> {
         int count = 0;
 
         for (Double d: currentVector)
+            if (!NumberUtils.approximatelyZero(d, epsilon)) count++;
+
+        return count;
+    }
+
+    public static Integer l0Norm(Double[] vector) {
+        if (vector.length == 0)
+            return 0;
+
+        int count = 0;
+
+        for (Double d: vector)
             if (!NumberUtils.approximatelyZero(d, epsilon)) count++;
 
         return count;
@@ -804,6 +1159,19 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return absSum;
     }
 
+    public static Double l1Norm(Double[] vector) {
+
+        if (vector.length == 0)
+            return 0d;
+
+        double absSum = 0d;
+
+        for (Double d: vector)
+            absSum += Math.abs(d);
+
+        return absSum;
+    }
+
     @Override
     public Double l2Norm() {
 
@@ -813,6 +1181,19 @@ public class StandardVector<T extends Number> implements IVector<T> {
         double sumOfSquares = 0d;
 
         for (Double d: currentVector)
+            sumOfSquares += Math.pow(d, 2);
+
+        return Math.sqrt(sumOfSquares);
+    }
+
+    public static Double l2Norm(Double[] vector) {
+
+        if (vector.length == 0)
+            return 0d;
+
+        double sumOfSquares = 0d;
+
+        for (Double d: vector)
             sumOfSquares += Math.pow(d, 2);
 
         return Math.sqrt(sumOfSquares);
@@ -831,16 +1212,34 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return absMax;
     }
 
+    public static Double lInfinityNorm(Double[] vector) {
+        if (vector.length == 0)
+            return 0d;
+
+        double absMax = Double.MIN_VALUE;
+
+        for (Double d: vector)
+            if (Math.abs(d) > absMax) absMax = Math.abs(d);
+
+        return absMax;
+    }
+
     private List<Double> zScoreStandardizationInternal() {
+        return zScoreStandardizationInternal(currentVector);
+    }
 
-        if (currentVector.isEmpty())
-            return currentVector;
+    private static List<Double> zScoreStandardizationInternal(List<Double> vector) {
 
-        Double mean = mean();
+        if (vector.isEmpty())
+            return vector;
 
-        Double standardDeviation = standardDeviation();
+        Double[] doubleArray = vector.toArray(new Double[0]);
 
-        return currentVector
+        Double mean = StandardVector.mean(doubleArray);
+
+        Double standardDeviation = standardDeviation(doubleArray);
+
+        return vector
                 .stream()
                 .map(d -> (d - mean) / standardDeviation)
                 .collect(Collectors.toList());
@@ -855,6 +1254,16 @@ public class StandardVector<T extends Number> implements IVector<T> {
         }
 
         return this;
+    }
+
+    public static Double[] map(Double[] vector, Function<Double, Double> function) {
+        Objects.requireNonNull(function);
+
+        for (int i = 0; i < vector.length; i++) {
+            vector[i] = function.apply(vector[i]);
+        }
+
+        return vector;
     }
 
     @Override
@@ -874,9 +1283,26 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return this;
     }
 
+    public static Double[] filter(Double[] vector, Predicate<Double> predicate) {
+        Objects.requireNonNull(predicate);
+
+        List<Double> result = Arrays.stream(vector)
+                .filter(predicate)
+                .collect(Collectors.toList());
+
+        if (result.isEmpty())
+            throw new IllegalArgumentException("Vector cannot be empty after filtering");
+
+        return result.toArray(new Double[0]);
+    }
+
     @Override
     public Double reduce(BinaryOperator<Double> accumulator) {
         return reduce(0d, accumulator);
+    }
+
+    public static Double reduce(Double[] vector, BinaryOperator<Double> accumulator) {
+        return reduce(vector, 0d, accumulator);
     }
 
     @Override
@@ -891,12 +1317,30 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
         return result;
     }
+    public static Double reduce(Double[] vector, Double identity, BinaryOperator<Double> accumulator) {
+
+        Objects.requireNonNull(accumulator);
+
+        double result = identity;
+
+        for (Double d: vector)
+            result = accumulator.apply(result, d);
+
+        return result;
+    }
 
     @Override
     public void forEach(Consumer<Double> consumer) {
         Objects.requireNonNull(consumer);
 
         for (Double d: currentVector)
+            consumer.accept(d);
+    }
+
+    public static void forEach(Double[] vector, Consumer<Double> consumer) {
+        Objects.requireNonNull(consumer);
+
+        for (Double d: vector)
             consumer.accept(d);
     }
 
@@ -963,6 +1407,41 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     public boolean isVertical() {
         return isVertical;
+    }
+
+    public String content() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Vector has ")
+                .append(rows == 1 ? "1 row" : rows + " rows")
+                .append(" and ")
+                .append(columns == 1 ? "1 column" : columns + " columns")
+                .append(". Vector:\n[\n");
+
+        for (int i = 0; i < currentVector.size(); i++) {
+            if (isVertical)
+                sb.append("\t");
+
+            sb.append(currentVector.get(i));
+
+            if (i != currentVector.size() - 1) {
+                sb.append(", ");
+
+                if (isVertical)
+                    sb.append("\n");
+            }
+        }
+
+        sb.append("\n]");
+
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "StandardVector {\n" +
+                content() + "\n" +
+                '}';
     }
 
     public static void setEpsilon(double epsilon) {

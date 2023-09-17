@@ -42,6 +42,31 @@ class StandardVectorTest {
     }
 
     @Test
+    void testMultiplication3() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        Double[] vector2 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertArrayEquals(new Double[][] {
+                {1d, 2d, 3d, 4d, 5d, 6d},
+                {2d, 4d, 6d, 8d, 10d, 12d},
+                {3d, 6d, 9d, 12d, 15d, 18d},
+                {4d, 8d, 12d, 16d, 20d, 24d},
+                {5d, 10d, 15d, 20d, 25d, 30d},
+                {6d, 12d, 18d, 24d, 30d, 36d}
+        }, StandardVector.multiply(vector1, vector2).toMatrix());
+    }
+
+    @Test
+    void testMultiplication4() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        Double[] result = StandardVector.multiply(vector1, 10d);
+
+        assertArrayEquals(new Double[] {10d, 20d, 30d, 40d, 50d, 60d}, result);
+    }
+
+    @Test
     void testAddition1() {
 
             StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
@@ -67,6 +92,22 @@ class StandardVectorTest {
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
         assertThrows(IllegalArgumentException.class, () -> vector1.add(new Integer[] {10, 20, 30, 40, 50}));
+    }
+
+    @Test
+    void testAddition4() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        Double[] vector2 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertArrayEquals(new Double[] {2d, 4d, 6d, 8d, 10d, 12d}, StandardVector.add(vector1, vector2));
+    }
+
+    @Test
+    void testAddition5() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertArrayEquals(new Double[] {11d, 12d, 13d, 14d, 15d, 16d}, StandardVector.add(vector1, 10d));
     }
 
     @Test
@@ -98,7 +139,23 @@ class StandardVectorTest {
     }
 
     @Test
-    void testSum() {
+    void testSubtraction4() {
+        Double[] vector1 = {10d, 20d, 30d, 40d, 50d, 60d};
+
+        Double[] vector2 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertArrayEquals(new Double[] {9d, 18d, 27d, 36d, 45d, 54d}, StandardVector.subtract(vector1, vector2));
+    }
+
+    @Test
+    void testSubtraction5() {
+        Double[] vector1 = {10d, 20d, 30d, 40d, 50d, 60d};
+
+        assertArrayEquals(new Double[] {0d, 10d, 20d, 30d, 40d, 50d}, StandardVector.subtract(vector1, 10d));
+    }
+
+    @Test
+    void testSum1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -106,7 +163,15 @@ class StandardVectorTest {
     }
 
     @Test
-    void testMean() {
+    void testSum2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertEquals(21d, StandardVector.sum(vector1));
+    }
+
+
+    @Test
+    void testMean1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
 
@@ -114,7 +179,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testMax() {
+    void testMean2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertEquals(3.5d, StandardVector.mean(vector1));
+    }
+
+    @Test
+    void testMax1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -122,7 +194,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testMin() {
+    void testMax2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d, 0d};
+
+        assertEquals(6d, StandardVector.max(vector1));
+    }
+
+    @Test
+    void testMin1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -130,11 +209,25 @@ class StandardVectorTest {
     }
 
     @Test
-    void testMedian() {
+    void testMin2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d, 0d};
+
+        assertEquals(0d, StandardVector.min(vector1));
+    }
+
+    @Test
+    void testMedian1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
         assertEquals(3d, vector1.median());
+    }
+
+    @Test
+    void testMedian2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d, 0d};
+
+        assertEquals(3d, StandardVector.median(vector1));
     }
 
     @Test
@@ -178,6 +271,34 @@ class StandardVectorTest {
     }
 
     @Test
+    void testDrop6() {
+        Double[] vector = {1d, 2d, 3d, 4d, 5d, 6d, 0d};
+
+        assertArrayEquals(new Double[] {1d, 2d, 3d, 4d, 5d, 6d}, StandardVector.drop(vector, 6));
+    }
+
+    @Test
+    void testDrop7() {
+        Double[] vector = {1d, 2d, 3d, 4d, 5d, 6d, 0d};
+
+        assertArrayEquals(new Double[] {1d, 2d, 3d, 0d}, StandardVector.drop(vector, 3, 6));
+    }
+
+    @Test
+    void testDrop8() {
+        StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
+
+        assertArrayEquals(new Integer[] {1, 2, 3}, vector1.drop(3, vector1.getRowNumber()).toIntegerArray());
+    }
+
+    @Test
+    void testDrop9() {
+        Double[] vector = {1d, 2d, 3d, 4d, 5d, 6d, 0d};
+
+        assertArrayEquals(new Double[] {1d, 2d, 3d, 4d, 5d, 6d}, StandardVector.drop(vector));
+    }
+
+    @Test
     void testSet1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
@@ -202,6 +323,14 @@ class StandardVectorTest {
     }
 
     @Test
+    void testPut3() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertArrayEquals(new Double[] {1d, 2d, 3d, 4d, 5d, 6d, 10d, 11d, 12d},
+                StandardVector.put(vector1, new Double[] {10d, 11d, 12d}));
+    }
+
+    @Test
     void testSlice1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6}, true);
@@ -210,7 +339,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testl0Norm() {
+    void testSlice2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d};
+
+        assertArrayEquals(new Double[] {1d, 2d, 3d}, StandardVector.slice(vector1, 0, 3));
+    }
+
+    @Test
+    void testl0Norm1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0}, true);
 
@@ -218,7 +354,16 @@ class StandardVectorTest {
     }
 
     @Test
-    void testl1Norm() {
+    void testl0Norm2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d, 0d};
+
+        assertEquals(6, StandardVector.l0Norm(vector1));
+
+    }
+
+
+    @Test
+    void testl1Norm1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0, -10}, true);
 
@@ -226,7 +371,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testl2Norm() {
+    void testl1Norm2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d, 0d, -10d};
+
+        assertEquals(31d, StandardVector.l1Norm(vector1));
+    }
+
+    @Test
+    void testL2Norm1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0, -10}, true);
 
@@ -234,7 +386,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testlInfinityNorm() {
+    void testL2Norm2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 6d, 0d, -10d};
+
+        assertTrue(NumberUtils.approximatelyEqual(Math.sqrt(191), StandardVector.l2Norm(vector1), epsilon));
+    }
+
+    @Test
+    void testLInfinityNorm1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {9, 1, 2, 3, 4, 5, 6, 0, -10}, true);
 
@@ -242,11 +401,25 @@ class StandardVectorTest {
     }
 
     @Test
-    void testVariance() {
+    void testLInfinityNorm2() {
+        Double[] vector1 = {9d, 1d, 2d, 3d, 4d, 5d, 6d, 0d, -10d};
+
+        assertEquals(10d, StandardVector.lInfinityNorm(vector1));
+    }
+
+    @Test
+    void testVariance1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
         assertTrue(NumberUtils.approximatelyEqual(2.5, vector1.variance(), epsilon));
+    }
+
+    @Test
+    void testVariance2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d};
+
+        assertTrue(NumberUtils.approximatelyEqual(2.5, StandardVector.variance(vector1), epsilon));
     }
 
     @Test
@@ -266,7 +439,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testStandardDeviation() {
+    void testMinMaxNormalization3() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d};
+
+        assertArrayEquals(new Double[] {0d, 0.25d, 0.5d, 0.75d, 1d}, StandardVector.minMaxNormalization(vector1, 0d, 1d));
+    }
+
+    @Test
+    void testStandardDeviation1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
@@ -274,7 +454,15 @@ class StandardVectorTest {
     }
 
     @Test
-    void testZScoreStandardization() {
+    void testStandardDeviation2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d};
+
+        assertTrue(NumberUtils.approximatelyEqual(Math.sqrt(2.5),
+                StandardVector.standardDeviation(vector1), epsilon));
+    }
+
+    @Test
+    void testZScoreStandardization1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
@@ -283,7 +471,15 @@ class StandardVectorTest {
     }
 
     @Test
-    void testDistinct() {
+    void testZScoreStandardization2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d};
+
+        assertTrue(NumberUtils.approximatelyEqual(new Double[] {-1.264d, -0.63247d, 0d, 0.6324d, 1.26494d},
+                StandardVector.zScoreStandardization(vector1), epsilon));
+    }
+
+    @Test
+    void testDistinct1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 5, 5, 5, 1}, true);
 
@@ -291,7 +487,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testRange() {
+    void testDistinct2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 5d, 5d, 5d, 1d};
+
+        assertArrayEquals(new Double[] {1d, 2d, 3d, 4d, 5d}, StandardVector.distinct(vector1).toArray());
+    }
+
+    @Test
+    void testRange1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 5, 5, 5, 1}, true);
 
@@ -299,15 +502,29 @@ class StandardVectorTest {
     }
 
     @Test
-    void testSort() {
+    void testRange2() {
+        Double[] vector1 = {1d, 2d, 3d, 4d, 5d, 5d, 5d, 5d, 1d};
 
-        StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
-
-        assertArrayEquals(new Double[] {0d, 1d, 2d, 3d, 4d, 5d}, vector1.sort().toArray());
+        assertEquals(4d, StandardVector.range(vector1));
     }
 
     @Test
-    void testReverse() {
+    void testSort1() {
+
+        StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
+
+        assertArrayEquals(new Double[] {0d, 1d, 2d, 3d, 4d, 5d}, vector1.sort(true).toArray());
+    }
+
+    @Test
+    void testSort2() {
+        Double[] vector1 = {5d, 4d, 3d, 2d, 0d, 1d};
+
+        assertArrayEquals(new Double[] {0d, 1d, 2d, 3d, 4d, 5d}, StandardVector.sort(vector1, true));
+    }
+
+    @Test
+    void testReverse1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -315,7 +532,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testMap() {
+    void testReverse2() {
+        Double[] vector1 = {5d, 4d, 3d, 2d, 0d, 1d};
+
+        assertArrayEquals(new Double[] {1d, 0d, 2d, 3d, 4d, 5d}, StandardVector.reverse(vector1));
+    }
+
+    @Test
+    void testMap1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -323,7 +547,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testFilter() {
+    void testMap2() {
+        Double[] vector1 = {5d, 4d, 3d, 2d, 0d, 1d};
+
+        assertArrayEquals(new Double[] {10d, 8d, 6d, 4d, 0d, 2d}, StandardVector.map(vector1, x -> x * 2));
+    }
+
+    @Test
+    void testFilter1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -331,7 +562,14 @@ class StandardVectorTest {
     }
 
     @Test
-    void testReduce() {
+    void testFilter2() {
+        Double[] vector1 = {5d, 4d, 3d, 2d, 0d, 1d};
+
+        assertArrayEquals(new Double[] {5d, 4d}, StandardVector.filter(vector1, x -> x > 3));
+    }
+
+    @Test
+    void testReduce1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1}, true);
 
@@ -339,11 +577,25 @@ class StandardVectorTest {
     }
 
     @Test
-    void testMode() {
+    void testReduce2() {
+        Double[] vector1 = {5d, 4d, 3d, 2d, 0d, 1d};
+
+        assertEquals(15d, StandardVector.reduce(vector1, (x, y) -> x + y));
+    }
+
+    @Test
+    void testMode1() {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {5, 4, 3, 2, 0, 1, 5, 5, 5, 5, 1}, true);
 
         assertIterableEquals(Arrays.asList(5d), vector1.mode());
+    }
+
+    @Test
+    void testMode2() {
+        Double[] vector1 = {5d, 4d, 3d, 2d, 0d, 1d, 5d, 5d, 5d, 5d, 1d};
+
+        assertIterableEquals(Arrays.asList(5d), StandardVector.mode(vector1));
     }
 
     @Test
