@@ -1,5 +1,6 @@
 package caebr;
 
+import caebr.util.NumberUtils;
 import caebr.vector.StandardVector;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,8 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StandardVectorTest {
+
+    double epsilon = 0.001d;
 
     @Test
     void testMultiplication1() {
@@ -227,7 +230,7 @@ class StandardVectorTest {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5, 6, 0, -10}, true);
 
-        TestUtils.approximatelyEquals(Math.sqrt(191), vector1.l2Norm());
+        assertTrue(NumberUtils.approximatelyEqual(Math.sqrt(191), vector1.l2Norm(), epsilon));
     }
 
     @Test
@@ -243,7 +246,7 @@ class StandardVectorTest {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
-        TestUtils.approximatelyEquals(2.5, vector1.variance());
+        assertTrue(NumberUtils.approximatelyEqual(2.5, vector1.variance(), epsilon));
     }
 
     @Test
@@ -267,7 +270,7 @@ class StandardVectorTest {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
-        TestUtils.approximatelyEquals(Math.sqrt(2.5), vector1.standardDeviation());
+        assertTrue(NumberUtils.approximatelyEqual(Math.sqrt(2.5), vector1.standardDeviation(), epsilon));
     }
 
     @Test
@@ -275,7 +278,8 @@ class StandardVectorTest {
 
         StandardVector<Integer> vector1 = new StandardVector<>(new Integer[] {1, 2, 3, 4, 5}, true);
 
-        TestUtils.approximatelyEquals(new Double[] {-1.264d, -0.63247d, 0d, 0.6324d, 1.26494d}, vector1.zScoreStandardization().toArray());
+        assertTrue(NumberUtils.approximatelyEqual(new Double[] {-1.264d, -0.63247d, 0d, 0.6324d, 1.26494d}, vector1.zScoreStandardization().toArray(),
+                epsilon));
     }
 
     @Test

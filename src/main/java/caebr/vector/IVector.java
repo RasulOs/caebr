@@ -133,8 +133,4 @@ public interface IVector<T extends Number> {
     Double[] toArray();
 
     Float[] toFloatArray();
-
-    void setEpsilon(double epsilon);
-
-    double getEpsilon();
 }

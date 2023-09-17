@@ -2,6 +2,7 @@ package caebr.vector;
 
 import caebr.matrix.IMatrix;
 import caebr.matrix.StandardMatrix;
+import caebr.util.NumberUtils;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -30,7 +31,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     private static final String VECTOR_CANNOT_BE_NULL = "Vector cannot be null";
 
     // Default epsilon value. Used for comparing doubles.
-    private double epsilon = 0.000001;
+    private static double epsilon = 0.000001;
 
     public StandardVector(T[] vector) {
         Objects.requireNonNull(vector, VECTOR_CANNOT_BE_NULL);
@@ -784,7 +785,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
         int count = 0;
 
         for (Double d: currentVector)
-            if (!approximatelyZero(d)) count++;
+            if (!NumberUtils.approximatelyZero(d, epsilon)) count++;
 
         return count;
     }
@@ -964,21 +965,11 @@ public class StandardVector<T extends Number> implements IVector<T> {
         return isVertical;
     }
 
-    private boolean approximatelyZero(Double d) {
-        return Math.abs(d) < epsilon;
+    public static void setEpsilon(double epsilon) {
+        StandardVector.epsilon = epsilon;
     }
 
-    private boolean approximatelyEqual(Double d1, Double d2) {
-        return Math.abs(d1 - d2) < epsilon;
-    }
-
-    @Override
-    public void setEpsilon(double epsilon) {
-        this.epsilon = epsilon;
-    }
-
-    @Override
-    public double getEpsilon() {
-        return epsilon;
+    public static double getEpsilon() {
+        return StandardVector.epsilon;
     }
 }

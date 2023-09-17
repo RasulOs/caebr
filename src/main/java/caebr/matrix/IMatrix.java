@@ -79,7 +79,15 @@ public interface IMatrix<T extends Number> {
 
     IMatrix<T> sort(int column);
 
+    IMatrix<T> sort(int column, boolean ascending);
+
     IMatrix<T> sort(int fromColumn, int toColumn);
+
+    IMatrix<T> sort(int fromColumn, int toColumn, boolean ascending);
+
+    IMatrix<T> sort();
+
+    IMatrix<T> sortWithRowSwap(int column, boolean ascending);
 
     IMatrix<T> minMaxNormalization(long min, long max, int column);
 
@@ -123,6 +131,10 @@ public interface IMatrix<T extends Number> {
 
     boolean isAntiDiagonal();
 
+    boolean isUpperTriangular();
+
+    boolean isLowerTriangular();
+
     Double determinant();
 
     IMatrix<T> inverse();
@@ -139,11 +151,29 @@ public interface IMatrix<T extends Number> {
 
     Double[] popColumn();
 
+    IMatrix<T> replaceRow(int index, T[] row);
+
+    IMatrix<T> swapRows(int firstIndex, int secondIndex);
+
+    // Change all values
     IMatrix<T> map(Function<Double, Double> function);
 
     IMatrix<T> map(int column, Function<Double, Double> function);
 
     IMatrix<T> map(int fromColumn, int toColumn, Function<Double, Double> function);
+
+    IMatrix<T> mapRow(Function<Double, Double> function);
+
+    IMatrix<T> mapRow(int row, Function<Double, Double> function);
+
+
+    // Add to toRow from fromRow
+    IMatrix<T> addRows(int toRow, int fromRow);
+
+    // Assigns the result of multiplication of fromRow with toRow to toRow
+    IMatrix<T> multiplyRows(int toRow, int fromRow);
+
+    IMatrix<T> mapRow(int fromRow, int toRow, Function<Double, Double> function);
 
     Double reduce(int column, BinaryOperator<Double> accumulator);
 
@@ -202,8 +232,4 @@ public interface IMatrix<T extends Number> {
     Long[] toLongArray(int column);
 
     Long[] toLongArray(int fromColumn, int toColumn);
-
-    void setEpsilon(double epsilon);
-
-    double getEpsilon();
 }
