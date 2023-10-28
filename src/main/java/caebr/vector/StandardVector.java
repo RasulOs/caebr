@@ -2,6 +2,7 @@ package caebr.vector;
 
 import caebr.matrix.IMatrix;
 import caebr.matrix.StandardMatrix;
+import caebr.statistics.Stats;
 import caebr.util.NumberUtils;
 
 import java.util.*;
@@ -689,263 +690,92 @@ public class StandardVector<T extends Number> implements IVector<T> {
 
     @Override
     public Double sum() {
-        Double sum = 0.0;
-
-        for (Double d: currentVector) {
-            sum += d;
-        }
-        return sum;
+        return Stats.sum(currentVector);
     }
 
     public static Double sum(Double[] vector) {
-        Double sum = 0.0;
-
-        for (Double d: vector) {
-            sum += d;
-        }
-        return sum;
+        return Stats.sum(vector);
     }
 
     @Override
     public Double mean() {
-        if (currentVector.isEmpty())
-            return 0.0;
-
-        Double sum = sum();
-        return sum / currentVector.size();
+        return Stats.mean(currentVector);
     }
 
     public static Double mean(Double[] vector) {
-        if (vector.length == 0)
-            return 0.0;
-
-        Double sum = sum(vector);
-        return sum / vector.length;
+        return Stats.mean(vector);
     }
 
     @Override
     public Double max() {
-
-        if (currentVector.isEmpty())
-            return 0.0;
-
-        Double max = Double.MIN_VALUE;
-
-        for (Double d: currentVector) {
-            if (d > max)
-                max = d;
-        }
-
-       return max;
+       return Stats.max(currentVector);
     }
 
     public static Double max(Double[] vector) {
-
-        if (vector.length == 0)
-            return 0.0;
-
-        Double max = Double.MIN_VALUE;
-
-        for (Double d: vector) {
-            if (d > max)
-                max = d;
-        }
-
-        return max;
+        return Stats.max(vector);
     }
 
     @Override
     public Double min() {
-
-        if (currentVector.isEmpty())
-            return 0.0;
-
-        Double min = Double.MAX_VALUE;
-
-        for (Double d: currentVector) {
-            if (d < min)
-                min = d;
-        }
-
-        return min;
+        return Stats.min(currentVector);
     }
 
     public static Double min(Double[] vector) {
-
-        if (vector.length == 0)
-            return 0.0;
-
-        Double min = Double.MAX_VALUE;
-
-        for (Double d: vector) {
-            if (d < min)
-                min = d;
-        }
-
-        return min;
+        return Stats.min(vector);
     }
 
     @Override
     public Double median() {
-        if (currentVector.isEmpty())
-            return 0.0;
-
-        List<Double> tempList = new ArrayList<>(currentVector);
-
-        sortTemporaryList(tempList);
-
-        if (tempList.size() % 2 == 0)
-            return (tempList.get(tempList.size() / 2) + tempList.get(tempList.size() / 2 - 1)) / 2;
-        else
-            return tempList.get(tempList.size() / 2);
+        return Stats.median(currentVector);
     }
 
     public static Double median(Double[] vector) {
-        if (vector.length == 0)
-            return 0.0;
-
-        List<Double> tempList = new ArrayList<>(Arrays.asList(vector));
-
-        Collections.sort(tempList);
-
-        if (tempList.size() % 2 == 0)
-            return (tempList.get(tempList.size() / 2) + tempList.get(tempList.size() / 2 - 1)) / 2;
-        else
-            return tempList.get(tempList.size() / 2);
+        return Stats.median(vector);
     }
 
     @Override
     public List<Double> mode() {
-        List<Double> listOfModes = new ArrayList<>();
-
-        HashMap<Double, Integer> map = new HashMap<>();
-
-        Integer maxCount = 0;
-
-        for (Double d: currentVector) {
-            if (map.containsKey(d)) {
-                map.put(d, map.get(d) + 1);
-                if (map.get(d) > maxCount)
-                    maxCount = map.get(d);
-            }
-            else
-                map.put(d, 1);
-        }
-
-        if (maxCount == 1)
-            return listOfModes;
-
-        for (Double d: map.keySet()) {
-            if (map.get(d).equals(maxCount))
-                listOfModes.add(d);
-        }
-
-        return listOfModes;
+        return Stats.mode(currentVector);
     }
 
     public static List<Double> mode(Double[] vector) {
-        List<Double> listOfModes = new ArrayList<>();
-
-        HashMap<Double, Integer> map = new HashMap<>();
-
-        Integer maxCount = 0;
-
-        for (Double d: vector) {
-            if (map.containsKey(d)) {
-                map.put(d, map.get(d) + 1);
-                if (map.get(d) > maxCount)
-                    maxCount = map.get(d);
-            }
-            else
-                map.put(d, 1);
-        }
-
-        if (maxCount == 1)
-            return listOfModes;
-
-        for (Double d: map.keySet()) {
-            if (map.get(d).equals(maxCount))
-                listOfModes.add(d);
-        }
-
-        return listOfModes;
+        return Stats.mode(vector);
     }
 
     @Override
     public Double variance() {
-
-        if (currentVector.isEmpty())
-            return 0.0;
-
-        Double mean = mean();
-
-        double sumOfSquaredDifferences = 0.0;
-
-        for (Double d : currentVector) {
-            sumOfSquaredDifferences += Math.pow(d - mean, 2);
-        }
-
-        int n = currentVector.size() >= 30 ? currentVector.size() : currentVector.size() - 1;
-
-        return sumOfSquaredDifferences / n;
+        return Stats.variance(currentVector);
     }
 
     public static Double variance(Double[] vector) {
-
-        if (vector.length == 0)
-            return 0.0;
-
-        Double mean = mean(vector);
-
-        double sumOfSquaredDifferences = 0.0;
-
-        for (Double d : vector) {
-            sumOfSquaredDifferences += Math.pow(d - mean, 2);
-        }
-
-        int n = vector.length >= 30 ? vector.length : vector.length - 1;
-
-        return sumOfSquaredDifferences / n;
+        return Stats.variance(vector);
     }
 
     @Override
     public Double standardDeviation() {
-        return Math.sqrt(variance());
+        return Stats.standardDeviation(currentVector);
     }
 
     public static Double standardDeviation(Double[] vector) {
-        return Math.sqrt(variance(vector));
+        return Stats.standardDeviation(vector);
     }
 
     @Override
     public List<Double> distinct() {
-        if (currentVector.isEmpty())
-            return new ArrayList<>();
-
-        Set<Double> set = new LinkedHashSet<>();
-
-        for (int i = 0; i < currentVector.size(); i++)
-            set.add(this.currentVector.get(i));
-
-        return new ArrayList<>(set);
+        return Stats.distinct(currentVector);
     }
 
     public static List<Double> distinct(Double[] vector) {
-        if (vector.length == 0)
-            return new ArrayList<>();
-
-        Set<Double> set = new LinkedHashSet<>(Arrays.asList(vector));
-
-        return new ArrayList<>(set);
+        return Stats.distinct(vector);
     }
 
     @Override
     public Double range() {
-        return max() - min();
+        return Stats.range(currentVector);
     }
 
     public static Double range(Double[] vector) {
-        return max(vector) - min(vector);
+        return Stats.range(vector);
     }
 
     @Override
@@ -1072,9 +902,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     public static Double[] minMaxNormalization(Double[] vector, double min, double max) {
-
-        return minMaxNormalization(min, max, Arrays.asList(vector))
-                .toArray(new Double[0]);
+        return Stats.minMaxNormalization(vector, min, max);
     }
 
     @Override
@@ -1085,27 +913,7 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     private static List<Double> minMaxNormalization(double min, double max, List<Double> doubleList) {
-
-        if (doubleList.isEmpty())
-            return doubleList;
-
-        if (min > max)
-            throw new IllegalArgumentException("Min cannot be greater than max");
-
-        double minDouble = doubleList
-                .stream()
-                .min(Double::compareTo)
-                .orElseThrow(NoSuchElementException::new);
-
-        double maxDouble = doubleList
-                .stream()
-                .max(Double::compareTo)
-                .orElseThrow(NoSuchElementException::new);
-
-        return doubleList
-                .stream()
-                .map(d -> (d - minDouble) / (maxDouble - minDouble) * (max - min) + min)
-                .collect(Collectors.toList());
+        return Stats.minMaxNormalization(min, max, doubleList);
     }
 
     @Override
@@ -1116,112 +924,43 @@ public class StandardVector<T extends Number> implements IVector<T> {
     }
 
     public static Double[] zScoreStandardization(Double[] vector) {
-        return zScoreStandardizationInternal(Arrays.asList(vector))
-                .toArray(new Double[0]);
+        return Stats.zScoreStandardization(vector);
     }
 
     @Override
     public Integer l0Norm() {
-        if (currentVector.isEmpty())
-            return 0;
-
-        int count = 0;
-
-        for (Double d: currentVector)
-            if (!NumberUtils.approximatelyZero(d, epsilon)) count++;
-
-        return count;
+        return Stats.l0Norm(currentVector, epsilon);
     }
 
     public static Integer l0Norm(Double[] vector) {
-        if (vector.length == 0)
-            return 0;
-
-        int count = 0;
-
-        for (Double d: vector)
-            if (!NumberUtils.approximatelyZero(d, epsilon)) count++;
-
-        return count;
+        return Stats.l0Norm(vector, epsilon);
     }
 
     @Override
     public Double l1Norm() {
-
-        if (currentVector.isEmpty())
-            return 0d;
-
-        double absSum = 0d;
-
-        for (Double d: currentVector)
-            absSum += Math.abs(d);
-
-        return absSum;
+        return Stats.l1Norm(currentVector);
     }
 
     public static Double l1Norm(Double[] vector) {
-
-        if (vector.length == 0)
-            return 0d;
-
-        double absSum = 0d;
-
-        for (Double d: vector)
-            absSum += Math.abs(d);
-
-        return absSum;
+        return Stats.l1Norm(vector);
     }
 
     @Override
     public Double l2Norm() {
-
-        if (currentVector.isEmpty())
-            return 0d;
-
-        double sumOfSquares = 0d;
-
-        for (Double d: currentVector)
-            sumOfSquares += Math.pow(d, 2);
-
-        return Math.sqrt(sumOfSquares);
+        return Stats.l2Norm(currentVector);
     }
 
     public static Double l2Norm(Double[] vector) {
-
-        if (vector.length == 0)
-            return 0d;
-
-        double sumOfSquares = 0d;
-
-        for (Double d: vector)
-            sumOfSquares += Math.pow(d, 2);
-
-        return Math.sqrt(sumOfSquares);
+        return Stats.l2Norm(vector);
     }
 
     @Override
     public Double lInfinityNorm() {
-        if (currentVector.isEmpty())
-            return 0d;
-
-        double absMax = Double.MIN_VALUE;
-
-        for (Double d: currentVector)
-            if (Math.abs(d) > absMax) absMax = Math.abs(d);
-
-        return absMax;
+        return Stats.lInfinityNorm(currentVector);
     }
 
     public static Double lInfinityNorm(Double[] vector) {
-        if (vector.length == 0)
-            return 0d;
-
-        double absMax = Double.MIN_VALUE;
-
-        for (Double d: vector)
-            if (Math.abs(d) > absMax) absMax = Math.abs(d);
-
-        return absMax;
+        return Stats.lInfinityNorm(vector);
     }
 
     private List<Double> zScoreStandardizationInternal() {

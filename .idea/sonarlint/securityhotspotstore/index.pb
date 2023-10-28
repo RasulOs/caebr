@@ -57,5 +57,5 @@ w
 G.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec,8/6/863e0292fd7e9b3e74dafd6cc01f73ba76346482
 Å
 Q.idea/sonarlint/securityhotspotstore/c/c/cc76ad26e5046e216a34288d1e6743a7dcd4668b,7/c/7c5d487222e7145068d5f46f2476c0c77d2bc9e4
-R
-"src/test/java/caebr/TestUtils.java,2/a/2aabf96cbec1ce08b91f85edba399a8ab924d5e9
+Y
+)src/main/java/caebr/util/NumberUtils.java,7/0/7028ed41229d3cea9c5e5b8999ca229ac7cd9555

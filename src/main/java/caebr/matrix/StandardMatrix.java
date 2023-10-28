@@ -1,5 +1,6 @@
 package caebr.matrix;
 
+import caebr.statistics.Stats;
 import caebr.util.NumberUtils;
 
 import java.util.*;
@@ -462,7 +463,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double sum(Double[][] matrix) {
-        return sum(matrix, 0, matrix[0].length);
+        return Stats.sum(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -471,7 +472,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double sum(Double[][] matrix, int column) {
-        return sum(matrix, column, column + 1);
+        return Stats.sum(matrix, column, column + 1);
     }
 
     @Override
@@ -482,18 +483,9 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     public static Double sum(Double[][] matrix, int fromColumn, int toColumn) {
 
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        Double sum = 0.0;
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = fromColumn; j < toColumn; j++) {
-                sum += matrix[i][j];
-            }
-        }
-
-        return sum;
+        return Stats.sum(matrix, fromColumn, toColumn);
     }
+
     private static void checkColumnIndexes(Double[][] matrix, int fromColumn, int toColumn) {
         if (fromColumn < 0 || toColumn < 0)
             throw new IllegalArgumentException("Column indexes cannot be negative");
@@ -504,8 +496,6 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
         if (fromColumn > matrix[0].length || toColumn > matrix[0].length)
             throw new IllegalArgumentException("Column indexes cannot be greater than the number of columns");
     }
-
-
 
     private void checkColumnIndex(int column) {
         checkColumnIndex(this.currentMatrix, column);
@@ -525,7 +515,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double mean(Double[][] matrix) {
-        return mean(matrix, 0, matrix[0].length);
+        return Stats.mean(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -534,7 +524,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double mean(Double[][] matrix, int column) {
-        return mean(matrix, column, column + 1);
+        return Stats.mean(matrix, column, column + 1);
     }
 
     @Override
@@ -544,13 +534,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double mean(Double[][] matrix, int fromColumn, int toColumn) {
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        return sum(matrix, fromColumn, toColumn) / (matrix.length * (toColumn - fromColumn));
+        return Stats.mean(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -559,7 +543,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double max(Double[][] matrix) {
-        return max(matrix, 0, matrix[0].length);
+        return Stats.max(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -568,7 +552,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double max(Double[][] matrix, int column) {
-        return max(matrix, column, column + 1);
+        return Stats.max(matrix, column, column + 1);
     }
 
     @Override
@@ -577,21 +561,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double max(Double[][] matrix, int fromColumn, int toColumn) {
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        Double max = Double.MIN_VALUE;
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = fromColumn; j < toColumn; j++) {
-                if (matrix[i][j] > max)
-                    max = matrix[i][j];
-            }
-        }
-
-        return max;
+        return Stats.max(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -600,7 +570,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double min(Double[][] matrix) {
-        return min(matrix, 0, matrix[0].length);
+        return Stats.min(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -609,7 +579,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double min(Double[][] matrix, int column) {
-        return min(matrix, column, column + 1);
+        return Stats.min(matrix, column, column + 1);
     }
 
     @Override
@@ -618,22 +588,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double min(Double[][] matrix, int fromColumn, int toColumn) {
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        Double min = Double.MAX_VALUE;
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = fromColumn; j < toColumn; j++) {
-                if (matrix[i][j] < min)
-                    min = matrix[i][j];
-            }
-        }
-
-        return min;
+        return Stats.min(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -642,7 +597,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> mode(Double[][] matrix) {
-        return mode(matrix, 0, matrix[0].length);
+        return Stats.mode(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -651,7 +606,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> mode(Double[][] matrix, int column) {
-        return mode(matrix, column, column + 1);
+        return Stats.mode(matrix, column, column + 1);
     }
 
     @Override
@@ -661,39 +616,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> mode(Double[][] matrix, int fromColumn, int toColumn) {
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        List<Double> listOfModes = new ArrayList<>();
-
-        HashMap<Double, Integer> map = new HashMap<>();
-
-        Integer maxCount = 0;
-
-        for (int i = fromColumn; i < toColumn; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-
-                Double d = matrix[j][i];
-
-                if (map.containsKey(d)) {
-                    map.put(d, map.get(d) + 1);
-                    if (map.get(d) > maxCount)
-                        maxCount = map.get(d);
-                }
-                else
-                    map.put(d, 1);
-            }
-        }
-
-        if (maxCount == 1)
-            return listOfModes;
-
-        for (Double d: map.keySet()) {
-            if (map.get(d).equals(maxCount))
-                listOfModes.add(d);
-        }
-
-        return listOfModes;
+        return Stats.mode(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -702,7 +625,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double variance(Double[][] matrix) {
-        return variance(matrix, 0, matrix[0].length);
+        return Stats.variance(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -711,7 +634,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double variance(Double[][] matrix, int column) {
-        return variance(matrix, column, column + 1);
+        return Stats.variance(matrix, column, column + 1);
     }
 
     @Override
@@ -720,28 +643,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double variance(Double[][] matrix, int fromColumn, int toColumn) {
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        Double mean = mean(matrix, fromColumn, toColumn);
-
-        double sumOfSquaredDifferences = 0.0;
-
-        for (int i = fromColumn; i < toColumn; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                Double d = matrix[j][i];
-                sumOfSquaredDifferences += Math.pow(d - mean, 2);
-            }
-        }
-
-        int n = matrix.length * (toColumn - fromColumn);
-
-        n = n >= 30 ? n : n - 1;
-
-        return sumOfSquaredDifferences / n;
+        return Stats.variance(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -751,7 +653,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double standardDeviation(Double[][] matrix) {
-        return standardDeviation(matrix, 0, matrix[0].length);
+        return Stats.standardDeviation(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -761,7 +663,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double standardDeviation(Double[][] matrix, int column) {
-        return standardDeviation(matrix, column, column + 1);
+        return Stats.standardDeviation(matrix, column, column + 1);
     }
 
     @Override
@@ -771,7 +673,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double standardDeviation(Double[][] matrix, int fromColumn, int toColumn) {
-        return Math.sqrt(variance(matrix, fromColumn, toColumn));
+        return Stats.standardDeviation(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -780,7 +682,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double range(Double[][] matrix) {
-        return range(matrix, 0, matrix[0].length);
+        return Stats.range(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -789,7 +691,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double range(Double[][] matrix, int column) {
-        return range(matrix, column, column + 1);
+        return Stats.range(matrix, column, column + 1);
     }
 
     @Override
@@ -798,10 +700,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double range(Double[][] matrix, int fromColumn, int toColumn) {
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        return max(matrix, fromColumn, toColumn) - min(matrix, fromColumn, toColumn);
+        return Stats.range(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -810,7 +709,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double median(Double[][] matrix) {
-        return median(matrix, 0, matrix[0].length);
+        return Stats.median(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -819,31 +718,16 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double median(Double[][] matrix, int column) {
-        return median(matrix, column, column + 1);
+        return Stats.median(matrix, column, column + 1);
     }
 
     @Override
     public Double median(int fromColumn, int toColumn) {
-        return median(this.currentMatrix, fromColumn, toColumn);
+        return Stats.median(this.currentMatrix, fromColumn, toColumn);
     }
 
     public static Double median(Double[][] matrix, int fromColumn, int toColumn) {
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        Double[] columnArray = toArray(matrix, fromColumn, toColumn);
-
-        Arrays.sort(columnArray);
-
-        if (columnArray.length % 2 == 0) {
-            return (columnArray[columnArray.length / 2] + columnArray[columnArray.length / 2 - 1]) / 2;
-        }
-        else {
-            return columnArray[columnArray.length / 2];
-        }
+        return Stats.median(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -964,7 +848,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double[][] minMaxNormalization(Double[][] matrix, long min, long max, int column) {
-        return minMaxNormalization(matrix, min, max, column, column + 1);
+        return Stats.minMaxNormalization(matrix, min, max, column, column + 1);
     }
 
     @Override
@@ -975,30 +859,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double[][] minMaxNormalization(Double[][] matrix, long min, long max, int fromColumn, int toColumn) {
-
-        if (min > max)
-            throw new IllegalArgumentException("Min value is greater than max value");
-
-        if (min == max)
-            throw new IllegalArgumentException("Min value is equal to max value");
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        for (int i = fromColumn; i < toColumn; i++) {
-
-            Double minDouble = min(matrix, i);
-            Double maxDouble = max(matrix, i);
-
-            if (minDouble.equals(maxDouble))
-                throw new IllegalArgumentException("Min value is equal to max value");
-
-            for (int j = 0; j < matrix.length; j++) {
-                Double d = matrix[j][i];
-                matrix[j][i] = (d - minDouble) / (maxDouble - minDouble) * (max - min) + min;
-            }
-        }
-
-        return matrix;
+        return Stats.minMaxNormalization(matrix, min, max, fromColumn, toColumn);
     }
 
     @Override
@@ -1009,7 +870,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double[][] minMaxNormalization(Double[][] matrix) {
-        return minMaxNormalization(matrix, 0, 1, 0, matrix[0].length);
+        return Stats.minMaxNormalization(matrix, 0, 1, 0, matrix[0].length);
     }
 
     @Override
@@ -1020,7 +881,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double[][] minMaxNormalization(Double[][] matrix, int column) {
-        return minMaxNormalization(matrix, 0, 1, column, column + 1);
+        return Stats.minMaxNormalization(matrix, 0, 1, column, column + 1);
     }
 
     @Override
@@ -1036,7 +897,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double[][] zScoreStandardization(Double[][] matrix) {
-        return zScoreStandardization(matrix, 0, matrix[0].length);
+        return Stats.zScoreStandardization(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -1045,7 +906,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double[][] zScoreStandardization(Double[][] matrix, int column) {
-        return zScoreStandardization(matrix, column, column + 1);
+        return Stats.zScoreStandardization(matrix, column, column + 1);
     }
 
     @Override
@@ -1057,24 +918,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double[][] zScoreStandardization(Double[][] matrix, int fromColumn, int toColumn) {
-
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return matrix;
-
-        for (int i = fromColumn; i < toColumn; i++) {
-
-            double meanOfColumn = mean(matrix, i);
-            double sd = standardDeviation(matrix, i);
-
-            for (int j = 0; j < matrix.length; j++) {
-                double d = matrix[j][i];
-                matrix[j][i] = (d - meanOfColumn) / sd;
-            }
-        }
-
-        return matrix;
+        return Stats.zScoreStandardization(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -1083,19 +927,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Integer l0Norm(Double[][] matrix, int column) {
-        checkColumnIndex(matrix, column);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0;
-
-        int count = 0;
-
-        for (int i = 0; i < matrix.length; i++) {
-            if (!NumberUtils.approximatelyZero(matrix[i][column], epsilon))
-                count++;
-        }
-
-        return count;
+        return Stats.l0Norm(matrix, column, epsilon);
     }
 
     @Override
@@ -1104,17 +936,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double l1Norm(Double[][] matrix, int column) {
-        checkColumnIndex(matrix, column);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        double absSum = 0d;
-
-        for (int i = 0; i < matrix.length; i++)
-            absSum += Math.abs(matrix[i][column]);
-
-        return absSum;
+        return Stats.l1Norm(matrix, column);
     }
 
     @Override
@@ -1123,17 +945,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double l2Norm(Double[][] matrix, int column) {
-        checkColumnIndex(matrix, column);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        double sumOfSquares = 0d;
-
-        for (int i = 0; i < matrix.length; i++)
-            sumOfSquares += Math.pow(matrix[i][column], 2);
-
-        return Math.sqrt(sumOfSquares);
+        return Stats.l2Norm(matrix, column);
     }
 
     @Override
@@ -1142,18 +954,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static Double lInfinityNorm(Double[][] matrix, int column) {
-        checkColumnIndex(matrix, column);
-
-        if (matrix.length == 0 || matrix[0].length == 0)
-            return 0.0;
-
-        double absMax = Double.MIN_VALUE;
-
-        for (int i = 0; i < matrix.length; i++) {
-            if (Math.abs(matrix[i][column]) > absMax) absMax = Math.abs(matrix[i][column]);
-        }
-
-        return absMax;
+        return Stats.lInfinityNorm(matrix, column);
     }
 
     @Override
@@ -1801,7 +1602,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> toList(Double[][] matrix) {
-        return toList(matrix, 0, matrix[0].length);
+        return Stats.toList(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -1810,7 +1611,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> toList(Double[][] matrix, int column) {
-        return toList(matrix, column, column + 1);
+        return Stats.toList(matrix, column, column + 1);
     }
 
     @Override
@@ -1819,17 +1620,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> toList(Double[][] matrix, int fromColumn, int toColumn) {
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        List<Double> list = new ArrayList<>();
-
-        for (int i = fromColumn; i < toColumn; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                list.add(matrix[j][i]);
-            }
-        }
-
-        return list;
+        return Stats.toList(matrix, fromColumn, toColumn);
     }
 
     @Override
@@ -1838,7 +1629,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> distinct(Double[][] matrix) {
-        return distinct(matrix, 0, matrix[0].length);
+        return Stats.distinct(matrix, 0, matrix[0].length);
     }
 
     @Override
@@ -1847,7 +1638,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> distinct(Double[][] matrix, int column) {
-        return distinct(matrix, column, column + 1);
+        return Stats.distinct(matrix, column, column + 1);
     }
 
     @Override
@@ -1856,17 +1647,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
     }
 
     public static List<Double> distinct(Double[][] matrix, int fromColumn, int toColumn) {
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        Set<Double> set = new LinkedHashSet<>();
-
-        for (int i = fromColumn; i < toColumn; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                set.add(matrix[j][i]);
-            }
-        }
-
-        return new ArrayList<>(set);
+        return Stats.distinct(matrix, fromColumn, toColumn);
     }
 
     @Override

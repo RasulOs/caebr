@@ -1,13 +1,17 @@
 
-g
-java:S1192w"JDefine a constant instead of duplicating this literal "vertical" 12 times.(ı»üÿ8‘Ô¼û§1
-i
-java:S1192w"LDefine a constant instead of duplicating this literal "horizontal" 12 times.(ı»üÿ8ûİ½û§1
+h
+java:S1192˜"JDefine a constant instead of duplicating this literal "vertical" 12 times.(ı»üÿ8Å«¦¤ª1
+j
+java:S1192˜"LDefine a constant instead of duplicating this literal "horizontal" 12 times.(ı»üÿ8Æ«¦¤ª1
 K
-java:S1172Â"-Remove this unused method parameter "vector".(ßàşô8¬Õ¼û§1
+java:S1172‹"-Remove this unused method parameter "vector".(ßàşô8§­¦¤ª1
 P
-java:S1172Æ"-Remove this unused method parameter "vector".(µïœĞüÿÿÿÿ8­Õ¼û§1
+java:S1172"-Remove this unused method parameter "vector".(µïœĞüÿÿÿÿ8¨­¦¤ª1
 R
-java:S2864ë"4Iterate over the "entrySet" instead of the "keySet".(úµõô8¹Õ¼û§1
+java:S2864Æ"4Iterate over the "entrySet" instead of the "keySet".(úµõô8º­¦¤ª1
+R
+java:S2864â"4Iterate over the "entrySet" instead of the "keySet".(úµõô8¼­¦¤ª1
 ~
-java:S4276Ñ"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ú²âûÿÿÿÿ8ÂÕ¼û§1
+java:S4276á	"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ú²âûÿÿÿÿ8Ë­¦¤ª1
+y
+java:S4276ë	"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ô á®8Ì­¦¤ª1

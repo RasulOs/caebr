@@ -1,15 +1,31 @@
 
 R
-java:S2864·"4Iterate over the "entrySet" instead of the "keySet".(úµõô8÷Äã¨1
+java:S2864³"4Iterate over the "entrySet" instead of the "keySet".(úµõô8‚ª°Ÿª1
+p
+java:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(“ì…€8•ª°Ÿª1
 P
-java:S1135¡"2Complete the task associated to this TODO comment.(…ïœ†8†Åã¨1
-P
-java:S1135§"2Complete the task associated to this TODO comment.(…ïœ†8‡Åã¨1
+java:S1135 "2Complete the task associated to this TODO comment.(…ïœ†8·ª°Ÿª1
 ~
-java:S4276ğ"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(„—“Óÿÿÿÿÿ8ŠÅã¨1
-~
-java:S4276õ"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(üáàåûÿÿÿÿ8ŠÅã¨1
+java:S4276Ñ"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(„—“Óÿÿÿÿÿ8Ãª°Ÿª1
 y
-java:S4276ú"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÿÚÛ8‹Åã¨1
-U
-java:S1135ì"2Complete the task associated to this TODO comment.(Ÿø’øÿÿÿÿ8Åã¨1
+java:S4276×"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ß¡çì8Ãª°Ÿª1
+~
+java:S4276Ü"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(üáàåûÿÿÿÿ8Äª°Ÿª1
+~
+java:S4276â"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(¤¦Ò©ùÿÿÿÿ8Äª°Ÿª1
+y
+java:S4276ç"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÿÚÛ8Åª°Ÿª1
+~
+java:S4276î"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ŠĞĞ·ûÿÿÿÿ8Åª°Ÿª1
+~
+java:S4276ş"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(õüûîùÿÿÿÿ8Æª°Ÿª1
+~
+java:S4276„"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(’øÆÄøÿÿÿÿ8Çª°Ÿª1
+y
+java:S4276‰"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‹ƒäú8Çª°Ÿª1
+~
+java:S4276"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(©ı­Ëıÿÿÿÿ8Èª°Ÿª1
+y
+java:S4276¯"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÄĞãŞ8Êª°Ÿª1
+~
+java:S4276¶"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ß¤ÿ‚üÿÿÿÿ8Ëª°Ÿª1
