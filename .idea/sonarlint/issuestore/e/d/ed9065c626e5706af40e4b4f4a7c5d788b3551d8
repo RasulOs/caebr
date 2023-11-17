@@ -1,0 +1,23 @@
+
+K
+java:S2864Õ"4Iterate over the "entrySet" instead of the "keySet".(úµõô
+I
+java:S1135¾"2Complete the task associated to this TODO comment.(…ïœ†
+I
+java:S1135Ä"2Complete the task associated to this TODO comment.(…ïœ†
+w
+java:S4276"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(„—“Óÿÿÿÿÿ
+w
+java:S4276’"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(üáàåûÿÿÿÿ
+r
+java:S4276—"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÿÚÛ
+d
+java:S11442"NRemove this unused private "transformToDoubleMatrixWithNColumnPadding" method.(í¨²Ğ
+E
+java:S1144{"0Remove this unused private "checkMatrix" method.(˜ÀÆ7
+e
+java:S1144‘"IRemove this unused private "checkMatrixDimensionsForSymmetricity" method.(ßÑÛÀùÿÿÿÿ
+g
+java:S1144›"KRemove this unused private "checkMatrixDimensionsForMultiplication" method.(È®Ëâüÿÿÿÿ
+G
+java:S1144÷"0Remove this unused private "checkColumn" method.(Ã’çû

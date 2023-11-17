@@ -1,0 +1,19 @@
+
+d
+java:S1192^"IDefine a constant instead of duplicating this literal "vertical" 4 times.(Ú£ä˜þÿÿÿÿ
+f
+java:S1192^"KDefine a constant instead of duplicating this literal "horizontal" 4 times.(Ú£ä˜þÿÿÿÿ
+D
+java:S1172Ü"-Remove this unused method parameter "vector".(ßàþô
+K
+java:S2864š"4Iterate over the "entrySet" instead of the "keySet".(úµõô
+i
+java:S6204°"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹
+i
+java:S6204ü"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹
+w
+java:S4276€"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ú²âûÿÿÿÿ
+R
+java:S1144("<Remove this unused private "transformToDoubleVector" method.(Æ¦âÄ
+@
+java:S1144Ú")Remove this unused private "swap" method.(ßîÕƒ

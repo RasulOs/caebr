@@ -5,8 +5,6 @@ import caebr.util.NumberUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static caebr.matrix.StandardMatrix.toArray;
-
 public class Stats {
 
     private Stats() {}
@@ -114,7 +112,6 @@ public class Stats {
 
         List<Double> tempList = new ArrayList<>(currentVector);
 
-        // TODO
         sortTemporaryList(tempList);
 
         if (tempList.size() % 2 == 0)
@@ -839,5 +836,28 @@ public class Stats {
         }
 
         return new ArrayList<>(set);
+    }
+
+
+    public static Double[] toArray(Double[][] matrix, int column) {
+
+        return toArray(matrix, column, column + 1);
+    }
+
+    public static Double[] toArray(Double[][] matrix, int fromColumn, int toColumn) {
+
+        checkColumnIndexes(matrix, fromColumn, toColumn);
+
+        Double[] result = new Double[matrix.length * (toColumn - fromColumn)];
+
+        int index = 0;
+
+        for (int j = fromColumn; j < toColumn; j++) {
+            for (int i = 0; i < matrix.length; i++) {
+                result[index++] = matrix[i][j];
+            }
+        }
+
+        return result;
     }
 }

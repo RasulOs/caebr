@@ -1722,19 +1722,7 @@ public class StandardMatrix<T extends Number> implements IMatrix<T> {
 
     public static Double[] toArray(Double[][] matrix, int fromColumn, int toColumn) {
 
-        checkColumnIndexes(matrix, fromColumn, toColumn);
-
-        Double[] result = new Double[matrix.length * (toColumn - fromColumn)];
-
-        int index = 0;
-
-        for (int j = fromColumn; j < toColumn; j++) {
-            for (int i = 0; i < matrix.length; i++) {
-                result[index++] = matrix[i][j];
-            }
-        }
-
-        return result;
+        return Stats.toArray(matrix, fromColumn, toColumn);
     }
 
     @Override

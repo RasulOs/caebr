@@ -1,20 +1,20 @@
 
 9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 9
-	caebr.iml,6/a/6a291d9557afee48c078b295fbcf3b1a7f3bce41
+	caebr.iml,6\a\6a291d9557afee48c078b295fbcf3b1a7f3bce41
 7
-pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 ^
-.src/main/java/caebr/matrix/StandardMatrix.java,d/c/dc73d4295ffee7b9f58a15df4823e8ec8f3817f6
+.src/main/java/caebr/matrix/StandardMatrix.java,d\c\dc73d4295ffee7b9f58a15df4823e8ec8f3817f6
 W
-'src/main/java/caebr/matrix/IMatrix.java,a/8/a836c9f061caa7ce557513087028fc6220314ae8
+'src/main/java/caebr/matrix/IMatrix.java,a\8\a836c9f061caa7ce557513087028fc6220314ae8
 W
-'src/main/java/caebr/vector/IVector.java,c/c/cc76ad26e5046e216a34288d1e6743a7dcd4668b
+'src/main/java/caebr/vector/IVector.java,c\c\cc76ad26e5046e216a34288d1e6743a7dcd4668b
 ^
-.src/main/java/caebr/vector/StandardVector.java,1/2/12299bc8a9d5fd801c895d0e63028169e25bda9e
+.src/main/java/caebr/vector/StandardVector.java,1\2\12299bc8a9d5fd801c895d0e63028169e25bda9e
 M
-src/main/java/caebr/Main.java,9/8/98dcf35dea28d90db9c7b8156341309684e511ef
+src/main/java/caebr/Main.java,9\8\98dcf35dea28d90db9c7b8156341309684e511ef
 Å
 Q.idea/sonarlint/securityhotspotstore/9/8/98dcf35dea28d90db9c7b8156341309684e511ef,d/2/d22514a72a19e57fa5cf990132dc275ab182cadd
 Å
@@ -37,12 +37,8 @@ p
 @.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml,7/8/78b158d79d4a615b8bf614d6ee88675e25eba276
 t
 D.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_9_2.xml,0/f/0f5c093f9ec4a0c90cbefed954553b6e72f5cfbc
-q
-A.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_10_0.xml,a/e/aefc3177adc6f790148d49ac3e50cc731b5ba6d9
-x
-H.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_10_0.xml,4/9/49f52975244cb5864e7c5b40c7bd5d1eaf108e0b
 w
-G.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_9_2.xml,f/6/f6ea2a9c694ab902d7631fc96a138957cb038aa7
+G.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_9_2.xml,f\6\f6ea2a9c694ab902d7631fc96a138957cb038aa7
 y
 I.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_9_2.xml,f/e/fed1cce541044544304a3ed8411bed2740d381f5
 z
@@ -54,8 +50,16 @@ G.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec,8/6/86
 Å
 Q.idea/sonarlint/securityhotspotstore/c/c/cc76ad26e5046e216a34288d1e6743a7dcd4668b,7/c/7c5d487222e7145068d5f46f2476c0c77d2bc9e4
 [
-+src/test/java/caebr/StandardMatrixTest.java,9/9/9938d7be3254496d93dac147aa5bef4735fe5068
++src/test/java/caebr/StandardMatrixTest.java,9\9\9938d7be3254496d93dac147aa5bef4735fe5068
 [
-+src/test/java/caebr/StandardVectorTest.java,7/a/7ae6bc84acb8e821be6f600991090f58152b6ebe
++src/test/java/caebr/StandardVectorTest.java,7\a\7ae6bc84acb8e821be6f600991090f58152b6ebe
+7
+LICENSE,0\3\0398ccd0f49298b10a3d76a47800d2ebecd49859
+w
+G.idea/sonarlint/issuestore/0/3/0398ccd0f49298b10a3d76a47800d2ebecd49859,2\b\2b179fbe8d00d6818e998f6c3b532342e7e62d80
+d
+4.idea/libraries/Maven__com_beust_jcommander_1_82.xml,e\5\e59ed85771c345c6b5f637842399d6e56b9bb2d8
 Y
-)src/main/java/caebr/util/NumberUtils.java,7/0/7028ed41229d3cea9c5e5b8999ca229ac7cd9555
+)src/main/java/caebr/util/NumberUtils.java,7\0\7028ed41229d3cea9c5e5b8999ca229ac7cd9555
+Y
+)src/main/java/caebr/statistics/Stats.java,4\9\49a65cbddc2f0e031acaf488db0a557e13927b6c

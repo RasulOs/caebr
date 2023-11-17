@@ -1,31 +1,58 @@
 
-R
-java:S2864³"4Iterate over the "entrySet" instead of the "keySet".(úµõô8‚ª°Ÿª1
 p
-java:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(“ì…€8•ª°Ÿª1
+java:S3776´"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(“ì…€8ıÀÊ¸½1
 P
-java:S1135 "2Complete the task associated to this TODO comment.(…ïœ†8·ª°Ÿª1
+java:S1135Ù	"2Complete the task associated to this TODO comment.(…ïœ†8’ÁÊ¸½1
 ~
-java:S4276Ñ"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(„—“Óÿÿÿÿÿ8Ãª°Ÿª1
+java:S4276Š"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(„—“Óÿÿÿÿÿ8šÁÊ¸½1
 y
-java:S4276×"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ß¡çì8Ãª°Ÿª1
+java:S4276"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ß¡çì8šÁÊ¸½1
 ~
-java:S4276Ü"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(üáàåûÿÿÿÿ8Äª°Ÿª1
+java:S4276•"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(üáàåûÿÿÿÿ8šÁÊ¸½1
 ~
-java:S4276â"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(¤¦Ò©ùÿÿÿÿ8Äª°Ÿª1
+java:S4276›"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(¤¦Ò©ùÿÿÿÿ8›ÁÊ¸½1
 y
-java:S4276ç"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÿÚÛ8Åª°Ÿª1
+java:S4276 "[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÿÚÛ8›ÁÊ¸½1
 ~
-java:S4276î"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ŠĞĞ·ûÿÿÿÿ8Åª°Ÿª1
+java:S4276§"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ŠĞĞ·ûÿÿÿÿ8œÁÊ¸½1
 ~
-java:S4276ş"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(õüûîùÿÿÿÿ8Æª°Ÿª1
+java:S4276·"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(õüûîùÿÿÿÿ8ÁÊ¸½1
 ~
-java:S4276„"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(’øÆÄøÿÿÿÿ8Çª°Ÿª1
+java:S4276½"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(’øÆÄøÿÿÿÿ8ÁÊ¸½1
 y
-java:S4276‰"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‹ƒäú8Çª°Ÿª1
+java:S4276Â"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‹ƒäú8ÁÊ¸½1
 ~
-java:S4276"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(©ı­Ëıÿÿÿÿ8Èª°Ÿª1
+java:S4276È"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(©ı­Ëıÿÿÿÿ8ÁÊ¸½1
 y
-java:S4276¯"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÄĞãŞ8Êª°Ÿª1
+java:S4276è"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ÄĞãŞ8ŸÁÊ¸½1
 ~
-java:S4276¶"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ß¤ÿ‚üÿÿÿÿ8Ëª°Ÿª1
+java:S4276ï"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ß¤ÿ‚üÿÿÿÿ8 ÁÊ¸½1
+k
+java:S1144<"NRemove this unused private "transformToDoubleMatrixWithNColumnPadding" method.(í¨²Ğ8³ÁÊ¸½1
+M
+java:S1144‰"0Remove this unused private "checkMatrix" method.(˜ÀÆ78³ÁÊ¸½1
+l
+java:S1144«"IRemove this unused private "checkMatrixDimensionsForSymmetricity" method.(ßÑÛÀùÿÿÿÿ8³ÁÊ¸½1
+o
+java:S1144µ"QRemove this unused private "checkMatrixDimensionsForSymmetricityInternal" method.(¯ñí8³ÁÊ¸½1
+n
+java:S1144¿"KRemove this unused private "checkMatrixDimensionsForMultiplication" method.(È®Ëâüÿÿÿÿ8³ÁÊ¸½1
+v
+java:S1144Í"SRemove this unused private "checkMatrixDimensionsForMultiplicationInternal" method.(§À’çøÿÿÿÿ8³ÁÊ¸½1
+S
+java:S1144ô"5Remove this unused private "checkColumnIndex" method.(ŸŠİ8´ÁÊ¸½1
+`
+java:S1144È"=Remove this unused private "multiplyDiagonalElements" method.(°üçàøÿÿÿÿ8´ÁÊ¸½1
+l
+java:S1144½	"IRemove this unused private "sortColumnWithRespectToAbsoluteValue" method.(İÒ‡Úùÿÿÿÿ8´ÁÊ¸½1
+L
+java:S1144÷	".Remove this unused private "setColumn" method.(Æ›ƒ‡8´ÁÊ¸½1
+N
+java:S1144’
+"0Remove this unused private "checkColumn" method.(Ã’çû8´ÁÊ¸½1
+S
+java:S1144
+"0Remove this unused private "checkColumn" method.(Ì¾Õõüÿÿÿÿ8´ÁÊ¸½1
+V
+java:S1144ì
+"3Remove this unused private "checkRowFromTo" method.(Ëœéíÿÿÿÿÿ8´ÁÊ¸½1

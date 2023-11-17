@@ -1,17 +1,27 @@
 
 h
-java:S1192˜"JDefine a constant instead of duplicating this literal "vertical" 12 times.(ı»üÿ8Å«¦¤ª1
+java:S1192™"JDefine a constant instead of duplicating this literal "vertical" 12 times.(ı»üÿ8 ÂÊ¸½1
 j
-java:S1192˜"LDefine a constant instead of duplicating this literal "horizontal" 12 times.(ı»üÿ8Æ«¦¤ª1
+java:S1192™"LDefine a constant instead of duplicating this literal "horizontal" 12 times.(ı»üÿ8µÂÊ¸½1
 K
-java:S1172‹"-Remove this unused method parameter "vector".(ßàşô8§­¦¤ª1
+java:S1172Œ"-Remove this unused method parameter "vector".(ßàşô8æÃÊ¸½1
 P
-java:S1172"-Remove this unused method parameter "vector".(µïœĞüÿÿÿÿ8¨­¦¤ª1
-R
-java:S2864Æ"4Iterate over the "entrySet" instead of the "keySet".(úµõô8º­¦¤ª1
-R
-java:S2864â"4Iterate over the "entrySet" instead of the "keySet".(úµõô8¼­¦¤ª1
+java:S1172"-Remove this unused method parameter "vector".(µïœĞüÿÿÿÿ8æÃÊ¸½1
+p
+java:S6204Ø"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8˜š¶–¨1
 ~
-java:S4276á	"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ú²âûÿÿÿÿ8Ë­¦¤ª1
+java:S4276Ü"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(‚ú²âûÿÿÿÿ8ÂÕ¼û§1
 y
-java:S4276ë	"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ô á®8Ì­¦¤ª1
+java:S4276æ"[Refactor this code to use the more specialised Functional Interface 'UnaryOperator<Double>'(ô á®8àŞÈ¸½1
+p
+java:S6204†"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8ãŞÈ¸½1
+a
+java:S1144Œ"CRemove this unused private "isResultOfMultiplicationVector" method.(ßàşô8‹ÄÊ¸½1
+T
+java:S1144Ö"1Remove this unused private "checkIndexes" method.(ª›­‚ıÿÿÿÿ8‹ÄÊ¸½1
+p
+java:S1144ê"MRemove this unused private "checkDimensionsForMultiplicationInternal" method.(¨„ìşÿÿÿÿ8‹ÄÊ¸½1
+Y
+java:S1144«"6Remove this unused private "sortTemporaryList" method.(Ø²±°ûÿÿÿÿ8‹ÄÊ¸½1
+G
+java:S1144±")Remove this unused private "swap" method.(ßîÕƒ8‹ÄÊ¸½1
